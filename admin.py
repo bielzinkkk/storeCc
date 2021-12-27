@@ -27,7 +27,7 @@ def procurar_usuario(chat_id):
 		return s[0], s[1], s[2], s[3], s[4]
 @bot.message_handler(commands=['send'])
 def notificar(message):
-  if verificar_admin(message.from_user.id) == True:
+  if idDono == message.from_user.id:
     if message.text == "/send":
                 bot.send_message(message.chat.id, """
                 *📣 Envie uma mensagem para todos os usuários registrados no bot.
