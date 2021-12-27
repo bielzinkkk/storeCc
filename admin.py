@@ -16,10 +16,11 @@ def update_valores(tipo, valor):
 	conn.commit()
   
 def procurar_usuario(chat_id):
-	cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
+	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
 	if cursor.fetchone() == None:
 		return None
 	else:
+		cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchone():
 			...
 		return s[0], s[1], s[2], s[3], s[4]
