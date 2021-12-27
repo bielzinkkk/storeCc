@@ -38,7 +38,7 @@ def verificar_existe(chat_id, username):
     try:
       cursor.execute( f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
       if cursor.fetchone() == None:
-        cursor.execute(f"INSERT INTO usuarios(id, chat_id, saldo, compras, recargas, gifts, usuario) VALUES (DEFAULT, {chat_id}, 0, 0, 0, 0, '{username}')")
+        cursor.execute(f"INSERT INTO usuarios(id, chat_id, saldo, compras, recargas, gifts, usuario) VALUES(DEFAULT, {chat_id}, 0, 0, 0, 0, '{username}')")
         conn.commit()
     except:
         cursor.execute("ROLLBACK")
