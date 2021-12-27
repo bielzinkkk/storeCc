@@ -1,6 +1,7 @@
 from bot import *
 import string
 import random
+import requests
 
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
@@ -67,7 +68,7 @@ def photo(message):
 					new_file.write(downloaded_file)
 				bot.send_message(message.chat.id, """Enviando mensagem 📥""")
 				cursor.execute("SELECT chat_id FROM usuarios")
-				captio = message.caption
+				captio = message.caption.split("/send ")[1]
 				for lista in cursor.fetchall():
 					for s3 in lista:
 						with open(path, "rb") as s2:
@@ -135,7 +136,7 @@ Modo de uso:* `/infor [id de usuário]`
 *- RECARGA REALIZADAS:* `{procurar_usuario(chat_id)[1]}`
 *- GIFTS RESGATADOS:* `{procurar_usuario(chat_id)[2]}`
 *- INFO'CCS COMPRADAS:* `{procurar_usuario(chat_id)[3]}`
-*- USUÁRIO:* `{procurar_usuario(chat_id)[4]}`
+*- USUÁRIO:* @{procurar_usuario(chat_id)[4]}
           """, parse_mode="MARKDOWN")
 
 @bot.message_handler(commands=['gerar'])
