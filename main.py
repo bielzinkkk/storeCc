@@ -47,4 +47,4 @@ def recarga(message):
 	# Manutenção
   pass
 
-bot.infinity.polling()
+bot.infinity_polling()
