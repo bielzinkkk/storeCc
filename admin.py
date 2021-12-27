@@ -13,16 +13,16 @@ def total_user():
 
 def update_valores(tipo, valor):
 	cursor.execute(f"UPDATE valores SET valor = {valor} WHERE nivel = {tipo}")
-  conn.commit()
+	conn.commit()
   
 def procurar_usuario(chat_id):
 	cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
-  if cursor.fetchone() == None:
-  	return None
-  else:
-  	for s in cursor.fetchone():
-  		...
-  	return s[0], s[1], s[2], s[3], s[4]
+	if cursor.fetchone() == None:
+		return None
+	else:
+		for s in cursor.fetchone():
+			...
+		return s[0], s[1], s[2], s[3], s[4]
 @bot.message_handler(commands=['send'])
 def notificar(message):
   if verificar_admin(message.from_user.id) == True:
@@ -58,24 +58,23 @@ Usuários que recebeu: {total}
 def photo(message):
 	if idDono == message.from_user.id:
 		if ("/send" in message.caption):
-        raw = message.photo[2].file_id
-        path = raw+".jpg"
-        file_info = bot.get_file(raw)
-        downloaded_file = bot.download_file(file_info.file_path)
-        with open(path,'wb') as new_file:
-            new_file.write(downloaded_file)
-        bot.send_message(message.chat.id, """Enviando mensagem 📥
-""")
-        cursor.execute("SELECT chat_id FROM usuarios")
-        captio = message.caption
-        for lista in cursor.fetchall():
-            for s3 in lista:
-                with open(path, "rb") as s2:
-                    if captio == None:
-                        captio = ""
-                        s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}", files={'photo': s2})
-                    else:
-                        s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}&parse_mode=MARKDOWN", files={'photo': s2})
+				raw = message.photo[2].file_id
+				path = raw+".jpg"
+				file_info = bot.get_file(raw)
+				downloaded_file = bot.download_file(file_info.file_path)
+				with open(path,'wb') as new_file:
+					new_file.write(downloaded_file)
+				bot.send_message(message.chat.id, """Enviando mensagem 📥""")
+				cursor.execute("SELECT chat_id FROM usuarios")
+				captio = message.caption
+				for lista in cursor.fetchall():
+					for s3 in lista:
+						with open(path, "rb") as s2:
+							if captio == None:
+								captio = ""
+								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}", files={'photo': s2})
+							else:
+								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}&parse_mode=MARKDOWN", files={'photo': s2})
 
 @bot.message_handler(commands=['price'])
 def price(message):
@@ -149,10 +148,10 @@ def gerar_gift(message):
                 """, parse_mode="MARKDOWN")
             else:
             	try:
-                VALOR = int(message.text.split("/gerar ")[1])
-                cursor.execute(f"INSERT INTO gifts_cards(id, gift_gerado, valor) VALUES(DEFAULT, '{id_generator()}', {VALOR})")
-                conn.commit()
-                bot.send_message(message.chat.id, f"""
+            		VALOR = int(message.text.split("/gerar ")[1])
+            		cursor.execute(f"INSERT INTO gifts_cards(id, gift_gerado, valor) VALUES(DEFAULT, '{id_generator()}', {VALOR})")
+            		conn.commit()
+            		bot.send_message(message.chat.id, f"""
              * ✅ GIFT GERADO
 
 Gift Card gerado! O gift possuí o valor de R${VALOR}.
