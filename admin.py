@@ -23,6 +23,7 @@ def procurar_usuario(chat_id):
 		cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchone():
 			...
+		print(s)
 		return s, s, s, s, s
 @bot.message_handler(commands=['send'])
 def notificar(message):
