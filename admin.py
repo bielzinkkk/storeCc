@@ -45,13 +45,11 @@ Ex:* _/send + a mensagem que deseja enviar_
                       except: 
                         contagem += 1
                         continue
-                total = int(contagem) - int(total_user())
                 bot.send_message(message.chat.id, f"""
                      📁 Mensagem Enviada
 
 Mensagem: {MSG}
 Usuários que não recebeu a mensagem: {contagem} 
-Usuários que recebeu: {total}
 
 -> USERS BLOQUEADOS OU CONTAS EXCLUÍDAS NÃO VAI RECEBER AS MENSAGENS!
                       """)

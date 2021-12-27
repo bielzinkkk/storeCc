@@ -6,6 +6,22 @@ def total_infocc():
 		...
 	return i
 
+def resgatar_gift(gift, chat_id):
+	cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift}'")
+  if cursor.fetchone() == None:
+  	msg = """
+  	*❌ Gift Card inválido ou já foi resgatado!*
+  	"""
+  	return msg
+  else:
+  	msg = f"""
+  *	✅ Gift resgatado com sucesso
+
+Gift: {gift[0:6]+"xxxxxxxxx"}
+Valor: R${cursor.fetchone()}
+
+O valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*
+  	"""
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = {bin_j}")
   if cursor.fetchone() == None:
