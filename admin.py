@@ -21,7 +21,7 @@ def procurar_usuario(chat_id):
 		return None
 	else:
 		cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
-		for s in cursor.fetchone():
+		for s in cursor.fetchall():
 			...
 		print(s)
 		return s, s, s, s, s
