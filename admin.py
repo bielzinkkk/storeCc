@@ -45,7 +45,7 @@ Ex:* _/send + a mensagem que deseja enviar_
                       except: 
                         contagem += 1
                         continue
-                total = contagem - total_user()
+                total = int(contagem) - int(total_user())
                 bot.send_message(message.chat.id, f"""
                      📁 Mensagem Enviada
 
