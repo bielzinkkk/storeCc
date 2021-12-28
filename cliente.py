@@ -155,7 +155,7 @@ Cartão Verificado (Live) ✔️
 """
     return txt
 
-@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{view_cardaleatoria()[1]}")
+@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{idcc}")
 def compraraletoria(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
 
@@ -293,5 +293,5 @@ _- Avisos_
 *Pix Automático ativo.
 
 Total de Ccs:* `{total_infocc()}`
-*Saldo Disponível:* `R${procurar_dados(call.from_user.id)[0]}`
+*Saldo Disponível:* `R{procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
