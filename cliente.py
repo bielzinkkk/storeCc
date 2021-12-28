@@ -41,20 +41,15 @@ def pesquisar_bin(bin_j):
 """
     return txt
 
-class Comprar_cc:
-  def __init__(self):
-    global self.idcc
-    cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
-    for my_max_id in cursor.fetchone():
-      pass
-    self.idcc = my_max_id
-    
-  def view_cardaleatoria(self):
+
+
+
+  def view_cardaleatoria(idcc):
     cursor.execute(f"SELECT cartao FROM infocc")
     if cursor.fetchone() == None:
       return None
     else:
-      cursor.execute(f"SELECT cartao FROM infocc WHERE id = {self.idcc}")
+      cursor.execute(f"SELECT cartao FROM infocc WHERE id = {idcc}")
       for cc in cursor.fetchone():
         ...
       cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
@@ -63,8 +58,8 @@ class Comprar_cc:
         ...
       return cartao, self.idcc, u[0], u[1], u[2], u[3], u[4]
 
-  @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
-  def aleatoriacall(call, self):
+@bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
+def aleatoriacall(call):
     if view_cardaleatoria() == None:
       bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
   	*❌ Não possuimos estoque no momento, tente mais tarde...*
@@ -82,8 +77,8 @@ class Comprar_cc:
   """, reply_markup=aleatoriamenu(self.idcc), parse_mode="MARKDOWN")
       
 
-  def comprar_ccaleatoria(self):
-    cursor.execute(f"SELECT nome FROM infocc WHERE id = {self.idcc}")
+def comprar_ccaleatoria(idcc):
+    cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
     if cursor.fetchone() == None:
       return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
     else:
@@ -108,9 +103,9 @@ class Comprar_cc:
   """
       return txt
 
-  @bot.callback_query_handler(func=lambda call: call.data == f"comprar_{self.idcc}")
-  def compraraletoria(call):
-	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
+@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{idcc}")
+def compraraletoria(call):
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
 Comprar_cc()
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):

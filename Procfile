@@ -1,1 +1,1 @@
-index: python "main.py"
+index: python "bot.py"

@@ -43,7 +43,13 @@ InlineKeyboardButton(f"BLACK ()", callback_data="black"),
 InlineKeyboardButton(f"STANDARD ()", callback_data="standard"),
 InlineKeyboardButton(f"PLATINUM ()", callback_data="platinum"),
 InlineKeyboardButton(f"BUSINESS ()", callback_data="business"),
+InlineKeyboardButton(f"INFINITE ()", callback_data="pr"),
+InlineKeyboardButton(f"ELO ()", callback_data="elo"),
+InlineKeyboardButton(f"AMEX ()", callback_data="amex"),
+InlineKeyboardButton(f"CORPORATE ()", callback_data="corporate"),
 InlineKeyboardButton(f"PREPAID ()", callback_data="prepaid"))
+menuunitarias.row_width = 1
+menuunitarias.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar")))
 
 menuperfil = InlineKeyboardMarkup()
 menuperfil.row_width = 1
