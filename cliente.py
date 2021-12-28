@@ -128,11 +128,12 @@ def aleatoriacall(call):
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
 def comprar_ccaleatoria():
-  cursor.execute(f"SELECT nome FROM infocc WHERE id = {aleatoriamenu(view_cardaleatoria()[1])[1]}")
+  idcc = aleatoriamenu(view_cardaleatoria()[1])[1]
+  cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
   if cursor.fetchone() == None:
     return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
   else:
-    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {aleatoriamenu(view_cardaleatoria()[1])[1]}")
+    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
     for u in cursor.fetchall():
     	...
     txt = f"""
@@ -156,9 +157,6 @@ Cartão Verificado (Live) ✔️
 @bot.callback_query_handler(func=lambda call: call.data == f"comprar_{view_cardaleatoria()[1]}")
 def compraraletoria(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
-
-
-
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
