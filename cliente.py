@@ -6,6 +6,16 @@ def total_infocc():
 		...
 	return i
 
+def buscar_ccscompradas(chat_id):
+	cursor.execute(f"SELECT id FROM ccscompradas WHERE chat_id = {chat_id}")
+	if cursor.fetchone() == None:
+		return "Não possui nenhuma cc comprada"
+	else:
+		cursor.execute(f"SELECT cartao, data, cvv FROM ccscompradas WHERE chat_id = {chat_id}")
+		for y in cursor.fetchall():
+			...
+		return f"{y[0]}|{y[1]}|{y[2]}"
+  	
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = {int(bin_j)}")
   if cursor.fetchone() == None:
@@ -125,6 +135,7 @@ def baixarinfor(call):
 	
 Cartões Comprados:
 
+{buscar_ccscompradas(call.from_user.id)}
 
 Transações:
 
