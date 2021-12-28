@@ -31,7 +31,7 @@ def makeKeyboard():
     for i in sorted(set(v)):
       for value in i:
         print(value)
-        markup.add(types.InlineKeyboardButton(text=value,callback_data="value"))
+        markup.add(types.InlineKeyboardButton(text=value,callback_data=f"value_{value}"))
      
     return markup
 
@@ -45,7 +45,7 @@ def handle_command_adminwindow(message):
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
 
-    if (call.data.startswith("['value'")):
+    if (call.data.startswith("valor")):
         print(f"call.data : {call.data} , type : {type(call.data)}")
         print(f"ast.literal_eval(call.data) : {ast.literal_eval(call.data)} , type : {type(ast.literal_eval(call.data))}")
         valueFromCallBack = ast.literal_eval(call.data)[1]
