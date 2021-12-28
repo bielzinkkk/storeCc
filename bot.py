@@ -29,8 +29,9 @@ crossIcon = u"\u274C"
 def makeKeyboard():
     markup = types.InlineKeyboardMarkup()
     for value in v:
+      print(value)
       markup.add(types.InlineKeyboardButton(text=value,callback_data="value"))
-        
+     
     return markup
 
 @bot.message_handler(commands=['test'])
