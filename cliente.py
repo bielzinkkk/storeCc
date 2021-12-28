@@ -6,22 +6,6 @@ def total_infocc():
 		...
 	return i
 
-def resgatar_gift(gift, chat_id):
-	cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift}'")
-  if cursor.fetchone() == None:
-  	msg = """
-  	*❌ Gift Card inválido ou já foi resgatado!*
-  	"""
-  	return msg
-  else:
-  	msg = f"""
-  *	✅ Gift resgatado com sucesso
-
-Gift: {gift[0:6]+"xxxxxxxxx"}
-Valor: R${cursor.fetchone()}
-
-O valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*
-  	"""
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = {bin_j}")
   if cursor.fetchone() == None:
@@ -50,6 +34,27 @@ def gift_resgatados(chat_id):
 def recargas(chat_id):
 	...
 
+def resgatar_gift(gift, chat_id):
+	cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift}'")
+  if cursor.fetchone() == None:
+  	msg = """
+  	*❌ Gift Card inválido ou já foi resgatado!*
+  	"""
+  	return msg
+  else:
+  	for valor in cursor.fetchone():
+  		...
+  	msg = f"""
+  *	✅ Gift resgatado com sucesso
+
+Gift: {gift[0:6]+"xxxxxxxxx"}
+Valor: R${valor}
+
+O valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*
+  	"""
+  	total = saldo(chat_id) + valor
+  	cursor.execute(f"UPDATE usuarios SET saldo = {total} WHERE chat_id = {chat_id}")
+  	conn.commit()
 def verificar_existe(chat_id, username):
     try:
       cursor.execute( f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
