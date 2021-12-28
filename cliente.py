@@ -127,7 +127,7 @@ def aleatoriacall(call):
 *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
 *💠 Nível:* `{view_cardaleatoria()[5]}`
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
-""", reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+""", reply_markup=aleatoriamenu(idcc), parse_mode="MARKDOWN")
 
 def comprar_ccaleatoria():
   cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
@@ -292,6 +292,6 @@ def comprar(call):
 _- Avisos_
 *Pix Automático ativo.
 
-Total de Ccs:* `R${total_infocc()}`
-*Saldo Disponível:* `{procurar_dados(call.from_user.id)[0]}`
+Total de Ccs:* `{total_infocc()}`
+*Saldo Disponível:* `R${procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
