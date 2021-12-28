@@ -17,8 +17,18 @@ def pesquisar_bin(bin_j):
     cartao = c[0:6] + "xxxxxxxxxxx"
     return cartao
 
-def view_card(nivel):
-  ...  
+def view_cardaleatoria():
+  cursor.execute("SELECT cartao FROM infocc")
+  if cursor.fetchone() == None:
+  	return None
+  else:
+  	for cc in cursor.fetchone():
+  		...
+    cartao = cc[0:6] + "xxxxxxxxxxxx"
+  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco FROM infocc WHERE cartao = {cc}")
+  	for u in cursor.fetchall():
+  		...
+  	return cartao, u[0], u[1], u[2], u[3], u[4], [5]
 def aleatoria():
 	...
 def procurar_dados(chat_id):
@@ -59,6 +69,17 @@ Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
 	bot.answer_callback_query(callback_query_id=call.id , text="Essa função está temporariamente indisponível! Tente mais tarde.", show_alert=True)
+
+@bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
+def aleatoriacall(call):
+	if view_card() == None:
+		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+	*❌ Não possuimos estoque no momento, tente mais tarde...*
+""",reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
+	else:	
+	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+	*Escolha uma opção de pagamento abaixo*
+""", reply_markup=aleatoriamenu(view_card()[4], view_card()[0]), parse_mode="MARKDOWN")
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
@@ -190,5 +211,5 @@ _- Avisos_
 *CHK ON [✓]
 
 Total de Ccs:* `{total_infocc()}`
-*Saldo Disponível:* `{procurar_usuario(call.from_user.id)[0]}`
+*Saldo Disponível:* `{procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
