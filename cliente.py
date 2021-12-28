@@ -40,15 +40,17 @@ def pesquisar_bin(bin_j):
 *🏦 Banco:* `{u[5]}`
 """
     return txt
-cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
-for my_max_id in cursor.fetchone():
-	...
+def atualizar_id():
+  cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
+  for my_max_id in cursor.fetchone():
+  	...
+  return my_max_id
 def view_cardaleatoria():
 	cursor.execute(f"SELECT cartao FROM infocc")
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {my_max_id}")
+		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {atualizar_id()}")
 		for cc in cursor.fetchone():
 			...
 		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
