@@ -63,7 +63,4 @@ def handle_query(call):
                               reply_markup=makeKeyboard(),
                               parse_mode='HTML')
 while True:
-    try:
         bot.polling(none_stop=True, interval=0, timeout=0)
-    except:
-        time.sleep(10)
