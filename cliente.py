@@ -40,7 +40,7 @@ def pesquisar_bin(bin_j):
 *🏦 Banco:* `{u[5]}`
 """
     return txt
-cursor.execute("SELECT COUNT(id) FROM infocc")
+cursor.execute("SELECT id FROM infocc ORDER BY RAND() LIMIT 1")
 for my_max_id in cursor.fetchone():
 	...
 def view_cardaleatoria():
@@ -48,14 +48,14 @@ def view_cardaleatoria():
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT cartao FROM infocc")
+		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {my_max_id}")
 		for cc in cursor.fetchone():
 			...
 		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-		cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+		cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
 		for u in cursor.fetchall():
 			...
-		return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
+		return cartao, my_max_id, u[0], u[1], u[2], u[3], u[4]
 
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
@@ -154,7 +154,7 @@ Cartão Verificado (Live) ✔️
 
 @bot.callback_query_handler(func=lambda call: call.data == f"comprar_{view_cardaleatoria()[1]}")
 def compraraletoria(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=menuaddsaldo, parse_mode="MARKDOWN")
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "mudar_cc")
