@@ -52,5 +52,4 @@ def handle_query(call):
                               show_alert=True,
                               text="You Clicked " + valueFromCallBack + " and key is"
 
-while True:
-        bot.polling(none_stop=True, interval=0, timeout=0)
+bot.polling(none_stop=True, interval=0, timeout=0)
