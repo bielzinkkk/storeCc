@@ -43,6 +43,7 @@ def pesquisar_bin(bin_j):
 
 class Comprar_cc:
   def __init__(self):
+    global self.idcc
     cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
     for my_max_id in cursor.fetchone():
       pass
