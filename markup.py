@@ -63,5 +63,8 @@ InlineKeyboardButton("🔸 Pix Manual", callback_data="pix_manu"))
 menuaddsaldo.row_width = 1 
 menuaddsaldo.add(InlineKeyboardButton("🔙 Voltar", callback_data="menu"))
 
+voltar_menucomprar = InlineKeyboardMarkup()
+voltar_menucomprar.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprad"))
+
 voltar_addsaldo = InlineKeyboardMarkup()
 voltar_addsaldo.add(InlineKeyboardButton("🔙 Voltar", callback_data="add_saldo"))

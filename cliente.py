@@ -21,18 +21,15 @@ def view_card(nivel):
   ...  
 def aleatoria():
 	...
-
-def saldo(chat_id):
+def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
-	for saldo in cursor.fetchone():
-		...
-	return saldo
-def compras(chat_id):
-	...
-def gift_resgatados(chat_id):
-	...
-def recargas(chat_id):
-	...
+	if cursor.fetchone() == None:
+		return None
+	else:
+		cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
+		for s in cursor.fetchall():
+			...
+		return s[0], s[1], s[2], s[3], s[4]
 
 
 def verificar_existe(chat_id, username):
@@ -91,10 +88,10 @@ Cartões Comprados:
 
 Transações:
 
-Recargas ->
-Saldo ->
-Gifts resgatados ->
-Cartões comprados ->
+Recargas -> {procurar_dados(chat_id)[1]}
+Saldo -> {procurar_dados(chat_id)[0]}
+Gifts resgatados -> {procurar_dados(chat_id)[2]}
+Cartões comprados -> {procurar_dados(chat_id)[3]}
 	"""
 	arquivo = open("infor.txt", "a+")
 	arquivo.write(txt)
@@ -109,10 +106,10 @@ def historico(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *📄 Histórico de transações:
 
-💳 Cartões:* `0`
-*💰 Saldo:* `R$0`
-*💵 Recargas:* `0`
-*🎁 Gifts resgatados:* ``
+💳 Cartões:* `{procurar_dados(chat_id)[3]}`
+*💰 Saldo:* `R${procurar_dados(chat_id)[0]}`
+*💵 Recargas:* `{procurar_dados(chat_id)[1]}`
+*🎁 Gifts resgatados:* `{procurar_dados(chat_id)[2]}`
 
 _Atenção:  Os valores presentes nesta sessão, é o total comprado, adicionado e resgatado, respectivamente.
 Baixe seu histórico para obter a lista de todos os cartões adquiridos_""", reply_markup=menuhistorico, parse_mode="MARKDOWN")
@@ -129,17 +126,17 @@ _- Informações Básicas_
 
 _- Informações Store_
 *Id da carteira:* `{call.from_user.id}`
-*Saldo:* `R$0`
-*Compras Realizadas:* `0`
-*Gifts Resgatados:* `0`
-*Recargas Realizadas:* `0`
+*Saldo:* `R${procurar_dados(chat_id)[0]}`
+*Compras Realizadas:* `{procurar_dados(chat_id)[3]}`
+*Gifts Resgatados:* `{procurar_dados(chat_id)[2]}`
+*Recargas Realizadas:* `{procurar_dados(chat_id)[1]}`
 	""", reply_markup=menuperfil, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pes_bin")
 def pes_bin(call):
 	msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*Digite uma bin , para buscá-la nas ccs da store:*
-	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
+	""", reply_markup=voltar_menucomprar, parse_mode="MARKDOWN")
 	bot.register_next_step_handler(msg, bin_pesquisa)
 	
 def bin_pesquisa(message):
@@ -192,6 +189,6 @@ def comprar(call):
 _- Avisos_
 *CHK ON [✓]
 
-Total de Ccs:* `{total_infocc}`
-*Saldo Disponível:* `{saldo}`
+Total de Ccs:* `{total_infocc()}`
+*Saldo Disponível:* `{procurar_usuario(chat_id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
