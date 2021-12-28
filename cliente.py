@@ -35,7 +35,7 @@ def recargas(chat_id):
 	...
 
 def resgatar_gift(gift, chat_id):
-	cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift}'")
+	cursor.execute(f"SELECT id FROM gifts_cards WHERE gift_gerado = '{gift}'")
 	if cursor.fetchone() == None:
 	  msg = """*❌ Gift Card inválido ou já foi resgatado!*"""
 	  return msg

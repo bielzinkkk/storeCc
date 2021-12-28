@@ -40,7 +40,8 @@ _- Avisos:_
 Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 		""", parse_mode="MARKDOWN")
 	else:
-		bot.send_message(message.chat.id, resgatar_gift(message.text.split("/resgatar ")[1], message.from_user.id))
+		gift = message.text.split("/resgatar ")[1]
+		bot.send_message(message.chat.id, resgatar_gift(gift, message.from_user.id))
 
 @bot.message_handler(commands=["recarga"])
 def recarga(message):
