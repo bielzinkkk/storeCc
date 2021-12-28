@@ -20,10 +20,10 @@ menucomprar.add(InlineKeyboardButton("🔙 Voltar", callback_data="menu"))
 comprouprodu = InlineKeyboardMarkup()
 comprouprodu.add(InlineKeyboardButton("✔️ Menu", callback_data="menu"))
 
-def aleatoriamenu(nivel, idcc):
+def aleatoriamenu(idcc):
 	aleatoriamenu = InlineKeyboardMarkup()
 	aleatoriamenu.row_width = 1
-	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"comprar_{nivel}"),
+	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"comprar_{idcc}"),
 	InlineKeyboardButton("🔁 Escolher outra", callback_data="mudar_cc"),
 	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu

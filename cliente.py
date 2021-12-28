@@ -57,8 +57,7 @@ def view_cardaleatoria():
 		for u in cursor.fetchall():
 			...
 		return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
-def aleatoria():
-	...
+
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
 	if cursor.fetchone() == None:
@@ -130,12 +129,14 @@ def aleatoriacall(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "mudar_cc")
 def escolheroutraaleatoriacall(call):
-	if view_cardaleatoria() == None:
-		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+  global idcc
+  idcc = view_cardaleatoria()[1]
+  if view_cardaleatoria() == None:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*❌ Não possuimos mais estoque no momento, tente mais tarde...*
 """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
-	else:	
-	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  else:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *	📁 | Detalhes do cartão:
 
 💳 Cartão:* `{view_cardaleatoria()[0]}`
@@ -144,8 +145,37 @@ def escolheroutraaleatoriacall(call):
 *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
 *💠 Nível:* `{view_cardaleatoria()[5]}`
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
-""", reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+""", reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
+def comprar_ccaleatoria():
+  cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
+  if cursor.fetchone() == None:
+    return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
+  else:
+    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
+    for u in cursor.fetchall():
+    	...
+    txt = f"""
+  	*	✅ COMPRA EFETUADA
+
+💳 Cartão:* `{u[0]}`
+*📆 Expiração:* `{u[1]}`
+*🔒 Cvv:* `{u[2]}`
+*🏳️ Bandeira:* `{u[3]}`
+*⚜️ Tipo:* `{u[4]}`
+*💠 Nível:* `{u[5]}`
+*🏦 Banco:* `{u[6]}`
+
+*👤 Nome:* `{u[8]}`
+*📁 Cpf:* `{u[7]}`
+
+Cartão Verificado (Live) ✔️
+"""
+    return txt
+
+@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{id_cc}")
+def compraraletoria(call):
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=menuaddsaldo, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
