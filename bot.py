@@ -29,7 +29,7 @@ crossIcon = u"\u274C"
 def makeKeyboard():
     markup = types.InlineKeyboardMarkup()
     for i in v:
-      for value in :
+      for value in i:
         print(value)
         markup.add(types.InlineKeyboardButton(text=value,callback_data="value"))
      
