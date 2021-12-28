@@ -44,20 +44,18 @@ cursor.execute("SELECT COUNT(id) FROM infocc")
 for my_max_id in cursor.fetchone():
 	...
 def view_cardaleatoria():
-	random_id = randint(1,my_max_id)
-	r = random_id
-	cursor.execute(f"SELECT cartao FROM infocc WHERE id = {r}")
+	cursor.execute(f"SELECT cartao FROM infocc")
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {r}")
+		cursor.execute(f"SELECT cartao FROM infocc")
 		for cc in cursor.fetchone():
 			...
 		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-		cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+		cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
 		for u in cursor.fetchall():
 			...
-		return cartao, r, u[0], u[1], u[2], u[3], u[4]
+		return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
 
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
@@ -137,7 +135,7 @@ def comprar_ccaleatoria():
     for u in cursor.fetchall():
     	...
     txt = f"""
-  	*	✅ COMPRA EFETUADA
+  	*	✅ Compra efetuada
 
 💳 Cartão:* `{u[0]}`
 *📆 Expiração:* `{u[1]}`
