@@ -130,7 +130,7 @@ def aleatoriacall(call):
 """, reply_markup=aleatoriamenu(idcc), parse_mode="MARKDOWN")
     
 
-def comprar_ccaleatoria(call):
+def comprar_ccaleatoria():
   cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
   if cursor.fetchone() == None:
     return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
