@@ -12,13 +12,13 @@ def pesquisar_bin(bin_j):
     return "*❌ Bin não encontrada!*"
   else:
     cursor.execute(f"SELECT cartao FROM infocc WHERE bin = {bin_j}")
-  	for cc in cursor.fetchone():
-  		...
-  	cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
-  	for u in cursor.fetchall():
-  		...
-  	txt = f"""
+    for cc in cursor.fetchone():
+    	...
+    cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
+    cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+    for u in cursor.fetchall():
+    	...
+    txt = f"""
   	*	🔍 | Bin Encontrada
 
 💳 Cartão:* `{cartao}`
@@ -28,7 +28,7 @@ def pesquisar_bin(bin_j):
 *💠 Nível:* `{u[4]}`
 *🏦 Banco:* `{u[5]}`
 """
-  	return txt
+    return txt
 def view_cardaleatoria():
   cursor.execute("SELECT cartao FROM infocc")
   if cursor.fetchone() == None:
