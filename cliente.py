@@ -49,7 +49,7 @@ def view_cardaleatoria():
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute("SELECT cartao FROM infocc")
+		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {random_id}")
 		for cc in cursor.fetchone():
 			...
 		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
