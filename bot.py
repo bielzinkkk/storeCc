@@ -22,8 +22,8 @@ import time
 from telebot import types
 
 cursor.execute("SELECT nivel FROM infocc")
-for s in json.dumps(cursor.fetchall()):
-  print(s)
+print(json.dumps(cursor.fetchall())
+ 
 stringList = {"Name": "John", "Language": "Python", "API": "pyTelegramBotAPI"}
 crossIcon = u"\u274C"
 
