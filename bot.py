@@ -29,7 +29,7 @@ def makeKeyboard():
     for i in sorted(set(v)):
       for value in i:
         print(value)
-        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value"']"))
+        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
      
     return markup
 
