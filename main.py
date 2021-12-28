@@ -40,19 +40,19 @@ _- Avisos:_
 Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 		""", parse_mode="MARKDOWN")
 	else:
-					gift_enviado = message.text.split("/resgatar ")[1]
-          try:  
-              cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
-              for result in cursor.fetchone():
-                  pass
-              ADD_SALDO = saldo(message.from_user.id) + result
-              cursor.execute(f"UPDATE usuarios SET saldo = {ADD_SALDO} WHERE chat_id = {message.from_user.id}")
-              conn.commit()
-              bot.send_message(message.chat.id,"*✅ Gift resgatado com sucesso\nGift: {gift[0:6]+'xxxxxxxx'}\nValor: R${valor}\nO valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*", parse_mode="MARKDOWN")
-              cursor.execute(f"DELETE FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
-              conn.commit()
-          except:
-              bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
+		gift_enviado = message.text.split("/resgatar ")[1]
+		try:
+			cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
+			for result in cursor.fetchone():
+			    pass
+			ADD_SALDO = saldo(message.from_user.id) + result
+			cursor.execute(f"UPDATE usuarios SET saldo = {ADD_SALDO} WHERE chat_id = {message.from_user.id}")
+			conn.commit()
+			bot.send_message(message.chat.id,"*✅ Gift resgatado com sucesso\nGift: {gift[0:6]+'xxxxxxxx'}\nValor: R${valor}\nO valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*", parse_mode="MARKDOWN")
+			cursor.execute(f"DELETE FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
+			conn.commit()
+		except:
+			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
 
 @bot.message_handler(commands=["recarga"])
 def recarga(message):
