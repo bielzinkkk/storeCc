@@ -34,19 +34,6 @@ def gift_resgatados(chat_id):
 def recargas(chat_id):
 	...
 
-def resgatar_gift(gift, chat_id):
-	cursor.execute(f"SELECT id FROM gifts_cards WHERE gift_gerado = '{gift}'")
-	if cursor.fetchone() == None:
-	  msg = """*❌ Gift Card inválido ou já foi resgatado!*"""
-	  return msg
-	else:
-		for valor in cursor.fetchone():
-			...
-		total = saldo(chat_id) + valor
-		cursor.execute(f"UPDATE usuarios SET saldo = {total} WHERE chat_id = {chat_id}")
-		conn.commit()
-		msg = f"*✅ Gift resgatado com sucesso\nGift: {gift[0:6]+'xxxxxxxx'}\nValor: R${valor}\nO valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*"
-		return msg
 
 def verificar_existe(chat_id, username):
     try:
