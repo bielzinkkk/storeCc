@@ -9,14 +9,26 @@ def total_infocc():
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = {bin_j}")
   if cursor.fetchone() == None:
-    return False
+    return "*❌ Bin não encontrada!*"
   else:
-    cursor.fetchone(f"SELECT cartao FROM infocc WHERE bin = {bin_j}")
-    for c in cursor.fetchone():
-      ...
-    cartao = c[0:6] + "xxxxxxxxxxx"
-    return cartao
+    cursor.execute(f"SELECT cartao FROM infocc WHERE bin = {bin_j}")
+  	for cc in cursor.fetchone():
+  		...
+  	cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
+  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+  	for u in cursor.fetchall():
+  		...
+  	txt = f"""
+  	*	🔍 | Bin Encontrada
 
+💳 Cartão:* `{cartao}`
+*📆 Expiração:* `{u[1]}`
+*🏳️ Bandeira:* `{u[2]}`
+*⚜️ Tipo:* `{u[3]}`
+*💠 Nível:* `{u[4]}`
+*🏦 Banco:* `{u[5]}`
+"""
+  	return txt
 def view_cardaleatoria():
   cursor.execute("SELECT cartao FROM infocc")
   if cursor.fetchone() == None:
@@ -79,7 +91,7 @@ def aleatoriacall(call):
 """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
 	else:	
 	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-*	📁 |Detalhes do cartão:
+*	📁 | Detalhes do cartão:
 
 💳 Cartão:* `{view_cardaleatoria()[0]}`
 *📆 Expiração:* `{view_cardaleatoria()[2]}`

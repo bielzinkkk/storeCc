@@ -25,7 +25,7 @@ def aleatoriamenu(nivel, idcc):
 	aleatoriamenu.row_width = 1
 	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"comprar_{nivel}"),
 	InlineKeyboardButton("🔁 Escolher outra", callback_data="mudar_cc"),
-	InlineKeyboardButton("🔙 Voltar", callback_data="menu"))
+	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
 def binmenu(nivel, idcc):
@@ -33,7 +33,7 @@ def binmenu(nivel, idcc):
 	aleatoriamenu.row_width = 1
 	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"comprar_{nivel}"),
 	InlineKeyboardButton("🔁 Pesquisar Outra", callback_data="pes"),
-	InlineKeyboardButton("🔙 Voltar", callback_data="menu"))
+	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
 menuunitarias = InlineKeyboardMarkup()
