@@ -53,10 +53,10 @@ def view_cardaleatoria():
 		for cc in cursor.fetchone():
 			...
 		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-		cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+		cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
 		for u in cursor.fetchall():
 			...
-		return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
+		return cartao, random_id, u[0], u[1], u[2], u[3], u[4]
 
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
