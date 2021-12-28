@@ -31,7 +31,7 @@ def makeKeyboard():
 
     for value in stringList.items():
         markup.add(types.InlineKeyboardButton(text=value,
-                                              callback_data="['value', '" + value + "']"))
+                                              callback_data="value"))
         
     return markup
 
