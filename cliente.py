@@ -41,44 +41,76 @@ def pesquisar_bin(bin_j):
 """
     return txt
 
-def view_cardaleatoria():
-  cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
-  for my_max_id in cursor.fetchone():
-  	break
-  cursor.execute(f"SELECT cartao FROM infocc")
-  if cursor.fetchone() == None:
-    return None
-  else:
-    cursor.execute(f"SELECT cartao FROM infocc WHERE id = {my_max_id}")
-    for cc in cursor.fetchone():
-      ...
-    cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-    cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
-    for u in cursor.fetchall():
-      ...
-    return cartao, my_max_id, u[0], u[1], u[2], u[3], u[4]
+class Comprar_cc:
+  def __init__(self):
+    cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
+    for my_max_id in cursor.fetchone():
+      pass
+    self.idcc = my_max_id
+    
+  def view_cardaleatoria(self):
+    cursor.execute(f"SELECT cartao FROM infocc")
+    if cursor.fetchone() == None:
+      return None
+    else:
+      cursor.execute(f"SELECT cartao FROM infocc WHERE id = {self.idcc}")
+      for cc in cursor.fetchone():
+        ...
+      cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
+      cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+      for u in cursor.fetchall():
+        ...
+      return cartao, self.idcc, u[0], u[1], u[2], u[3], u[4]
 
-def procurar_dados(chat_id):
-	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
-	if cursor.fetchone() == None:
-		return None
-	else:
-		cursor.execute(f"SELECT saldo, recargas, gifts, compras, usuario FROM usuarios WHERE chat_id = {chat_id}")
-		for s in cursor.fetchall():
-			...
-		return s[0], s[1], s[2], s[3], s[4]
+  @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
+  def aleatoriacall(call, self):
+    if view_cardaleatoria() == None:
+      bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+  	*❌ Não possuimos estoque no momento, tente mais tarde...*
+  """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
+    else:
+      bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  *	📁 | Detalhes do cartão:
+  
+  💳 Cartão:* `{view_cardaleatoria(self)[0]}`
+  *📆 Expiração:* `{view_cardaleatoria(self)[2]}`
+  *🏳️ Bandeira:* `{view_cardaleatoria(self)[3]}`
+  *⚜️ Tipo:* `{view_cardaleatoria(self)[4]}`
+  *💠 Nível:* `{view_cardaleatoria(self)[5]}`
+  *🏦 Banco:* `{view_cardaleatoria(self)[6]}`
+  """, reply_markup=aleatoriamenu(self.idcc), parse_mode="MARKDOWN")
+      
 
+  def comprar_ccaleatoria(self):
+    cursor.execute(f"SELECT nome FROM infocc WHERE id = {self.idcc}")
+    if cursor.fetchone() == None:
+      return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
+    else:
+      cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {self.idcc}")
+      for u in cursor.fetchall():
+      	...
+      txt = f"""
+    	*	✅ Compra efetuada
+  
+  💳 Cartão:* `{u[0]}`
+  *📆 Expiração:* `{u[1]}`
+  *🔒 Cvv:* `{u[2]}`
+  *🏳️ Bandeira:* `{u[3]}`
+  *⚜️ Tipo:* `{u[4]}`
+  *💠 Nível:* `{u[5]}`
+  *🏦 Banco:* `{u[6]}`
+  
+  *👤 Nome:* `{u[8]}`
+  *📁 Cpf:* `{u[7]}`
+  
+  Cartão Verificado (Live) ✔️
+  """
+      return txt
 
-def verificar_existe(chat_id, username):
-    try:
-      cursor.execute( f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
-      if cursor.fetchone() == None:
-        cursor.execute(f"INSERT INTO usuarios(id, chat_id, saldo, compras, recargas, gifts, usuario) VALUES(DEFAULT, {chat_id}, 0, 0, 0, 0, '{username}')")
-        conn.commit()
-    except:
-        cursor.execute("ROLLBACK")
-        conn.commit()
-
+  @bot.callback_query_handler(func=lambda call: call.data == f"comprar_{self.idcc}")
+  def compraraletoria(call):
+	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
+Comprar_cc()
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
 	print(call.data)
@@ -109,56 +141,6 @@ def pixautomatico(call):
 ⚠️ Depois de realizar o pagamento não possuirá devolução_
 	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
 
-@bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
-def aleatoriacall(call):
-  global idcc
-  idcc = view_cardaleatoria()[1]
-  if view_cardaleatoria() == None:
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
-	*❌ Não possuimos estoque no momento, tente mais tarde...*
-""",reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
-  else:
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-*	📁 | Detalhes do cartão:
-
-💳 Cartão:* `{view_cardaleatoria()[0]}`
-*📆 Expiração:* `{view_cardaleatoria()[2]}`
-*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
-*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
-*💠 Nível:* `{view_cardaleatoria()[5]}`
-*🏦 Banco:* `{view_cardaleatoria()[6]}`
-""", reply_markup=aleatoriamenu(idcc), parse_mode="MARKDOWN")
-    
-
-def comprar_ccaleatoria():
-  cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
-  if cursor.fetchone() == None:
-    return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
-  else:
-    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
-    for u in cursor.fetchall():
-    	...
-    txt = f"""
-  	*	✅ Compra efetuada
-
-💳 Cartão:* `{u[0]}`
-*📆 Expiração:* `{u[1]}`
-*🔒 Cvv:* `{u[2]}`
-*🏳️ Bandeira:* `{u[3]}`
-*⚜️ Tipo:* `{u[4]}`
-*💠 Nível:* `{u[5]}`
-*🏦 Banco:* `{u[6]}`
-
-*👤 Nome:* `{u[8]}`
-*📁 Cpf:* `{u[7]}`
-
-Cartão Verificado (Live) ✔️
-"""
-    return txt, idcc
-
-@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{comprar_ccaleatoria()[1]}")
-def compraraletoria(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(call)[0], reply_markup=comprouprodu, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
