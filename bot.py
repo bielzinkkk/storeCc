@@ -21,7 +21,7 @@ import ast
 import time
 from telebot import types
 
-curso.execute("SELECT nivel FROM infocc")
+cursor.execute("SELECT nivel FROM infocc")
 for s in json.dumps(cursor.fetchall()):
   print(s)
 stringList = {"Name": "John", "Language": "Python", "API": "pyTelegramBotAPI"}
