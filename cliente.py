@@ -87,11 +87,6 @@ def aleatoriacall(call):
 *💠 Nível:* `{view_cardaleatoria()[5]}`
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
-cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco FROM infocc WHERE cartao = {cc}")
-  	for u in cursor.fetchall():
-  		...
-  	return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
-
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
