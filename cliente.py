@@ -1,4 +1,5 @@
 from bot import *
+from random import randint
 
 def total_infocc():
 	cursor.execute("SELECT COUNT(*) FROM infocc")
@@ -39,19 +40,23 @@ def pesquisar_bin(bin_j):
 *🏦 Banco:* `{u[5]}`
 """
     return txt
+cursor.execute("SELECT COUNT(id) FROM infocc")
+for my_max_id in cursor.fetchone():
+	...
 def view_cardaleatoria():
-  cursor.execute("SELECT cartao FROM infocc")
-  if cursor.fetchone() == None:
-  	return None
-  else:
-  	cursor.execute("SELECT cartao FROM infocc")
-  	for cc in cursor.fetchone():
-  		...
-  	cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
-  	for u in cursor.fetchall():
-  		...
-  	return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
+	random_id = randint(1,my_max_id)
+	cursor.execute(f"SELECT cartao FROM infocc WHERE id = {random_id}")
+	if cursor.fetchone() == None:
+		return None
+	else:
+		cursor.execute("SELECT cartao FROM infocc")
+		for cc in cursor.fetchone():
+			...
+		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
+		cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+		for u in cursor.fetchall():
+			...
+		return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
 def aleatoria():
 	...
 def procurar_dados(chat_id):
