@@ -125,7 +125,38 @@ def aleatoriacall(call):
 *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
 *💠 Nível:* `{view_cardaleatoria()[5]}`
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
-""", reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+""", reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+
+def comprar_ccaleatoria():
+  cursor.execute(f"SELECT nome FROM infocc WHERE id = {view_cardaleatoria()[1]}")
+  if cursor.fetchone() == None:
+    return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
+  else:
+    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {view_cardaleatoria()[1]}")
+    for u in cursor.fetchall():
+    	...
+    txt = f"""
+  	*	✅ COMPRA EFETUADA
+
+💳 Cartão:* `{u[0]}`
+*📆 Expiração:* `{u[1]}`
+*🔒 Cvv:* `{u[2]}`
+*🏳️ Bandeira:* `{u[3]}`
+*⚜️ Tipo:* `{u[4]}`
+*💠 Nível:* `{u[5]}`
+*🏦 Banco:* `{u[6]}`
+
+*👤 Nome:* `{u[8]}`
+*📁 Cpf:* `{u[7]}`
+
+Cartão Verificado (Live) ✔️
+"""
+    return txt
+
+@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{view_cardaleatoria()[1]}")
+def compraraletoria(call):
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=menuaddsaldo, parse_mode="MARKDOWN")
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "mudar_cc")
 def escolheroutraaleatoriacall(call):
@@ -147,35 +178,6 @@ def escolheroutraaleatoriacall(call):
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
-def comprar_ccaleatoria():
-  cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
-  if cursor.fetchone() == None:
-    return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
-  else:
-    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
-    for u in cursor.fetchall():
-    	...
-    txt = f"""
-  	*	✅ COMPRA EFETUADA
-
-💳 Cartão:* `{u[0]}`
-*📆 Expiração:* `{u[1]}`
-*🔒 Cvv:* `{u[2]}`
-*🏳️ Bandeira:* `{u[3]}`
-*⚜️ Tipo:* `{u[4]}`
-*💠 Nível:* `{u[5]}`
-*🏦 Banco:* `{u[6]}`
-
-*👤 Nome:* `{u[8]}`
-*📁 Cpf:* `{u[7]}`
-
-Cartão Verificado (Live) ✔️
-"""
-    return txt, idcc
-
-@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{comprar_ccaleatoria()[1]}")
-def compraraletoria(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=menuaddsaldo, parse_mode="MARKDOWN")
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
