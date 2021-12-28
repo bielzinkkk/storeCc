@@ -22,20 +22,17 @@ import time
 from telebot import types
 
 cursor.execute("SELECT nivel FROM infocc")
-print(json.dumps(cursor.fetchall()))
+stringList = json.dumps(cursor.fetchall())
  
-stringList = {"Name": "John", "Language": "Python", "API": "pyTelegramBotAPI"}
 crossIcon = u"\u274C"
 
 def makeKeyboard():
     markup = types.InlineKeyboardMarkup()
 
-    for key, value in stringList.items():
+    for value in stringList.items():
         markup.add(types.InlineKeyboardButton(text=value,
-                                              callback_data="['value', '" + value + "', '" + key + "']"),
-        types.InlineKeyboardButton(text=crossIcon,
-                                   callback_data="['key', '" + key + "']"))
-
+                                              callback_data="['value', '" + value + "']"))
+        
     return markup
 
 @bot.message_handler(commands=['test'])
