@@ -173,7 +173,7 @@ Cartão Verificado (Live) ✔️
 """
     return txt
 
-@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{id_cc}")
+@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{idcc}")
 def compraraletoria(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=menuaddsaldo, parse_mode="MARKDOWN")
 
