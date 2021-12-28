@@ -111,6 +111,8 @@ def pixautomatico(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
+  global idcc
+  idcc = view_cardaleatoria()[1]
 	if view_cardaleatoria() == None:
 		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*❌ Não possuimos estoque no momento, tente mais tarde...*
@@ -128,7 +130,6 @@ def aleatoriacall(call):
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
 def comprar_ccaleatoria():
-  idcc = aleatoriamenu(view_cardaleatoria()[1])[1]
   cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
   if cursor.fetchone() == None:
     return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
