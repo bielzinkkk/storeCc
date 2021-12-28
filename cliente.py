@@ -40,7 +40,7 @@ def pesquisar_bin(bin_j):
 *🏦 Banco:* `{u[5]}`
 """
     return txt
-cursor.execute("SELECT id FROM infocc order by rand() LIMIT 1")
+cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
 for my_max_id in cursor.fetchone():
 	...
 def view_cardaleatoria():
