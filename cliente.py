@@ -91,7 +91,19 @@ Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_
 
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
-	bot.answer_callback_query(callback_query_id=call.id , text="Essa função está temporariamente indisponível! Tente mais tarde.", show_alert=True)
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+	*💸 Pix Automático
+
+- _Modo de uso:_
+*/recarga 2
+
+*- Utilize um valor inteiro.
+- Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.
+- Tem prazo de 5 minutos para realizar o pix*
+
+⚠️ _Depois do pagamento , o saldo será adicionado na hora
+⚠️ Depois de realizar o pagamento não possuirá devolução_
+	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
@@ -110,6 +122,25 @@ def aleatoriacall(call):
 *💠 Nível:* `{view_cardaleatoria()[5]}`
 *🏦 Banco:* `{view_cardaleatoria()[6]}`
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+
+@bot.callback_query_handler(func=lambda call: call.data == "mudar_cc")
+def escolheroutraaleatoriacall(call):
+	if view_cardaleatoria() == None:
+		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+	*❌ Não possuimos mais estoque no momento, tente mais tarde...*
+""",reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
+	else:	
+	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+*	📁 | Detalhes do cartão:
+
+💳 Cartão:* `{view_cardaleatoria()[0]}`
+*📆 Expiração:* `{view_cardaleatoria()[2]}`
+*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
+*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
+*💠 Nível:* `{view_cardaleatoria()[5]}`
+*🏦 Banco:* `{view_cardaleatoria()[6]}`
+""", reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
@@ -242,8 +273,8 @@ def comprar(call):
 	*Escolha a opção adequada ao seus propósitos*
 	
 _- Avisos_
-*CHK ON [✓]
+*Pix Automático ativo.
 
-Total de Ccs:* `{total_infocc()}`
+Total de Ccs:* `R${total_infocc()}`
 *Saldo Disponível:* `{procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")

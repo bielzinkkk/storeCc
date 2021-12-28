@@ -6,12 +6,6 @@ import requests
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
 
-def total_user():
-	cursor.execute("SELECT COUNT(*) FROM usuarios")
-	for s in cursor.fetchone():
-		...
-	return s
-
 def update_valores(tipo, valor):
 	cursor.execute(f"UPDATE valores SET valor = {valor} WHERE nivel = {tipo}")
 	conn.commit()
