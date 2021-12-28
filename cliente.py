@@ -113,12 +113,12 @@ def pixautomatico(call):
 def aleatoriacall(call):
   global idcc
   idcc = view_cardaleatoria()[1]
-	if view_cardaleatoria() == None:
-		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+  if view_cardaleatoria() == None:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*❌ Não possuimos estoque no momento, tente mais tarde...*
 """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
-	else:	
-	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  else:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *	📁 | Detalhes do cartão:
 
 💳 Cartão:* `{view_cardaleatoria()[0]}`
