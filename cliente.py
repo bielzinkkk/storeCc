@@ -79,7 +79,7 @@ def aleatoriacall(call):
 	else:	
 	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*Escolha uma opção de pagamento abaixo*
-""", reply_markup=aleatoriamenu(view_card()[4], view_card()[0]), parse_mode="MARKDOWN")
+""", reply_markup=aleatoriamenu(view_cardaleatoria()[4], view_cardaleatoria()[0]), parse_mode="MARKDOWN")
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
