@@ -171,7 +171,7 @@ def comprar_ccaleatoria():
 
 Cartão Verificado (Live) ✔️
 """
-    return txt, return idcc
+    return txt, idcc
 
 @bot.callback_query_handler(func=lambda call: call.data == f"comprar_{comprar_ccaleatoria()[1]}")
 def compraraletoria(call):
