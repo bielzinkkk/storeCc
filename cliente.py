@@ -23,9 +23,11 @@ def view_cardaleatoria():
   	return None
   else:
   	cursor.execute("SELECT cartao FROM infocc")
-  	for str(cc) in cursor.fetchone():
+  	for cc in cursor.fetchone():
   		...
-  	cartao = cc[0:6] + "xxxxxxxxxxxx"
+    print(type(cc))
+    print(str(cc))
+  	cartao = cc + "xxxxxxxxxxxx"
   	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
   	for u in cursor.fetchall():
   		...
