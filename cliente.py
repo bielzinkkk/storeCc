@@ -45,18 +45,18 @@ def view_cardaleatoria():
   cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
   for my_max_id in cursor.fetchone():
   	...
-	cursor.execute(f"SELECT cartao FROM infocc")
-	if cursor.fetchone() == None:
-		return None
-	else:
-		cursor.execute(f"SELECT cartao FROM infocc WHERE id = {my_max_id}")
-		for cc in cursor.fetchone():
-			...
-		cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-		cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
-		for u in cursor.fetchall():
-			...
-		return cartao, my_max_id, u[0], u[1], u[2], u[3], u[4]
+  cursor.execute(f"SELECT cartao FROM infocc")
+  if cursor.fetchone() == None:
+    return None
+  else:
+    cursor.execute(f"SELECT cartao FROM infocc WHERE id = {my_max_id}")
+    for cc in cursor.fetchone():
+      ...
+    cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
+    cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+    for u in cursor.fetchall():
+      ...
+    return cartao, my_max_id, u[0], u[1], u[2], u[3], u[4]
 
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
