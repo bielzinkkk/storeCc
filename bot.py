@@ -22,14 +22,13 @@ import time
 from telebot import types
 
 cursor.execute("SELECT nivel FROM infocc")
-stringList = json.dumps(cursor.fetchall())
+value = json.dumps(cursor.fetchall())
  
 crossIcon = u"\u274C"
 
 def makeKeyboard():
     markup = types.InlineKeyboardMarkup()
 
-    for value in stringList:
         markup.add(types.InlineKeyboardButton(text=value,
                                               callback_data="value"))
         
