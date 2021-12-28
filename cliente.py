@@ -72,7 +72,7 @@ def pixautomatico(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
-	if view_card() == None:
+	if view_cardaleatoria() == None:
 		bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
 	*❌ Não possuimos estoque no momento, tente mais tarde...*
 """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
