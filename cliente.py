@@ -22,12 +22,10 @@ def view_cardaleatoria():
   if cursor.fetchone() == None:
   	return None
   else:
-  	for cc in cursor.fetchone():
-  		...
-  	cartao = cc[0:6] + "xxxxxxxxxxxx"
-  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco FROM infocc WHERE cartao = {cc}")
+  	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
   	for u in cursor.fetchall():
   		...
+  	cartao = u[6][0:6] + "xxxxxxxxxxxx"
   	return cartao, u[0], u[1], u[2], u[3], u[4], [5]
 def aleatoria():
 	...
