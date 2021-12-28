@@ -52,13 +52,5 @@ def handle_query(call):
                               show_alert=True,
                               text="You Clicked " + valueFromCallBack + " and key is"
 
-    if (call.data.startswith("['key'")):
-        keyFromCallBack = ast.literal_eval(call.data)[1]
-        del stringList[keyFromCallBack]
-        bot.edit_message_text(chat_id=call.message.chat.id,
-                              text="Here are the values of stringList",
-                              message_id=call.message.message_id,
-                              reply_markup=makeKeyboard(),
-                              parse_mode='HTML')
 while True:
         bot.polling(none_stop=True, interval=0, timeout=0)
