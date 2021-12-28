@@ -216,8 +216,11 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 """, reply_markup=menu, parse_mode="MARKDOWN")
 
 		elif len(message.text) >= 6:
-			 bin_s = message.text[0:6]
-	 	   bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
+			 try:
+				bin_s = message.text[0:6]
+	 	  	bot.send_message(message.chat.id, pesquisar_bin(int(bin_s)), reply_markup=binmenu(),parse_mode="MARKDOWN")
+	 	   except:
+	 	   	bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
 		else:
 			pass
 	except:
