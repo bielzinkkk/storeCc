@@ -149,7 +149,8 @@ def gerar_gift(message):
             else:
             	try:
             		VALOR = int(message.text.split("/gerar ")[1])
-            		cursor.execute(f"INSERT INTO gifts_cards(id, gift_gerado, valor) VALUES(DEFAULT, '{id_generator()}', {VALOR})")
+            		gift = id_generator()
+            		cursor.execute(f"INSERT INTO gifts_cards(id, gift_gerado, valor) VALUES(DEFAULT, '{gift}', {VALOR})")
             		conn.commit()
             		bot.send_message(message.chat.id, f"""
              * ✅ GIFT GERADO
@@ -157,6 +158,6 @@ def gerar_gift(message):
 Gift Card gerado! O gift possuí o valor de R${VALOR}.
 
 Digite o comando a seguir para resgatar o gift card*
-`/resgatar {id_generator()}`""", parse_mode="MARKDOWN")
+`/resgatar {gift}`""", parse_mode="MARKDOWN")
             	except:
             		bot.send_message(message.chat.id, "Você digitou o valor incorretamente!")
