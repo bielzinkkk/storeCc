@@ -44,7 +44,7 @@ def pesquisar_bin(bin_j):
 def view_cardaleatoria():
   cursor.execute("SELECT id FROM infocc order by random() LIMIT 1")
   for my_max_id in cursor.fetchone():
-  	...
+  	break
   cursor.execute(f"SELECT cartao FROM infocc")
   if cursor.fetchone() == None:
     return None
@@ -99,9 +99,9 @@ def pixautomatico(call):
 	*💸 Pix Automático
 
 - _Modo de uso:_
-*/recarga 2
+/recarga 2
 
-*- Utilize um valor inteiro.
+- Utilize um valor inteiro.
 - Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.
 - Tem prazo de 5 minutos para realizar o pix*
 
@@ -128,11 +128,11 @@ def aleatoriacall(call):
 """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
 def comprar_ccaleatoria():
-  cursor.execute(f"SELECT nome FROM infocc WHERE id = {view_cardaleatoria()[1]}")
+  cursor.execute(f"SELECT nome FROM infocc WHERE id = {aleatoriamenu(view_cardaleatoria()[1])[1]}")
   if cursor.fetchone() == None:
     return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
   else:
-    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {view_cardaleatoria()[1]}")
+    cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {aleatoriamenu(view_cardaleatoria()[1])[1]}")
     for u in cursor.fetchall():
     	...
     txt = f"""
@@ -157,26 +157,6 @@ Cartão Verificado (Live) ✔️
 def compraraletoria(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
 
-
-@bot.callback_query_handler(func=lambda call: call.data == "mudar_cc")
-def escolheroutraaleatoriacall(call):
-  global idcc
-  idcc = view_cardaleatoria()[1]
-  if view_cardaleatoria() == None:
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
-	*❌ Não possuimos mais estoque no momento, tente mais tarde...*
-""",reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
-  else:
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-*	📁 | Detalhes do cartão:
-
-💳 Cartão:* `{view_cardaleatoria()[0]}`
-*📆 Expiração:* `{view_cardaleatoria()[2]}`
-*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
-*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
-*💠 Nível:* `{view_cardaleatoria()[5]}`
-*🏦 Banco:* `{view_cardaleatoria()[6]}`
-""", reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
 
 
 
