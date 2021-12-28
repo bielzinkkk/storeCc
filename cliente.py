@@ -77,9 +77,20 @@ def aleatoriacall(call):
 	*❌ Não possuimos estoque no momento, tente mais tarde...*
 """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
 	else:	
-	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
-	*Escolha uma opção de pagamento abaixo*
-""", reply_markup=aleatoriamenu(view_cardaleatoria()[4], view_cardaleatoria()[0]), parse_mode="MARKDOWN")
+	  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+*	📁 |Detalhes do cartão:
+
+💳 Cartão:* `{view_cardaleatoria()[0]}`
+*📆 Expiração:* `{view_cardaleatoria()[2]}`
+*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
+*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
+*💠 Nível:* `{view_cardaleatoria()[5]}`
+*🏦 Banco:* `{view_cardaleatoria()[6]}`
+""", reply_markup=aleatoriamenu(view_cardaleatoria()[6], view_cardaleatoria()[1]), parse_mode="MARKDOWN")
+cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco FROM infocc WHERE cartao = {cc}")
+  	for u in cursor.fetchall():
+  		...
+  	return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
