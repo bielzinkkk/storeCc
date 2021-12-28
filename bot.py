@@ -21,17 +21,15 @@ import ast
 import time
 from telebot import types
 
-cursor.execute("SELECT nivel FROM infocc")
-v = cursor.fetchall()
- 
-crossIcon = u"\u274C"
 
 def makeKeyboard():
+    cursor.execute("SELECT nivel FROM infocc")
+    v = cursor.fetchall()
     markup = types.InlineKeyboardMarkup()
     for i in sorted(set(v)):
       for value in i:
         print(value)
-        markup.add(types.InlineKeyboardButton(text=value,callback_data=f"value_{value}"))
+        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value"']"))
      
     return markup
 
@@ -45,14 +43,14 @@ def handle_command_adminwindow(message):
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
 
-    if (call.data.startswith("valor")):
+    if (call.data.startswith("['valor'")):
         print(f"call.data : {call.data} , type : {type(call.data)}")
         print(f"ast.literal_eval(call.data) : {ast.literal_eval(call.data)} , type : {type(ast.literal_eval(call.data))}")
-        valueFromCallBack = ast.literal_eval(call.data)[1]
+        valueFromCallBack = ast.literal_eval(call.data)
         keyFromCallBack = ast.literal_eval(call.data)[2]
         bot.answer_callback_query(callback_query_id=call.id,
                               show_alert=True,
-                              text="You Clicked " + valueFromCallBack + " and key is " + keyFromCallBack)
+                              text="You Clicked " + valueFromCallBack + " and key is"
 
     if (call.data.startswith("['key'")):
         keyFromCallBack = ast.literal_eval(call.data)[1]

@@ -35,21 +35,16 @@ def binmenu():
 	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
-menuunitarias = InlineKeyboardMarkup()
-menuunitarias.row_width = 2
-menuunitarias.add(InlineKeyboardButton(f"GOLD ()", callback_data="gold"),
-InlineKeyboardButton(f"CLASSIC ()", callback_data="classic"),
-InlineKeyboardButton(f"BLACK ()", callback_data="black"),
-InlineKeyboardButton(f"STANDARD ()", callback_data="standard"),
-InlineKeyboardButton(f"PLATINUM ()", callback_data="platinum"),
-InlineKeyboardButton(f"BUSINESS ()", callback_data="business"),
-InlineKeyboardButton(f"INFINITE ()", callback_data="pr"),
-InlineKeyboardButton(f"ELO ()", callback_data="elo"),
-InlineKeyboardButton(f"AMEX ()", callback_data="amex"),
-InlineKeyboardButton(f"CORPORATE ()", callback_data="corporate"),
-InlineKeyboardButton(f"PREPAID ()", callback_data="prepaid"))
-menuunitarias.row_width = 1
-menuunitarias.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar")))
+
+def menuunitarias():
+    cursor.execute("SELECT nivel FROM infocc")
+    v = cursor.fetchall()
+    markup = types.InlineKeyboardMarkup()
+    for i in sorted(set(v)):
+      for value in i:
+        markup.add(types.InlineKeyboardButton(text=value,callback_data=f"value_{value}"))
+     
+    return markupmenuunitarias.row_width = 1
 
 menuperfil = InlineKeyboardMarkup()
 menuperfil.row_width = 1
