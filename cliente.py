@@ -7,7 +7,7 @@ def total_infocc():
 	return i
 
 def pesquisar_bin(bin_j):
-  cursor.execute(f"SELECT id FROM infocc WHERE bin = {bin_j}")
+  cursor.execute(f"SELECT id FROM infocc WHERE bin = {int(bin_j)}")
   if cursor.fetchone() == None:
     return "*❌ Bin não encontrada!*"
   else:
@@ -218,7 +218,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 		elif len(message.text) >= 6:
 			 try:
 			 	bin_s = message.text[0:6]
-			 	bot.send_message(message.chat.id, pesquisar_bin(int(bin_s)), reply_markup=binmenu(),parse_mode="MARKDOWN")
+			 	bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
 			 except:
 			 	bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
 		else:
