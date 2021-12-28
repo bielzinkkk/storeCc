@@ -25,11 +25,11 @@ def view_cardaleatoria():
   	cursor.execute("SELECT cartao FROM infocc")
   	for cc in cursor.fetchone():
   		...
-  	cartao = str(cc) + "xxxxxxxxxxxx"
+  	cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
   	cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
   	for u in cursor.fetchall():
   		...
-  	return cartao, u[0], u[1], u[2], u[3], u[4], [5]
+  	return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
 def aleatoria():
 	...
 def procurar_dados(chat_id):
