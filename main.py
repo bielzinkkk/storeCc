@@ -10,7 +10,7 @@ def menu_inicial(message):
 
 Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
-<a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
+<a href='https://t.me/'>❓ Dúvidas</a>
 <a href='https://t.me/KINGST0RECHAT'>👥 Grupo</a>
 <a href='https://t.me/REFKG'>📣 Canal</a>
 <a href='https://t.me/Yusuke011'>⚙️ Dev</a>
