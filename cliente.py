@@ -48,6 +48,7 @@ def pegar_cc(nivel, chat_id):
 
 Cartão Verificado (Live) ✔️
 """
+  cursor.execute(f"DELETE FROM infocc WHERE cartao = '{u[0]}'")
   return txt
     
 
@@ -311,7 +312,7 @@ _- Informações Store_
 
 @bot.callback_query_handler(func=lambda call: call.data == "mix")
 def mixcall(call):
-  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*🔀 Comprar Mix*
 
 _- Caso queira comprar seus mix entre contato com {userDono}_
@@ -380,7 +381,7 @@ def comprar(call):
 	*Escolha a opção adequada ao seus propósitos*
 	
 _- Avisos_
-*Pix Automático ativo.
+*O checker está ativo
 
 Total de Ccs:* `{total_infocc()}`
 *Saldo Disponível:* `R${procurar_dados(call.from_user.id)[0]}`
