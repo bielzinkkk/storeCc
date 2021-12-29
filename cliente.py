@@ -71,7 +71,7 @@ def buscar_ccscompradas(chat_id):
 	if cursor.fetchone() == None:
 		return "Não possui nenhuma cc comprada"
 	else:
-		cursor.execute(f"SELECT * FROM ccscompradas WHERE chat_id = {chat_id}")
+		cursor.execute(f"SELECT  FROM ccscompradas WHERE chat_id = {chat_id}")
 		for y in cursor.fetchall():
 			...
 		return y
@@ -144,17 +144,8 @@ def aleatoriacall(call):
   	*❌ Não possuimos estoque no momento, tente mais tarde...*
   """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
     else:
-      bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-  *	📁 | Detalhes do cartão:
-  
-💳 Cartão:* `{view_cardaleatoria()[0]}`
-*📆 Expiração:* `{view_cardaleatoria()[2]}`
-*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
-*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
-*💠 Nível:* `{view_cardaleatoria()[5]}`
-*🏦 Banco:* `{view_cardaleatoria()[6]}`
-  """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
-      
+      bot.answer_callback_query(callback_query_id=call.id , text="Manutenção.", show_alert=True) 
+
 
 def comprar_ccaleatoria(idcc):
     cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
@@ -214,11 +205,10 @@ def back_menu(call):
 
 Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
-<a href='https://t.me/Yusuke011'>❓ Dúvidas</a>
-<a href='https://t.me/Yusuke011'>👥 Grupo</a>
-<a href='https://t.me/Yusuke011'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
+<a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
+<a href='https://t.me/REFKG'>📣 Canal</a>
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
@@ -246,8 +236,8 @@ def pix_manual(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*💸 Pix Manual
 
-🔑 Chave ( TIPO DE CHAVE ):* `exemplo-chave`
-*👤 Nome da conta bancária:* `Jubileuzinho Santos`
+🔑 Chave ( EMAIL ):* `tiagolordeofc@gmail.com`
+*👤 Nome da conta bancária:* `MARCOS RAFAEL`
 
 *- Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.*
 
@@ -299,7 +289,6 @@ _Atenção:  Os valores presentes nesta sessão, é o total comprado, adicionado
 Baixe seu histórico para obter a lista de todos os cartões adquiridos_""", reply_markup=menuhistorico, parse_mode="MARKDOWN")
 
 
-
 @bot.callback_query_handler(func=lambda call: call.data == "perfil")
 def perfil(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
@@ -344,22 +333,20 @@ def bin_pesquisa(message):
 
 Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
-<a href='https://t.me/{userDono}'>❓ Dúvidas</a>
-<a href='https://t.me/{userDono}'>👥 Grupo</a>
-<a href='https://t.me/{userDono}'>📣 Canal</a>
-<a href='https://t.me/@Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
+<a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
+<a href='https://t.me/REFKG'>📣 Canal</a>
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
 		if message.text == "/menu":
 			bot.send_message(message.chat.id, f"""
 	<b>🧙🏻‍♂️ | Store de Info'ccs
 
 Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
-<a href='https://t.me/{userDono}'>❓ Dúvidas</a>
-<a href='https://t.me/{userDono}'>👥 Grupo</a>
-<a href='https://t.me/{userDono}'>📣 Canal</a>
-<a href='https://t.me/@Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
+<a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
+<a href='https://t.me/REFKG'>📣 Canal</a>
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
 		elif message.text == "/resgatar":
 			bot.send_message(message.chat.id, f"""
 	*🏷️ Resgatar Gift Card*

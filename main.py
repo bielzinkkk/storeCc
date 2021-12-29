@@ -11,9 +11,9 @@ def menu_inicial(message):
 Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
 <a href='https://t.me/{userDono}'>❓ Dúvidas</a>
-<a href='https://t.me/{userDono}'>👥 Grupo</a>
-<a href='https://t.me/{userDono}'>📣 Canal</a>
-<a href='https://t.me/@Yusuke011'>⚙️ Dev</a>
+<a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
+<a href='https://t.me/REFKG'>📣 Canal</a>
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
 """, reply_markup=menu, parse_mode="HTML")
 
 @bot.message_handler(commands=["resgatar"])

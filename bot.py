@@ -8,7 +8,7 @@ with open('config/config.json', 'r') as e:
 	data_json = json.loads(e.read())
 	token = data_json["token"]
 	userDono = data_json["userDono"]
-	idgroup = data_json["idGroup"]
+	idGroup = data_json["idGroup"]
 	manutencao = data_json["manutenção"]
 	idDono = data_json["idDono"]
 	userBot = data_json["userBot"]
