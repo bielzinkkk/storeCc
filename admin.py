@@ -68,7 +68,7 @@ def document(message):
 				downloaded_file = bot.download_file(file_info.file_path)
 				with open(path,'wb') as new_file:
 					new_file.write(downloaded_file)
-			    new_file.close()
+					new_file.close()
 			  bot.send_message(message.chat.id, "Adicionando...")
 			  i = open(path, "r")
 			  samples = i.read()
