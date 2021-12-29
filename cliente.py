@@ -101,7 +101,7 @@ def procurar_dados(chat_id):
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT saldo, recargas, gifts, recargas FROM usuarios WHERE chat_id = {chat_id}")
+		cursor.execute(f"SELECT saldo, recargas, gifts, compras FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchall():
 			...
 		return s[0], s[1], s[2], s[3]
@@ -290,9 +290,10 @@ def historico(call):
 _Atenção:  Os valores presentes nesta sessão, é o total comprado, adicionado e resgatado, respectivamente.
 Baixe seu histórico para obter a lista de todos os cartões adquiridos_""", reply_markup=menuhistorico, parse_mode="MARKDOWN")
 
+
+
 @bot.callback_query_handler(func=lambda call: call.data == "perfil")
 def perfil(call):
-	print(call.id)
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*🧙🏻‍♂️ Perfil de Usuário*
 	
@@ -310,7 +311,15 @@ _- Informações Store_
 
 @bot.callback_query_handler(func=lambda call: call.data == "mix")
 def mixcall(call):
-  bot.answer_callback_query(callback_query_id=call.id , text="Função temporariamente indisponível!")
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
+	*🔀 Comprar Mix*
+
+_- Caso queira comprar seus mix entre contato com {userDono}_
+*Não garantimos saldo! 
+Garantimos live nos produtos!*
+
+*Futuramente vai está disponibilizado a compra de mixs na store.*
+	""", reply_markup=voltar_menucomprar, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pes_bin")
 def pes_bin(call):

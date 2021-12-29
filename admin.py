@@ -19,7 +19,7 @@ def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
 
 def update_valores(tipo, valor):
-	cursor.execute(f"UPDATE valores SET valor = {valor} WHERE nivel = {tipo}")
+	cursor.execute(f"UPDATE valores SET valor = {valor} WHERE nivel = '{tipo}'")
 	conn.commit()
   
 def procurar_usuario(chat_id):
@@ -163,7 +163,7 @@ def admin(message):
 
 _• Cmds Admin:_
  
-`/add` *- ADICIONAR CC NA STORE*
+`/add` *- ADICIONAR CC OU MIX NA STORE*
 `/send` *- NOTIFICAR USUÁRIOS*
 `/gerar` *- GERAR GIFT*
 `/price` *- MUDAR VALORES CONTAS*
@@ -196,6 +196,20 @@ Modo de uso:* `/infor [id de usuário]`
 *- INFO'CCS COMPRADAS:* `{procurar_usuario(chat_id)[3]}`
 *- USUÁRIO:* @{procurar_usuario(chat_id)[4]}
           """, parse_mode="MARKDOWN")
+
+@bot.message_handler(commands=['add'])
+def adicionar_cemixc(message):
+  bot.send_message(message.chat.id, """
+  📥 Adicionar cc ou mix
+
+- Adicionar mix:
+Crie um arquivo com a extensão .txt e coloque suas ccs! Depois envie no chat do bot com o comando /mix ( Manutenção )
+
+- Adicionar cc:
+Crie um arquivo com a extensão .txt e coloque suas ccs! Depois envie no chat do bot com o comando /cc
+
+Pode adicionar quanta cc quiser.
+  """)
 
 @bot.message_handler(commands=['gerar'])
 def gerar_gift(message):
