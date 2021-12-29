@@ -1,6 +1,7 @@
 import json
 import telebot
 import os
+from markup import *
 
 with open('config/config.json', 'r') as e:
 	data_json = json.loads(e.read())
