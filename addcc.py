@@ -27,6 +27,5 @@ for row in cards:
 print(cartao)
 from sqlalchemy import create_engine
 engine = create_engine(url)
-Session = sessionmaker(bind=engine) 
 tabela = pd.DataFrame({"id": 'DEFAULT',"cartao": cartao, "data": data, "cvv": cvv, "bin": 22222, "banco": 'BANCO DO BRASIL', "nivel": 'PLATINUM', "tipo": 'CREDIT', "bandeira": 'VISA', "cpf": 282922, "nome": 'GABRIEL SANTOS'})
 tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
