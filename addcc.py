@@ -28,4 +28,4 @@ print(cartao)
 from sqlalchemy import create_engine
 engine = create_engine(url)
 tabela = pd.DataFrame({'id': 'DEFAULT','cartao': cartao, 'data': data, 'cvv': cvv, 'bin': 22222, 'banco': 'BANCO DO BRASIL', 'nivel': 'PLATINUM','tipo': 'CREDIT', 'bandeira': 'VISA', 'cpf': 282922, 'nome': 'GABRIEL SANTOS'})
-tabela.to_sql(name='infocc', )
+tabela.to_sql(name='infocc', engine)
