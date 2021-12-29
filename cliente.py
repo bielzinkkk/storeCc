@@ -20,6 +20,33 @@ def total_infocc():
 	  cursor.execute("ROLLBACK")
 	  conn.commit()
 
+def pegar_cc(nivel, chat_id):
+  curso.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}'")
+  for idcc in cursor.fetchone():
+    ...
+  cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
+  for u in cursor.fetchone():
+    ...
+  cursor.execute(f"INSERT INTO ccscompradas(id, chat_id, cartao, data, cvv) VALUES(DEFAULT, {chat_id}, {u[0]}, '{u[1]}', {u[2]})")
+  conn.commit()
+  txt = f"""
+  	*	✅ Compra efetuada
+
+💳 Cartão:* `{u[0]}`
+*📆 Expiração:* `{u[1]}`
+*🔒 Cvv:* `{u[2]}`
+*🏳️ Bandeira:* `{u[3]}`
+*⚜️ Tipo:* `{u[4]}`
+*💠 Nível:* `{u[5]}`
+*🏦 Banco:* `{u[6]}`
+
+*👤 Nome:* `{u[8]}`
+*📁 Cpf:* `{u[7]}`
+
+Cartão Verificado (Live) ✔️
+"""
+  return txt
+    
 
 def verificar_existe(chat_id, usuario):
     try:
@@ -77,6 +104,18 @@ def procurar_dados(chat_id):
 		return s[0], s[1], s[2], s[3]
 
 
+def comprarunitariafuction(nivel, chat_id):
+  preco = buscarpreco(nivel)
+  total = procurar_dados(chat_id)[0] - preco
+  total2 = procurar_dados(chat_id)[3] + 1
+  if procurar_dados(chat_id)[0] >= preco:
+    cursor.execute(f"UPDATE usuarios SET saldo = {total}, compras = {total2} WHERE chat_id = {chat_id}")
+    conn.commit()
+    return True
+  else:
+    return False
+
+
 def view_cardaleatoria():
     cursor.execute(f"SELECT cartao FROM infocc")
     if cursor.fetchone() == None:
@@ -101,12 +140,12 @@ def aleatoriacall(call):
       bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
   *	📁 | Detalhes do cartão:
   
-  💳 Cartão:* `{view_cardaleatoria()[0]}`
-  *📆 Expiração:* `{view_cardaleatoria()[2]}`
-  *🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
-  *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
-  *💠 Nível:* `{view_cardaleatoria()[5]}`
-  *🏦 Banco:* `{view_cardaleatoria()[6]}`
+💳 Cartão:* `{view_cardaleatoria()[0]}`
+*📆 Expiração:* `{view_cardaleatoria()[2]}`
+*🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
+*⚜️ Tipo:* `{view_cardaleatoria()[4]}`
+*💠 Nível:* `{view_cardaleatoria()[5]}`
+*🏦 Banco:* `{view_cardaleatoria()[6]}`
   """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
       
 
@@ -207,8 +246,13 @@ def pix_manual(call):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
 def comprar_unirarias(call):
-  bot.send_message(call.message.chat.id, "Ok")
-
+  nivel = ast.literal_eval(call.data)[1]
+  if comprarunitariafuction(nivel, call.from_user.id) == True:
+    msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"Verificando a cc...")
+    time.sleep(2)
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.msg.message_id, text=pegar_cc(nivel, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
+  else:
+    bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True)
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
 	txt = f"""📄 Seu Histórico
