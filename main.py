@@ -72,6 +72,7 @@ def recarga_pix(message):
       headers = {"Authorization": f"Bearer {token}"}
       request = requests.get(f'https://api.mercadopago.com/v1/payments/{id_pix}', headers=headers)
       response = request.json()
+      print(response)
       pix = response['point_of_interaction']['transaction_data']['qr_code']
       msg = bot.send_message(message.chat.id, f"""
     *✅ PAGAMENTO GERADO
