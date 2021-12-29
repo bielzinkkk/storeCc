@@ -1,6 +1,7 @@
 from cliente import *
 from admin import *
 from gerar_pagamento import *
+import requests
 
 @bot.message_handler(commands=["start", "menu"])
 def menu_inicial(message):
