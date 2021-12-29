@@ -69,7 +69,7 @@ def procurar_dados(chat_id):
 		cursor.execute(f"SELECT saldo, compras, gifts, recargas FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchall():
 			...
-		return s[0], s[1], s[2], s[3], s[4]
+		return s[0], s[1], s[2], s[3]
 
 
 def view_cardaleatoria(idcc):
