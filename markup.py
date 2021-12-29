@@ -42,9 +42,17 @@ def binmenu():
 	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
-
+def verificar_valor():
+  cursor.execute("SELECT nivel FROM infocc")
+  v = cursor.fetchall()
+  for i in sorted(set(v)):
+    for value in i:
+      cursor.execute("SELECT id FRON valores WHERE nivel = '{value}'")
+      if cursor.fetchone() == None:
+        cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value}')")
+        conn.commit()
+verificar_valor()
 def menuunitarias():
-    try:
       cursor.execute("SELECT nivel FROM infocc")
       v = cursor.fetchall()
       markup = InlineKeyboardMarkup()
@@ -52,16 +60,10 @@ def menuunitarias():
       for i in sorted(set(v)):
         for value in i:
           markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
-          cursor.execute("SELECT id FRON valores WHERE nivel = '{value}'")
-          if cursor.fetchone() == None:
-            cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value}')")
-            conn.commit()
       markup.row_width = 1
       markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
       return markup
-    except:
-        cursor.execute("ROLLBACK")
-        conn.commit()
+
 
 
 menuperfil = InlineKeyboardMarkup()
