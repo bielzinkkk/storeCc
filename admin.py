@@ -2,6 +2,17 @@ from bot import *
 import string
 import random
 import requests
+from sqlalchemy import create_engine
+import pandas as pd
+
+def split_card(card) -> dict:
+  splited = card.split("|")
+  return {
+    "cartao": splited[0],
+    "data": splited[1] + "/" + splited[2],
+    "cvv": splited[3]
+  }
+
 
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
@@ -50,13 +61,59 @@ Usuários que não recebeu a mensagem: {contagem}
 @bot.message_handler(content_types=['document'])
 def document(message):
 	if idDono == message.from_user.id:
-		if ("/send" in message.caption):
+		if ("/add" in message.caption):
 				raw = message.document[2].file_id
 				path = raw+".txt"
 				file_info = bot.get_file(raw)
 				downloaded_file = bot.download_file(file_info.file_path)
 				with open(path,'wb') as new_file:
 					new_file.write(downloaded_file)
+			    new_file.close()
+			  bot.send_message(message.chat.id, "Adicionando...")
+			  i = open(path, "r")
+			  samples = i.read()
+			  cards = [split_card(card) for card in samples.strip().split("\n")]
+			  cartao = []
+			  data = []
+			  cvv = []
+			  for row in cards:
+			    cartao.append((row['cartao']))
+			    data.append((row['data']))
+			    cvv.append((row['cvv']))
+        bin_cc = []
+        banco = []
+        tipo = []
+        nivel = []
+        bandeira = []
+        cpf = []
+        nome = []
+        for u in cartao:
+          line1 = ','.join(u)
+          h = line1[0:12].replace(",", "")
+          js = {
+            "bin": h
+          }
+          response2 = requests.get("https://lookup.binlist.net/"+h)
+          response = response2.json()
+          bin_cc.append((js['bin']))
+          if response2.status_code != 400:
+            banco1 = response["bank"]
+            tipo.append((response["type"].upper()))
+            nivel.append((response["brand"].upper()))
+            bandeira.append((response["scheme"].upper()))
+            if banco1 == {}:
+              banco.append(("Não disponível"))
+            else:
+              banco.append((banco1["name"]))
+          res = requests.get("https://cubetechnology.org/api").json()
+          cpf.append((str(res['cpf'])))
+          nome_int = res['name'] + " " + res['lastname']
+          nome.append((nome_int))
+        engine = create_engine(url)
+			  tabela = pd.DataFrame({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome})
+			  tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+        bot.send_message(message.chat.id, "Cc's adicionadas")
+ 
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
