@@ -119,21 +119,21 @@ def comprar_ccaleatoria(idcc):
       for u in cursor.fetchall():
       	...
       txt = f"""
-    	*	✅ Compra efetuada
-  
-  💳 Cartão:* `{u[0]}`
-  *📆 Expiração:* `{u[1]}`
-  *🔒 Cvv:* `{u[2]}`
-  *🏳️ Bandeira:* `{u[3]}`
-  *⚜️ Tipo:* `{u[4]}`
-  *💠 Nível:* `{u[5]}`
-  *🏦 Banco:* `{u[6]}`
-  
-  *👤 Nome:* `{u[8]}`
-  *📁 Cpf:* `{u[7]}`
-  
-  Cartão Verificado (Live) ✔️
-  """
+  	*	✅ Compra efetuada
+
+💳 Cartão:* `{u[0]}`
+*📆 Expiração:* `{u[1]}`
+*🔒 Cvv:* `{u[2]}`
+*🏳️ Bandeira:* `{u[3]}`
+*⚜️ Tipo:* `{u[4]}`
+*💠 Nível:* `{u[5]}`
+*🏦 Banco:* `{u[6]}`
+
+*👤 Nome:* `{u[8]}`
+*📁 Cpf:* `{u[7]}`
+
+Cartão Verificado (Live) ✔️
+"""
       return txt
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
@@ -204,6 +204,10 @@ def pix_manual(call):
 ⚠️ _Depois do pagamento envie o comprovante para o {userDono}
 ⚠️ Depois de realizar o pagamento não possuirá devolução_
 	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
+def comprar_unirarias(call):
+  bot.send_message(call.message.chat.id, "Ok")
 
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
