@@ -1,5 +1,5 @@
 import json 
-import psycopg2
+import pandas as pd
 url = "postgres://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 conn = psycopg2.connect(url)
 cursor = conn.cursor()
@@ -16,22 +16,13 @@ def split_card(card) -> dict:
   }
   
 cards = [split_card(card) for card in samples.strip().split("\n")]
-itemBank = [] 
+cartao = [] 
+data = []
+cvv = []
 for row in cards:
-    itemBank.append((
-        row['cartao'],
-        row['data'],
-        row['cvv'],
-        )) #append data
-
-
-q = """INSERT IGNORE INTO infocc(
-        id, cartao, data, cvv, bin, banco, nivel, tipo, bandeira, cpf, nome) VALUES(DEFAULT, %s,%s,%s, 1334, 'SANTANDER', 'PLATINUM', 'CREDIT', 'VISA', 282922, 'JOAO SANTOS')           
-    """
-
-try:
-    cursor.executemany(q, itemBank)
-    conn.commit()
-except:
-    conn.rollback()
-print("adicionado")
+    cartao.append((row['cartao']))
+    data.append((row['data']))
+    cvv.append((row['cvv']))
+print(cartao)
+tabela = pd.DataFrame({'id': 'DEFAULT','cartao': cartao, 'data': data, 'cvv': cvv, 'bin': 22222, 'banco': 'BANCO DO BRASIL', 'nivel': 'PLATINUM','tipo': 'CREDIT', 'bandeira': 'VISA', 'cpf': 282922, 'nome': 'GABRIEL SANTOS'})
+tabela.to_sql(name = 'infocc', con = conn, if_exists = 'append', index = False)
