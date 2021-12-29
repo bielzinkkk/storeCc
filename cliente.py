@@ -74,7 +74,7 @@ def buscar_ccscompradas(chat_id):
 		cursor.execute(f"SELECT cartao, data, cvv FROM ccscompradas WHERE chat_id = {chat_id}")
 		for y in cursor.fetchall():
 			...
-		return f"{y[0]}|{y[1]}|{y[2]}"
+		return y
   	
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = '{bin_j}'")
