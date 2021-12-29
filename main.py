@@ -67,7 +67,7 @@ def recarga_pix(message):
     try:
       VALOR = message.text.split("/recarga ")[1]
       id_pix = gerar_pagamento(int(VALOR))[0]
-      token = "APP_USR-6957443970470439-111320-82c9e0f14ae9cc53ffb6151facfba46b-1008178867"
+      token = "APP_USR-1780433851436590-122801-411291e600aba8df8c92c6a0fb0e8d45-335804746"
       headers = {"Authorization": f"Bearer {token}"}
       request = requests.get(f'https://api.mercadopago.com/v1/payments/{id_pix}', headers=headers)
       response = request.json()
