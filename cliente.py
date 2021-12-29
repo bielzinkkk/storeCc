@@ -21,7 +21,7 @@ def total_infocc():
 	  conn.commit()
 
 def pegar_cc(nivel, chat_id):
-  curso.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}'")
+  cursor.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}'")
   for idcc in cursor.fetchone():
     ...
   cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
