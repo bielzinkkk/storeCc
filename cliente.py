@@ -136,7 +136,7 @@ def unitariascall(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
-- MULTIPLO: R${buscarpreco('STANDARD')},00
+- CLASSIC: R${buscarpreco('CLASSIC')},00
 - PLATINUM: R${buscarpreco('PLATINUM')},00
 - ELO: R${buscarpreco('ELO')},00
 - CORPORATE: R${buscarpreco('CORPORATE')},00
@@ -181,11 +181,6 @@ def pixautomatico(call):
 ⚠️ Depois de realizar o pagamento não possuirá devolução_
 	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
 
-@bot.callback_query_handler(func=lambda call: True)
-def handle_query(call):
-    global valueFromCallBack
-    if (call.data.startswith("['value'")):
-        valueFromCallBack = ast.literal_eval(call.data)[1]
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
