@@ -2,13 +2,20 @@ from bot import *
 from random import randint
 
 def buscarpreco(nivel):
-  cursor.execute("SELECT valor FROM valores WHERE nivel = '{nivel}'")
-  if cursor.fetchone() == None:
-    return 10
-  else:
-    for valor in cursor.fetchone():
-      ...
-    return valor
+  try:
+    cursor.execute("SELECT valor FROM valores WHERE nivel = '{nivel}'")
+    if cursor.fetchone() == None:
+      return 10
+    else:
+      for valor in cursor.fetchone():
+        ...
+      return valor
+  except:
+	  cursor.execute("ROLLBACK")
+	  conn.commit()
+except:
+	  cursor.execute("ROLLBACK")
+	  conn.commit()
 
 def total_infocc():
   try:
