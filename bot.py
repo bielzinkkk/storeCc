@@ -43,7 +43,7 @@ def handle_command_adminwindow(message):
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
 
-    if (call.data.startswith("['valor'")):
+    if (call.data.startswith("['value'")):
         print(f"call.data : {call.data} , type : {type(call.data)}")
         print(f"ast.literal_eval(call.data) : {ast.literal_eval(call.data)} , type : {type(ast.literal_eval(call.data))}")
         valueFromCallBack = ast.literal_eval(call.data)[1]
