@@ -11,6 +11,10 @@ menu.row_width = 1
 menu.add(InlineKeyboardButton("👤 Perfil", callback_data="perfil"),
 InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"))
 
+aguardando = InlineKeyboardMarkup()
+aguardando.row_width = 2
+aguardando.add(InlineKeyboardButton("🔁 AGUARDANDO PAGAMENTO", callback_data="."))
+
 menucomprar = InlineKeyboardMarkup()
 menucomprar.row_width = 2
 menucomprar.add(InlineKeyboardButton("💳 Unitárias", callback_data="unitarias"),

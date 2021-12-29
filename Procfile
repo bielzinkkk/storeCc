@@ -1,1 +1,1 @@
-index: python "main.py"
+index: python "addcc.py"

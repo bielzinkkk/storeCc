@@ -78,7 +78,7 @@ def recarga_pix(message):
 ℹ️  ID DO PAGAMENTO:* `{id_pix}`
 *ℹ️  PIX QR CODE:* `{pix}`
 *ℹ️  A COMPRA IRÁ EXPIRAR EM 5 MINUTOS.
-ℹ️  DEPOIS DO PAGAMENTO SEU SALDO SERÁ ADICIONADO AUTOMÁTICAMENTE.*""", parse_mode="MARKDOWN")
+ℹ️  DEPOIS DO PAGAMENTO SEU SALDO SERÁ ADICIONADO AUTOMÁTICAMENTE.*""", reply_markup=aguardando, parse_mode="MARKDOWN")
       if status(id_pix) == True:
         adicao = int(VALOR) + procurar_dados(message.from_user.id)[0]
         sql = f"UPDATE usuarios SET saldo = {adicao} WHERE chat_id = {message.from_user.id}"
