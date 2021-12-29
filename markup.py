@@ -1,4 +1,5 @@
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from bot import *
 
 menu = InlineKeyboardMarkup()
 menu.row_width = 2
