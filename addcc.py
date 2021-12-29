@@ -30,7 +30,7 @@ q = """INSERT IGNORE INTO infocc(
     """
 
 try:
-    x.executemany(q, itemBank)
+    cursor.executemany(q, itemBank)
     conn.commit()
 except:
     conn.rollback()
