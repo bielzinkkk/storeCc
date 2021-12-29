@@ -254,6 +254,10 @@ _- Informações Store_
 *Recargas Realizadas:* `{procurar_dados(call.from_user.id)[1]}`
 	""", reply_markup=menuperfil, parse_mode="MARKDOWN")
 
+@bot.callback_query_handler(func=lambda call: call.data == "mix")
+def mixcall(call):
+  bot.answer_callback_query(callback_query_id=call.id , text="Função temporariamente indisponível!")
+
 @bot.callback_query_handler(func=lambda call: call.data == "pes_bin")
 def pes_bin(call):
 	msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""

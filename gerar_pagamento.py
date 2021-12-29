@@ -1,6 +1,6 @@
 import mercadopago, pytz, datetime, json, requests, time
 
-token = "APP_USR-6957443970470439-111320-82c9e0f14ae9cc53ffb6151facfba46b-1008178867"
+token = "APP_USR-1780433851436590-122801-411291e600aba8df8c92c6a0fb0e8d45-335804746"
 
 def expiration():
     with open('config/config.json', 'r') as file:
