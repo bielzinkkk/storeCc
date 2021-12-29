@@ -62,7 +62,7 @@ Usuários que não recebeu a mensagem: {contagem}
 def document(message):
 	if idDono == message.from_user.id:
 		if ("/add" in message.caption):
-				raw = message.document[2].file_id
+				raw = message.document.file_id
 				path = raw+".txt"
 				file_info = bot.get_file(raw)
 				downloaded_file = bot.download_file(file_info.file_path)
