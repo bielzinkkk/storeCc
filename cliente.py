@@ -62,11 +62,11 @@ def pesquisar_bin(bin_j):
     return txt
 
 def procurar_dados(chat_id):
-	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
+	cursor.execute(f"SELECT id FROM usuarios WHERE chat_id = {chat_id}")
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT saldo, compras, gifts, recargasFROM usuarios WHERE chat_id = {chat_id}")
+		cursor.execute(f"SELECT saldo, compras, gifts, recargas FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchall():
 			...
 		return s[0], s[1], s[2], s[3], s[4]
