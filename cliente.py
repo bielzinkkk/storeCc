@@ -84,7 +84,7 @@ def view_cardaleatoria():
       cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
       for u in cursor.fetchall():
         ...
-      return cartao, self.idcc, u[0], u[1], u[2], u[3], u[4]
+      return cartao, idcc, u[0], u[1], u[2], u[3], u[4]
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
