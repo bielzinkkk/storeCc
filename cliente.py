@@ -96,13 +96,13 @@ def aleatoriacall(call):
       bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
   *	📁 | Detalhes do cartão:
   
-  💳 Cartão:* `{view_cardaleatoria(self)[0]}`
-  *📆 Expiração:* `{view_cardaleatoria(self)[2]}`
-  *🏳️ Bandeira:* `{view_cardaleatoria(self)[3]}`
-  *⚜️ Tipo:* `{view_cardaleatoria(self)[4]}`
-  *💠 Nível:* `{view_cardaleatoria(self)[5]}`
-  *🏦 Banco:* `{view_cardaleatoria(self)[6]}`
-  """, reply_markup=aleatoriamenu(self.idcc), parse_mode="MARKDOWN")
+  💳 Cartão:* `{view_cardaleatoria()[0]}`
+  *📆 Expiração:* `{view_cardaleatoria()[2]}`
+  *🏳️ Bandeira:* `{view_cardaleatoria()[3]}`
+  *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
+  *💠 Nível:* `{view_cardaleatoria()[5]}`
+  *🏦 Banco:* `{view_cardaleatoria()[6]}`
+  """, reply_markup=aleatoriamenu(idcc), parse_mode="MARKDOWN")
       
 
 def comprar_ccaleatoria(idcc):

@@ -21,7 +21,7 @@ def gerar_pagamento(valor):
         sdk = mercadopago.SDK("APP_USR-6957443970470439-111320-82c9e0f14ae9cc53ffb6151facfba46b-1008178867")
         payment_data = {
             "transaction_amount": float(str(valor)+'.00'),
-            "description": "CONTA PREMIUM",
+            "description": "INFO CC",
             "payment_method_id": "pix",
             "payer": {
                 "email": 'pedrosabtos28222@gmail.com',
