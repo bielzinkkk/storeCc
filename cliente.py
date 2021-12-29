@@ -81,7 +81,7 @@ def pesquisar_bin(bin_j):
     for cc in cursor.fetchone():
     	...
     cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-    cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
+    cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = '{cc}'")
     for u in cursor.fetchall():
     	...
     txt = f"""
@@ -101,7 +101,7 @@ def procurar_dados(chat_id):
 	if cursor.fetchone() == None:
 		return None
 	else:
-		cursor.execute(f"SELECT saldo, recargas, gifts, compras FROM usuarios WHERE chat_id = {chat_id}")
+		cursor.execute(f"SELECT saldo, recargas, gifts, recargas FROM usuarios WHERE chat_id = {chat_id}")
 		for s in cursor.fetchall():
 			...
 		return s[0], s[1], s[2], s[3]

@@ -138,7 +138,7 @@ def photo(message):
 
 @bot.message_handler(commands=['price'])
 def price(message):
-  if verificar_admin(message.from_user.id) == True:
+  if idDono == message.from_user.id:
       if message.text == "/price":
           bot.send_message(message.chat.id, """
          * ➕ Mude os valores das ccs

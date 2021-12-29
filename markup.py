@@ -47,10 +47,14 @@ def menuunitarias():
     cursor.execute("SELECT nivel FROM infocc")
     v = cursor.fetchall()
     markup = InlineKeyboardMarkup()
+    markup.row_width = 2
     for i in sorted(set(v)):
       for value in i:
-        print(value)
         markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
+        cursor.execute("SELECT id FRON valores WHERE nivel = '{value}'")
+        if cursor.fetchone() == None:
+          cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value}')")
+          conn.commit()
     markup.row_width = 1
     markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
     return markup
