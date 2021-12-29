@@ -43,11 +43,11 @@ def buscar_ccscompradas(chat_id):
 		return f"{y[0]}|{y[1]}|{y[2]}"
   	
 def pesquisar_bin(bin_j):
-  cursor.execute(f"SELECT id FROM infocc WHERE bin = {int(bin_j)}")
+  cursor.execute(f"SELECT id FROM infocc WHERE bin = '{bin_j}'")
   if cursor.fetchone() == None:
     return "*❌ Bin não encontrada!*"
   else:
-    cursor.execute(f"SELECT cartao FROM infocc WHERE bin = {bin_j}")
+    cursor.execute(f"SELECT cartao FROM infocc WHERE bin = '{bin_j}'")
     for cc in cursor.fetchone():
     	...
     cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
