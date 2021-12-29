@@ -28,5 +28,5 @@ print(cartao)
 from sqlalchemy import create_engine
 engine = create_engine(url)
 tabela = pd.DataFrame({"id": [1, 2, 3],"cartao": cartao, "data": data, "cvv": cvv, "bin": '122', "banco": 'BANCO DO BRASIL', "nivel": 'PLATINUM', "tipo": 'CREDIT', "bandeira": 'VISA', "cpf": '282922', "nome": 'GABRIEL SANTOS'})
-tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False, dtype={'id': 'INT BIGSERIAL PRIMARY KEY')
+tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False, dtype={'id': 'INT BIGSERIAL PRIMARY KEY'})
 #ok
