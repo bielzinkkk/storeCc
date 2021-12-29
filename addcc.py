@@ -25,9 +25,8 @@ for row in cards:
         )) #append data
 
 
-q = """ insert ignore into infocc(
-        cartao, data, cvv) 
-        values (%s,%s,%s)           
+q = """INSERT IGNORE INTO infocc(
+        id, cartao, data, cvv, bin, banco, nivel, tipo, bandeira, cpf, nome) VALUES(DEFAULT, %s,%s,%s, 1334, 'SANTANDER', 'PLATINUM', 'CREDIT', 'VISA', 282922, 'JOAO SANTOS')           
     """
 
 try:
