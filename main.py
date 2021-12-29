@@ -46,7 +46,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 			cursor.execute(f"SELECT valor FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
 			for result in cursor.fetchone():
 			    pass
-			ADD_SALDO = saldo(message.from_user.id) + result
+			ADD_SALDO = procurar_dados(call.from_user.id)[0] + result
 			cursor.execute(f"UPDATE usuarios SET saldo = {ADD_SALDO} WHERE chat_id = {message.from_user.id}")
 			conn.commit()
 			g = gift_enviado[0:6]+'xxxxxxxx'
