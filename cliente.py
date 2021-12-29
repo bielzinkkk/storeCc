@@ -248,9 +248,7 @@ def pix_manual(call):
 def comprar_unirarias(call):
   nivel = ast.literal_eval(call.data)[1]
   if comprarunitariafuction(nivel, call.from_user.id) == True:
-    msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"Verificando a cc...")
-    time.sleep(2)
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.msg.message_id, text=pegar_cc(nivel, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(nivel, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
   else:
     bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True) 
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
