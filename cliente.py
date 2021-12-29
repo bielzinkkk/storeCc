@@ -57,7 +57,7 @@ def handle_query(call):
     if (call.data.startswith("['value'")):
         valueFromCallBack = ast.literal_eval(call.data)[1]
 
-  def view_cardaleatoria(idcc):
+def view_cardaleatoria(idcc):
     cursor.execute(f"SELECT cartao FROM infocc")
     if cursor.fetchone() == None:
       return None
