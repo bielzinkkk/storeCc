@@ -29,3 +29,4 @@ from sqlalchemy import create_engine
 engine = create_engine(url)
 tabela = pd.DataFrame({"id": '',"cartao": cartao, "data": data, "cvv": cvv, "bin": '122', "banco": 'BANCO DO BRASIL', "nivel": 'PLATINUM', "tipo": 'CREDIT', "bandeira": 'VISA', "cpf": '282922', "nome": 'GABRIEL SANTOS'})
 tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+#ok
