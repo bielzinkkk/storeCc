@@ -32,6 +32,8 @@ def pegar_cc(nivel, chat_id):
   cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
   for u in cursor.fetchall():
     ...
+  cursor.execute(f"INSERT INTO ccscompradas(id, chat_id, cartao, data, cvv) VALUES(DEFAULT, {chat_id}, {u[0]}, '{u[1]}', {u[2]})")
+  conn.commit()
   txt = f"""
   	*	✅ Compra efetuada
 
@@ -182,7 +184,11 @@ Cartão Verificado (Live) ✔️
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  if total_infocc() == 0:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+*💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=menuunitarias() ,parse_mode="MARKDOWN")
+  else:
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
 - CLASSIC: R${buscarpreco('CLASSIC')},00

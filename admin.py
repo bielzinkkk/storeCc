@@ -227,7 +227,7 @@ def gerar_gift(message):
             		cursor.execute(f"INSERT INTO gifts_cards(id, gift_gerado, valor) VALUES(DEFAULT, '{gift}', {VALOR})")
             		conn.commit()
             		bot.send_message(message.chat.id, f"""
-             * ✅ GIFT GERADO
+             * ✅ Gift gerado
 
 Gift Card gerado! O gift possuí o valor de R${VALOR}.
 
