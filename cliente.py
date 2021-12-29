@@ -191,15 +191,15 @@ def unitariascall(call):
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
-- CLASSIC: R${buscarpreco('CLASSIC')},00
-- PLATINUM: R${buscarpreco('PLATINUM')},00
-- ELO: R${buscarpreco('ELO')},00
-- CORPORATE: R${buscarpreco('CORPORATE')},00
-- GOLD: R${buscarpreco('GOLD')},00
-- BUSINESS: R${buscarpreco('BUSINESS')},00
-- STANDARD: R${buscarpreco('STANDARD')},00
-- BLACK: R${buscarpreco('BLACK')},00
-- AMEX: R${buscarpreco('AMEX')},00
+- CLASSIC: R${buscarpreco('classic')},00
+- PLATINUM: R${buscarpreco('platinum')},00
+- ELO: R${buscarpreco('elo')},00
+- CORPORATE: R${buscarpreco('corporate')},00
+- GOLD: R${buscarpreco('gold')},00
+- BUSINESS: R${buscarpreco('business')},00
+- STANDARD: R${buscarpreco('standard')},00
+- BLACK: R${buscarpreco('black')},00
+- AMEX: R${buscarpreco('amex')},00
 
 Outros níveis consultar com: {userDono}*
 
