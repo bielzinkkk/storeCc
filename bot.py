@@ -50,6 +50,6 @@ def handle_query(call):
         keyFromCallBack = ast.literal_eval(call.data)[2]
         bot.answer_callback_query(callback_query_id=call.id,
                               show_alert=True,
-                              text="You Clicked " + valueFromCallBack + " and key is"
+                              text="You Clicked " + valueFromCallBack + " and key is")
 
-bot.polling(none_stop=True, interval=0, timeout=0)
+bot.polling()
