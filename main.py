@@ -80,11 +80,11 @@ def recarga_pix(message):
 *ℹ️  A COMPRA IRÁ EXPIRAR EM 5 MINUTOS.
 ℹ️  DEPOIS DO PAGAMENTO SEU SALDO SERÁ ADICIONADO AUTOMÁTICAMENTE.*""", parse_mode="MARKDOWN")
       if status(id_pix) == True:
-        adicao = int(VALOR) + saldo(message.from_user.id)
+        adicao = int(VALOR) + procurar_dados(message.from_user.id)[0]
         sql = f"UPDATE usuarios SET saldo = {adicao} WHERE chat_id = {message.from_user.id}"
         cursor.execute(sql)
         conn.commit()
-        bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*• PAGAMENTO APROVADO!!! SEU SALDO JA ESTÁ DISPONÍVEL.🤴💰*", parse_mode="MARKDOWN")
+        bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*• PAGAMENTO APROVADO!!! SEU SALDO JA ESTÁ DISPONÍVEL.🧙🏻‍♂️💰*", parse_mode="MARKDOWN")
         notificar_recarga(id_pix, VALOR, message.from_user.first_name)
       else:
         bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*• O PAGAMENTO FOI EXPIRADO.*", parse_mode="MARKDOWN")

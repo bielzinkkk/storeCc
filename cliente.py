@@ -102,7 +102,7 @@ def aleatoriacall(call):
   *⚜️ Tipo:* `{view_cardaleatoria()[4]}`
   *💠 Nível:* `{view_cardaleatoria()[5]}`
   *🏦 Banco:* `{view_cardaleatoria()[6]}`
-  """, reply_markup=aleatoriamenu(idcc), parse_mode="MARKDOWN")
+  """, reply_markup=aleatoriamenu(view_cardaleatoria()[1]), parse_mode="MARKDOWN")
       
 
 def comprar_ccaleatoria(idcc):
