@@ -257,7 +257,7 @@ def pix_manual(call):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
 def comprar_unirarias(call):
-  nivel = ast.literal_eval(call.data)[1].lower()
+  nivel = ast.literal_eval(call.data)[1]
   if comprarunitariafuction(nivel, call.from_user.id) == True:
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(nivel, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
   else:
