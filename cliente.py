@@ -208,7 +208,8 @@ Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_
 <a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
 <a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
 <a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
+""", reply_markup=menu, parse_mode="HTML")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
@@ -336,7 +337,8 @@ Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.
 <a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
 <a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
 <a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
+""", reply_markup=menu, parse_mode="HTML")
 		if message.text == "/menu":
 			bot.send_message(message.chat.id, f"""
 	<b>🧙🏻‍♂️ | Store de Info'ccs
@@ -346,7 +348,8 @@ Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.
 <a href='https://t.me/{userDono.split("@")}'>❓ Dúvidas</a>
 <a href='https://t.me/KING_ST0RE_CHAT'>👥 Grupo</a>
 <a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>""", reply_markup=menu, parse_mode="HTML")
+<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
+""", reply_markup=menu, parse_mode="HTML")
 		elif message.text == "/resgatar":
 			bot.send_message(message.chat.id, f"""
 	*🏷️ Resgatar Gift Card*
