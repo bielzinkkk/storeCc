@@ -54,6 +54,12 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 			bot.send_message(message.chat.id,f"*✅ Gift resgatado com sucesso\n\nGift: {g}\nValor: R${result}\n\nO valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*", parse_mode="MARKDOWN")
 			cursor.execute(f"DELETE FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
 			conn.commit()
+			bot.send_message(idGroup, f"""
+    *💳 | Gift resgatado
+
+Gift: {g}
+Quem resgatou: {call.from_user.first_name}*
+    """, parse_mode="MARKDOWN")
 		except:
 			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
 
