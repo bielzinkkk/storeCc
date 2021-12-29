@@ -18,36 +18,3 @@ cursor = conn.cursor()
 
 bot = telebot.TeleBot(token)
 import ast
-import time
-from telebot import types
-
-
-def makeKeyboard():
-    cursor.execute("SELECT nivel FROM infocc")
-    v = cursor.fetchall()
-    markup = types.InlineKeyboardMarkup()
-    for i in sorted(set(v)):
-      for value in i:
-        print(value)
-        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
-     
-    return markup
-
-@bot.message_handler(commands=['test'])
-def handle_command_adminwindow(message):
-    bot.send_message(chat_id=message.chat.id,
-                     text="Here are the values of stringList",
-                     reply_markup=makeKeyboard(),
-                     parse_mode='HTML')
-
-@bot.callback_query_handler(func=lambda call: True)
-def handle_query(call):
-    global valueFromCallBack
-    if (call.data.startswith("['value'")):
-        valueFromCallBack = ast.literal_eval(call.data)[1]
-        
-def s():
-  print(valueFromCallBack)
-  
-s()
-bot.polling()

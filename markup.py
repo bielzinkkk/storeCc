@@ -42,9 +42,12 @@ def menuunitarias():
     markup = types.InlineKeyboardMarkup()
     for i in sorted(set(v)):
       for value in i:
-        markup.add(types.InlineKeyboardButton(text=value,callback_data=f"value_{value}"))
-     
-    return markupmenuunitarias.row_width = 1
+        print(value)
+        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
+        markup.row_width = 1
+        markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
+    return markup
+
 
 menuperfil = InlineKeyboardMarkup()
 menuperfil.row_width = 1

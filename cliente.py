@@ -1,6 +1,15 @@
 from bot import *
 from random import randint
 
+def buscarpreco(nivel):
+  cursor.execute("SELECT valor FROM valores WHERE nivel = '{nivel}'")
+  if cursor.fetchone() == None:
+    return 10
+  else:
+    for valor in cursor.fetchone():
+      ...
+    return valor
+
 def total_infocc():
 	cursor.execute("SELECT COUNT(*) FROM infocc")
 	for i in cursor.fetchone():
@@ -42,7 +51,11 @@ def pesquisar_bin(bin_j):
     return txt
 
 
-
+@bot.callback_query_handler(func=lambda call: True)
+def handle_query(call):
+    global valueFromCallBack
+    if (call.data.startswith("['value'")):
+        valueFromCallBack = ast.literal_eval(call.data)[1]
 
   def view_cardaleatoria(idcc):
     cursor.execute(f"SELECT cartao FROM infocc")
@@ -103,13 +116,29 @@ def comprar_ccaleatoria(idcc):
   """
       return txt
 
-@bot.callback_query_handler(func=lambda call: call.data == f"comprar_{idcc}")
-def compraraletoria(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=comprar_ccaleatoria(), reply_markup=comprouprodu, parse_mode="MARKDOWN")
-Comprar_cc()
+@bot.callback_query_handler(func=lambda call: call.data == "unitarias")
+def unitariascall(call):
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+💳 | Unitárias:*
+
+- MULTIPLO: R${buscarpreco('STANDARD')},00
+- PLATINUM: R${buscarpreco('PLATINUM')},00
+- ELO: R${buscarpreco('ELO')},00
+- CORPORATE: R${buscarpreco('CORPORATE')},00
+- GOLD: R${buscarpreco('GOLD')},00
+- BUSINESS: R${buscarpreco('BUSINESS')},00
+- STANDARD: R${buscarpreco('STANDARD')},00
+- BLACK: R${buscarpreco('BLACK')},00
+- AMEX: R${buscarpreco('AMEX')},00
+
+Outros níveis consultar com: {userDono}*
+
+_⚠️ Avisos:_
+
+*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=menuunitarias() ,parse_mode="MARKDOWN")
+
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
-	print(call.data)
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	<b>🧙🏻‍♂️ | Store de Info'ccs
 
