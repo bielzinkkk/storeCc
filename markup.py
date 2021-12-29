@@ -47,9 +47,9 @@ def verificar_valor():
   v = cursor.fetchall()
   for i in sorted(set(v)):
     for value in i:
-      cursor.execute(f"SELECT id FROM valores WHERE nivel = '{value}'")
+      cursor.execute(f"SELECT id FROM valores WHERE nivel = '{value.lower()}'")
       if cursor.fetchone() == None:
-        cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value}')")
+        cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value.lower()}')")
         conn.commit()
 verificar_valor()
 def menuunitarias():
