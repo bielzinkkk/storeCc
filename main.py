@@ -56,11 +56,6 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 		except:
 			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
 
-@bot.message_handler(commands=["recarga"])
-def recarga(message):
-	# Manutenção
-  pass
-
 @bot.message_handler(commands=['recarga'])
 def recarga_pix(message):
   verificar_existe(message.from_user.id)
