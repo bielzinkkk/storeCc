@@ -69,28 +69,28 @@ def document(message):
 				with open(path,'wb') as new_file:
 					new_file.write(downloaded_file)
 					new_file.close()
-			  bot.send_message(message.chat.id, "Adicionando...")
-			  i = open(path, "r")
-			  samples = i.read()
-			  cards = [split_card(card) for card in samples.strip().split("\n")]
-			  cartao = []
-			  data = []
-			  cvv = []
-			  for row in cards:
-			    cartao.append((row['cartao']))
-			    data.append((row['data']))
-			    cvv.append((row['cvv']))
-        bin_cc = []
-        banco = []
-        tipo = []
-        nivel = []
-        bandeira = []
-        cpf = []
-        nome = []
-        for u in cartao:
-          line1 = ','.join(u)
-          h = line1[0:12].replace(",", "")
-          js = {
+				bot.send_message(message.chat.id, "Adicionando...")
+				i = open(path, "r")
+				samples = i.read()
+				cards = [split_card(card) for card in samples.strip().split("\n")]
+				cartao = []
+				data = []
+				cvv = []
+				for row in cards:
+				  cartao.append((row['cartao']))
+				  data.append((row['data']))
+				  cvv.append((row['cvv']))
+				bin_cc = []
+				banco = []
+				tipo = []
+				nivel = []
+				bandeira = []
+				cpf = []
+				nome = []
+				for u in cartao:
+				  line1 = ','.join(u)
+				  h = line1[0:12].replace(",", "")
+				  js = {
             "bin": h
           }
           response2 = requests.get("https://lookup.binlist.net/"+h)
