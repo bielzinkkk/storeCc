@@ -73,7 +73,7 @@ def recarga_pix(message):
       print(requests)
       response = request.json()
       print(response)
-      pix = response['point_of_interaction']['transaction_data']['qr_code']
+      pix = "Nada"
       msg = bot.send_message(message.chat.id, f"""
     *✅ PAGAMENTO GERADO
 
