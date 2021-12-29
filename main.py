@@ -58,7 +58,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
     *💳 | Gift resgatado
 
 Gift: {g}
-Quem resgatou: {call.from_user.first_name}*
+Quem resgatou: {message.from_user.first_name}*
     """, parse_mode="MARKDOWN")
 		except:
 			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
