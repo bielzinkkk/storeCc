@@ -71,7 +71,7 @@ def buscar_ccscompradas(chat_id):
 	if cursor.fetchone() == None:
 		return "Não possui nenhuma cc comprada"
 	else:
-		cursor.execute(f"SELECT cartao, data, cvv FROM ccscompradas WHERE chat_id = {chat_id}")
+		cursor.execute(f"SELECT * FROM ccscompradas WHERE chat_id = {chat_id}")
 		for y in cursor.fetchall():
 			...
 		return y
