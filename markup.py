@@ -47,8 +47,8 @@ def menuunitarias():
       for value in i:
         print(value)
         markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
-        markup.row_width = 1
-        markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
+    markup.row_width = 1
+    markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
     return markup
 
 
