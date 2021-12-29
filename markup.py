@@ -42,11 +42,11 @@ def binmenu():
 def menuunitarias():
     cursor.execute("SELECT nivel FROM infocc")
     v = cursor.fetchall()
-    markup = types.InlineKeyboardMarkup()
+    markup = InlineKeyboardMarkup()
     for i in sorted(set(v)):
       for value in i:
         print(value)
-        markup.add(types.InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
+        markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
         markup.row_width = 1
         markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
     return markup
