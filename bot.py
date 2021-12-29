@@ -42,13 +42,12 @@ def handle_command_adminwindow(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
-
+    global valueFromCallBack
     if (call.data.startswith("['value'")):
-        print(f"call.data : {call.data} , type : {type(call.data)}")
-        print(f"ast.literal_eval(call.data) : {ast.literal_eval(call.data)} , type : {type(ast.literal_eval(call.data))}")
         valueFromCallBack = ast.literal_eval(call.data)[1]
-        bot.answer_callback_query(callback_query_id=call.id,
-                              show_alert=True,
-                              text="You Clicked " + valueFromCallBack + " and key is")
-
+        
+def s():
+  print(valueFromCallBack)
+  
+s()
 bot.polling()
