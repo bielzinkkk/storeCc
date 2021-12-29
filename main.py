@@ -58,7 +58,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 
 @bot.message_handler(commands=['recarga'])
 def recarga_pix(message):
-  verificar_existe(message.from_user.id)
+  verificar_existe(message.from_user.id, message.from_user.username)
   if message.text == "/recarga":
     bot.send_message(message.chat.id, "*Digite /recarga + o valor que deseja.*", parse_mode="MARKDOWN")
   elif message.text == "/recarga@RedzinVendSBot":
