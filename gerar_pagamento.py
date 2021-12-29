@@ -18,7 +18,7 @@ def expiration():
     return a[:23]+a[26:]
 
 def gerar_pagamento(valor):
-        sdk = mercadopago.SDK("APP_USR-6957443970470439-111320-82c9e0f14ae9cc53ffb6151facfba46b-1008178867")
+        sdk = mercadopago.SDK("APP_USR-1780433851436590-122801-411291e600aba8df8c92c6a0fb0e8d45-335804746")
         payment_data = {
             "transaction_amount": float(str(valor)+'.00'),
             "description": "INFO CC",
