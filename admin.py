@@ -90,29 +90,27 @@ def document(message):
 				for u in cartao:
 				  line1 = ','.join(u)
 				  h = line1[0:12].replace(",", "")
-				  js = {
-            "bin": h
-          }
-          response2 = requests.get("https://lookup.binlist.net/"+h)
-          response = response2.json()
-          bin_cc.append((js['bin']))
-          if response2.status_code != 400:
-            banco1 = response["bank"]
-            tipo.append((response["type"].upper()))
-            nivel.append((response["brand"].upper()))
-            bandeira.append((response["scheme"].upper()))
-            if banco1 == {}:
-              banco.append(("Não disponível"))
-            else:
-              banco.append((banco1["name"]))
-          res = requests.get("https://cubetechnology.org/api").json()
-          cpf.append((str(res['cpf'])))
-          nome_int = res['name'] + " " + res['lastname']
-          nome.append((nome_int))
-        engine = create_engine(url)
-			  tabela = pd.DataFrame({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome})
-			  tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
-        bot.send_message(message.chat.id, "Cc's adicionadas")
+				  js = {"bin": h}
+				  response2 = requests.get("https://lookup.binlist.net/"+h)
+				  response = response2.json()
+				  bin_cc.append((js['bin']))
+				  if response2.status_code != 400:
+				    banco1 = response["bank"]
+				    tipo.append((response["type"].upper()))
+				    nivel.append((response["brand"].upper()))
+				    bandeira.append((response["scheme"].upper()))
+				    if banco1 == {}:
+				      banco.append(("Não disponível"))
+				    else:
+				      banco.append((banco1["name"]))
+				  res = requests.get("https://cubetechnology.org/api").json()
+				  cpf.append((str(res['cpf'])))
+				  nome_int = res['name'] + " " + res['lastname']
+				  nome.append((nome_int))
+				engine = create_engine(url)
+				tabela = pd.DataFrame({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome})
+				tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+				bot.send_message(message.chat.id, "Cc's adicionadas")
  
 
 @bot.message_handler(content_types=['photo'])
