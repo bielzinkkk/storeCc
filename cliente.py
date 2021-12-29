@@ -32,8 +32,6 @@ def pegar_cc(nivel, chat_id):
   cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
   for u in cursor.fetchall():
     ...
-  cursor.execute(f"INSERT INTO ccscompradas(id, chat_id, cartao, data, cvv) VALUES(DEFAULT, {chat_id}, {u[0]}, '{u[1]}', {u[2]})")
-  conn.commit()
   txt = f"""
   	*	✅ Compra efetuada
 
