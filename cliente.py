@@ -62,12 +62,6 @@ def pesquisar_bin(bin_j):
     return txt
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def handle_query(call):
-    global valueFromCallBack
-    if (call.data.startswith("['value'")):
-        valueFromCallBack = ast.literal_eval(call.data)[1]
-
 def view_cardaleatoria(idcc):
     cursor.execute(f"SELECT cartao FROM infocc")
     if cursor.fetchone() == None:
