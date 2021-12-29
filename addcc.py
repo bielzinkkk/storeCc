@@ -17,11 +17,11 @@ def split_card(card) -> dict:
   
 cards = [split_card(card) for card in samples.strip().split("\n")]
 itemBank = [] 
-for row in rows:
+for row in cards:
     itemBank.append((
-        cards['cartao'],
-        cards['data'],
-        cards['cvv'],
+        row['cartao'],
+        row['data'],
+        row['cvv'],
         )) #append data
 
 
