@@ -15,8 +15,8 @@ def total_infocc():
     cursor.execute("SELECT COUNT(*) FROM infocc")
     for i in cursor.fetchone():
       ...
-    return i 
-	except:
+    return i
+  except:
 	  cursor.execute("ROLLBACK")
 	  conn.commit()
 
