@@ -46,8 +46,7 @@ def handle_query(call):
     if (call.data.startswith("['valor'")):
         print(f"call.data : {call.data} , type : {type(call.data)}")
         print(f"ast.literal_eval(call.data) : {ast.literal_eval(call.data)} , type : {type(ast.literal_eval(call.data))}")
-        valueFromCallBack = ast.literal_eval(call.data)
-        keyFromCallBack = ast.literal_eval(call.data)[2]
+        valueFromCallBack = ast.literal_eval(call.data)[1]
         bot.answer_callback_query(callback_query_id=call.id,
                               show_alert=True,
                               text="You Clicked " + valueFromCallBack + " and key is")
