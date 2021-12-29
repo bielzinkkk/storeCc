@@ -47,7 +47,7 @@ def verificar_valor():
   v = cursor.fetchall()
   for i in sorted(set(v)):
     for value in i:
-      cursor.execute(f"SELECT id FRON valores WHERE nivel = '{value}'")
+      cursor.execute(f"SELECT id FROM valores WHERE nivel = '{value}'")
       if cursor.fetchone() == None:
         cursor.execute(f"INSERT INTO valores(id, valor, nivel) VALUES(DEFAULT, 10, '{value}')")
         conn.commit()
