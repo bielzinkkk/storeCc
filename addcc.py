@@ -11,9 +11,9 @@ samples = i.read()
 def split_card(card) -> dict:
   splited = card.split("|")
   return {
-    "cartao": int(splited[0]),
+    "cartao": splited[0],
     "data": splited[1] + "/" + splited[2],
-    "cvv": int(splited[3])
+    "cvv": splited[3]
   }
   
 cards = [split_card(card) for card in samples.strip().split("\n")]
