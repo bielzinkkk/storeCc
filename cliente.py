@@ -49,6 +49,7 @@ def pegar_cc(nivel, chat_id):
 Cartão Verificado (Live) ✔️
 """
   cursor.execute(f"DELETE FROM infocc WHERE cartao = '{u[0]}'")
+  conn.commit()
   return txt
     
 

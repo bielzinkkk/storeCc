@@ -47,16 +47,13 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 			for result in cursor.fetchone():
 			    pass
 			ADD_SALDO = procurar_dados(message.from_user.id)[0] + result
-			cursor.execute(f"UPDATE usuarios SET saldo = {ADD_SALDO} WHERE chat_id = {message.from_user.id}")
+			total = procurar_dados(message.from_user.id)[2] + 1
+			cursor.execute(f"UPDATE usuarios SET saldo = {ADD_SALDO}, gifts = {total} WHERE chat_id = {message.from_user.id}")
 			conn.commit()
 			g = gift_enviado[0:6]+'xxxxxxxx'
 			bot.send_message(message.chat.id,f"*✅ Gift resgatado com sucesso\n\nGift: {g}\nValor: R${result}\n\nO valor foi adicionado na sua conta! Aproveite e compre suas info'ccs.*", parse_mode="MARKDOWN")
 			cursor.execute(f"DELETE FROM gifts_cards WHERE gift_gerado = '{gift_enviado}'")
 			conn.commit()
-			total = procurar_dados(message.from_user.id)[2] + 1
-			cursor.execute(f"UPDATE usuarios SET gifts = {total} WHERE chat_id = {chat_id}")
-			conn.commit()
-
 		except:
 			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")
 
