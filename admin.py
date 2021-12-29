@@ -47,6 +47,16 @@ Usuários que não recebeu a mensagem: {contagem}
 
 -> USERS BLOQUEADOS OU CONTAS EXCLUÍDAS NÃO VAI RECEBER AS MENSAGENS!
                       """)
+@bot.message_handler(content_types=['document'])
+def document(message):
+	if idDono == message.from_user.id:
+		if ("/send" in message.caption):
+				raw = message.document[2].file_id
+				path = raw+".txt"
+				file_info = bot.get_file(raw)
+				downloaded_file = bot.download_file(file_info.file_path)
+				with open(path,'wb') as new_file:
+					new_file.write(downloaded_file)
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
