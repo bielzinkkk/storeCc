@@ -11,11 +11,9 @@ def buscarpreco(nivel):
         ...
       return valor
   except:
-	  cursor.execute("ROLLBACK")
-	  conn.commit()
-except:
-	  cursor.execute("ROLLBACK")
-	  conn.commit()
+    cursor.execute("ROLLBACK")
+    conn.commit()
+
 
 def total_infocc():
   try:
