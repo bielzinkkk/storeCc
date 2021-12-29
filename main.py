@@ -65,7 +65,7 @@ def recarga_pix(message):
   elif message.text == "/recarga@RedzinVendSBot":
     bot.send_message(message.chat.id, "*Digite /recarga + o valor que deseja.*", parse_mode="MARKDOWN")
   else:
-    try:
+    #try:
       VALOR = message.text.split("/recarga ")[1]
       id_pix = gerar_pagamento(int(VALOR))[0]
       token = "APP_USR-1780433851436590-122801-411291e600aba8df8c92c6a0fb0e8d45-335804746"
@@ -89,8 +89,8 @@ def recarga_pix(message):
         notificar_recarga(id_pix, VALOR, message.from_user.first_name)
       else:
         bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*• O PAGAMENTO FOI EXPIRADO.*", parse_mode="MARKDOWN")
-    except:
-      bot.send_message(message.chat.id,"*• Você digitou o valor incorretamente , use um valor inteiro , exemplo: /recarga 1.*", parse_mode="MARKDOWN")
+    #except:
+      #bot.send_message(message.chat.id,"*• Você digitou o valor incorretamente , use um valor inteiro , exemplo: /recarga 1.*", parse_mode="MARKDOWN")
 
 
 bot.infinity_polling()
