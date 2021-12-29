@@ -11,10 +11,15 @@ def buscarpreco(nivel):
     return valor
 
 def total_infocc():
-	cursor.execute("SELECT COUNT(*) FROM infocc")
-	for i in cursor.fetchone():
-		...
-	return i
+  try:
+    cursor.execute("SELECT COUNT(*) FROM infocc")
+    for i in cursor.fetchone():
+      ...
+    return i 
+	except:
+	  cursor.execute("ROLLBACK")
+	  conn.commit()
+
 
 def verificar_existe(chat_id, usuario):
     try:
