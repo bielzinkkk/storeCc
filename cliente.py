@@ -72,12 +72,12 @@ def procurar_dados(chat_id):
 		return s[0], s[1], s[2], s[3]
 
 
-def view_cardaleatoria(idcc):
+def view_cardaleatoria():
     cursor.execute(f"SELECT cartao FROM infocc")
     if cursor.fetchone() == None:
       return None
     else:
-      cursor.execute(f"SELECT cartao FROM infocc WHERE id = {idcc}")
+      cursor.execute(f"SELECT cartao FROM infocc")
       for cc in cursor.fetchone():
         ...
       cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
@@ -181,6 +181,11 @@ def pixautomatico(call):
 ⚠️ Depois de realizar o pagamento não possuirá devolução_
 	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
 
+@bot.callback_query_handler(func=lambda call: True)
+def handle_query(call):
+    global valueFromCallBack
+    if (call.data.startswith("['value'")):
+        valueFromCallBack = ast.literal_eval(call.data)[1]
 
 @bot.callback_query_handler(func=lambda call: call.data == "add_saldo")
 def menu_addsaldocall(call):
@@ -316,5 +321,5 @@ _- Avisos_
 *Pix Automático ativo.
 
 Total de Ccs:* `{total_infocc()}`
-*Saldo Disponível:* `R{procurar_dados(call.from_user.id)[0]}`
+*Saldo Disponível:* `R${procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
