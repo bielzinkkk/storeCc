@@ -1,7 +1,7 @@
 import json 
 import pandas as pd
 import psycopg2
-from random import randint
+from random import randiny
 url = "postgresql://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 con = psycopg2.connect(url)
 cursor = con.cursor()
@@ -28,11 +28,6 @@ for row in cards:
 print(cartao)
 from sqlalchemy import create_engine
 engine = create_engine(url)
-result = []
-while len(result) != 4:
-    r = randint(0, 100)
-    if r not in result:
-        result.append(r)
-tabela = pd.DataFrame({"id": result,"cartao": cartao, "data": data, "cvv": cvv, "bin": '122', "banco": 'BANCO DO BRASIL', "nivel": 'PLATINUM', "tipo": 'CREDIT', "bandeira": 'VISA', "cpf": '282922', "nome": 'GABRIEL SANTOS'})
+tabela = pd.DataFrame({"cartao": cartao, "data": data, "cvv": cvv, "bin": '122', "banco": 'BANCO DO BRASIL', "nivel": 'PLATINUM', "tipo": 'CREDIT', "bandeira": 'VISA', "cpf": '282922', "nome": 'GABRIEL SANTOS'})
 tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
 #ok
