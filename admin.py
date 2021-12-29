@@ -1,4 +1,4 @@
-from bot import *
+from cliente import *
 import string
 import random
 import requests
