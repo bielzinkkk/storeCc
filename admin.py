@@ -22,7 +22,7 @@ def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
 def update_valores(tipo, valor):
 	cursor.execute(f"UPDATE valores SET valor = {valor} WHERE nivel = '{tipo}'")
 	conn.commit()
-  
+ 
 def procurar_usuario(chat_id):
 	cursor.execute(f"SELECT saldo FROM usuarios WHERE chat_id = {chat_id}")
 	if cursor.fetchone() == None:
@@ -47,19 +47,8 @@ Ex:* _/send + a mensagem que deseja enviar_
                 cursor.execute("SELECT chat_id FROM usuarios")
                 for lista in cursor.fetchall():
                     for s in lista:
-                      try:
-                        bot.send_message(s, MSG, parse_mode="MARKDOWN")
-                      except: 
-                        contagem += 1
-                        continue
-                bot.send_message(message.chat.id, f"""
-                     📁 Mensagem Enviada
-
-Mensagem: {MSG}
-Usuários que não recebeu a mensagem: {contagem} 
-
--> USERS BLOQUEADOS OU CONTAS EXCLUÍDAS NÃO VAI RECEBER AS MENSAGENS!
-                      """)
+                      s=requests.post(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={s}&text={MSG}&parse_mode=MARKDOWN")
+     
 @bot.message_handler(content_types=['document'])
 def document(message):
 	if idDono == message.from_user.id:
