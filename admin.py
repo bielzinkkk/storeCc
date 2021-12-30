@@ -20,7 +20,6 @@ def verificar_admin(chat_id):
     conn.commit()
 
 def split_card(card) -> dict:
-      print(card)
       splited = card.split("|")
       return {
         "cartao": splited[0],
