@@ -12,7 +12,7 @@ menu.add(InlineKeyboardButton("👤 Perfil", callback_data="perfil"),
 InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"))
 menu.row_width = 2
 menu.add(InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"),
-InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG")
+InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"))
 
 
 aguardando = InlineKeyboardMarkup()
