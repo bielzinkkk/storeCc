@@ -206,7 +206,11 @@ def back_menu(call):
 ☑️SO GARANTIMOS LIVE!!
 ☑️NÃO GARANTIMOS SALDO!!
 ☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
-☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!
+
+☑️REF: @REFKG
+☑️GRUPO: @KINGSTORECHAT
+*""", reply_markup=menu, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
@@ -333,44 +337,16 @@ def pes_bin(call):
 	
 def bin_pesquisa(message):
 	try:
-		if message.text == "/start":
-			bot.send_message(message.chat.id, f"""
-	*⚠️BEM VINDO A KING STORE⚠️
-
-☑️SO GARANTIMOS LIVE!!
-☑️NÃO GARANTIMOS SALDO!!
-☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
-☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
-		if message.text == "/menu":
-			bot.send_message(message.chat.id, f"""
-*	⚠️BEM VINDO A KING STORE⚠️
-
-☑️SO GARANTIMOS LIVE!!
-☑️NÃO GARANTIMOS SALDO!!
-☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
-☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
-		elif message.text == "/resgatar":
-			bot.send_message(message.chat.id, f"""
-	*🏷️ Resgatar Gift Card*
-
-_- Modo de uso:_
-*Para resgatar seu gift card apenas digite /resgatar [ gift card ]*
-
-_- Avisos:_
-*O código é só utilizado uma vez!
-Quando creditar na conta , o gift será apago do bot, sem reutilização!*
-""", reply_markup=menu, parse_mode="MARKDOWN")
-
-		elif len(message.text) >= 6:
-			 try:
-			 	bin_s = message.text[0:6]
-			 	bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
-			 except:
-			 	bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
-		else:
-			pass
-	except:
+	  if len(message.text) >= 6:
+	    try:
+	      bin_s = message.text[0:6]
+	      bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
+	    except:
+	      bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
+	  else:
 	  pass
+	except:
+	 pass
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
 def comprar(call):
   

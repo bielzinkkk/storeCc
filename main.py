@@ -11,7 +11,10 @@ def menu_inicial(message):
 ☑️SO GARANTIMOS LIVE!!
 ☑️NÃO GARANTIMOS SALDO!!
 ☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
-☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!
+
+☑️REF: @REFKG
+☑️GRUPO: @KINGSTORECHAT*""", reply_markup=menu, parse_mode="MARKDOWN")
 
 @bot.message_handler(commands=["resgatar"])
 def resgatar(message):
