@@ -141,9 +141,9 @@ def comprarunitariafuction(idcc, chat_id):
   if procurar_dados(chat_id)[0] >= preco:
     cursor.execute(f"UPDATE usuarios SET saldo = {total}, compras = {total2} WHERE chat_id = {chat_id}")
     conn.commit()
-    return "True", nivel
+    return "Sim", nivel
   else:
-    return False
+    return "Não"
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
@@ -233,7 +233,7 @@ def viewlal_unirarias(call):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
 def comprarlal_unirarias(call):
   idcc = ast.literal_eval(call.data)[1]
-  if comprarunitariafuction(idcc, call.from_user.id)[0] == "True":
+  if comprarunitariafuction(idcc, call.from_user.id)[0] == "Sim":
     nivel = comprarunitariafuction(idcc, call.from_user.id)[1]
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(idcc, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
     bot.send_message(idGroup, f"""
