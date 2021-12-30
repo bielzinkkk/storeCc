@@ -234,7 +234,7 @@ def pix_manual(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*💸 Pix Manual
 
-🔑 Chave ( EMAIL ):* `tiagolordeofc@gmail.com`
+🔑 Chave ( EMAIL ):* `indeed.company.jobs@gmail.com`
 *👤 Nome da conta bancária:* `MARCOS RAFAEL`
 
 *- Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.*
