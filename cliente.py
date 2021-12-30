@@ -373,7 +373,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 	  pass
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
 def comprar(call):
-  #menucompraf
+  
   verificar_existe(call.from_user.id, call.from_user.username)
   bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*Escolha a opção adequada ao seus propósitos*
@@ -382,5 +382,4 @@ _- Avisos_
 *O checker está ativo
 
 Total de Ccs:* `{total_infocc()}`
-*Saldo Disponível:* `R${procurar_dados(call.from_user.id)[0]}`
 	""", reply_markup=menucomprar, parse_mode="MARKDOWN")
