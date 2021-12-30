@@ -15,6 +15,7 @@ def menu_inicial(message):
 
 @bot.message_handler(commands=["resgatar"])
 def resgatar(message):
+  verificar_existe(message.from_user.id, message.from_user.username)
 	if message.text == "/resgatar":
 		bot.send_message(message.chat.id, """
 		*🏷️ Resgatar Gift Card*
