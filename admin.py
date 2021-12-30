@@ -4,6 +4,7 @@ import random
 import requests
 from sqlalchemy import create_engine
 import pandas as pd
+import fordev
 url2 = "postgresql://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 
 def split_card(card) -> dict:
@@ -107,9 +108,9 @@ def document(message):
 				        banco.append((banco1["name"]))
 				  except:
 				    continue
-				  res = requests.get("https://cubetechnology.org/api").json()
-				  cpf.append((str(res['cpf'])))
-				  nome_int = res['name'] + " " + res['lastname']
+				  cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
+				  cpf.append((str(cp)))
+				  nome_int = "João Menezes Santana"
 				  nome.append((nome_int))
 				engine = create_engine(url2)
 				tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
