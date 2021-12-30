@@ -3,7 +3,7 @@ from random import randint
 
 def buscarpreco(nivel):
   try:
-    cursor.execute("SELECT valor FROM valores WHERE nivel = '{nivel}'")
+    cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{nivel}'")
     if cursor.fetchone() == None:
       return 10
     else:
