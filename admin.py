@@ -94,16 +94,19 @@ def document(message):
 				  js = {"bin": h}
 				  response2 = requests.get("https://lookup.binlist.net/"+h)
 				  bin_cc.append((js['bin']))
-				  if response2.status_code != 400:
-				    response = response2.json()
-				    banco1 = response["bank"]
-				    tipo.append((response["type"].upper()))
-				    nivel.append((response["brand"].upper()))
-				    bandeira.append((response["scheme"].upper()))
-				    if banco1 == {}:
-				      banco.append(("Não disponível"))
-				    else:
-				      banco.append((banco1["name"]))
+				  try:
+				    if response2.status_code != 400:
+				      response = response2.json()
+				      banco1 = response["bank"]
+				      tipo.append((response["type"].upper()))
+				      nivel.append((response["brand"].upper()))
+				      bandeira.append((response["scheme"].upper()))
+				      if banco1 == {}:
+				        banco.append(("Não disponível"))
+				      else:
+				        banco.append((banco1["name"]))
+				  except:
+				    continue
 				  res = requests.get("https://cubetechnology.org/api").json()
 				  cpf.append((str(res['cpf'])))
 				  nome_int = res['name'] + " " + res['lastname']
