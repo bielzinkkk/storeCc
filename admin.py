@@ -202,10 +202,10 @@ def adicionar_cemixc(message):
   📥 Adicionar cc ou mix
 
 - Adicionar mix:
-Crie um arquivo com a extensão .txt e coloque suas ccs! Depois envie no chat do bot com o comando /mix ( Manutenção )
+Para adicionar mix vc digita o comando /mix + as ccs que deseja adicionar
 
 - Adicionar cc:
-Crie um arquivo com a extensão .txt e coloque suas ccs! Depois envie no chat do bot com o comando /cc
+Para adicionar cc vc digita o comando /cc + as ccs que deseja adicionar
 
 Pode adicionar quanta cc quiser.
   """)
