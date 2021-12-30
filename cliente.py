@@ -233,7 +233,7 @@ def viewlal_unirarias(call):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
 def comprarlal_unirarias(call):
   idcc = ast.literal_eval(call.data)[1]
-  if comprarunitariafuction(idcc, call.from_user.id) == True:
+  if comprarunitariafuction(idcc, call.from_user.id)[0] == True:
     nivel = comprarunitariafuction(idcc, call.from_user.id)[1]
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(idcc, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
     bot.send_message(idGroup, f"""
