@@ -64,50 +64,50 @@ Ex:* _/send + a mensagem que deseja enviar_
 @bot.message_handler(commands=['cc'])
 def document(message):
 	if verificar_admin(message.from_user.id) == True:
-		    samples = message.text.split("/cc ")[1]
-				cards = [split_card(card) for card in samples.strip().split("\n")]
-				cartao = []
-				data = []
-				cvv = []
-				for row in cards:
-				  cartao.append((row['cartao']))
-				  data.append((row['data']))
-				  cvv.append((row['cvv']))
-				bin_cc = []
-				banco = []
-				tipo = []
-				nivel = []
-				bandeira = []
-				cpf = []
-				nome = []
-				for u in cartao:
-				  line1 = ','.join(u)
-				  h = line1[0:12].replace(",", "")
-				  js = {"bin": h}
-				  response2 = requests.get("https://lookup.binlist.net/"+h)
-				  bin_cc.append((js['bin']))
-				  try:
-				    if response2.status_code != 400:
-				      response = response2.json()
-				      banco1 = response["bank"]
-				      tipo.append((response["type"].upper()))
-				      nivel.append((response["brand"].upper()))
-				      bandeira.append((response["scheme"].upper()))
-				      if banco1 == {}:
-				        banco.append(("Não disponível"))
-				      else:
-				        banco.append((banco1["name"]))
-				  except:
-				    continue
-				  cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
-				  cpf.append((str(cp)))
-				  nome_int = "João Menezes Santana"
-				  nome.append((nome_int))
-				engine = create_engine(url2)
-				tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
-				tabela = tabela.transpose()
-				tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
-				bot.send_message(message.chat.id, "Cc's adicionadas")
+	  samples = message.text.split("/cc ")[1]
+	  cards = [split_card(card) for card in samples.strip().split("\n")]
+	  cartao = []
+	  data = []
+	  cvv = []
+	  for row in cards:
+	    cartao.append((row['cartao']))
+	    data.append((row['data']))
+	    cvv.append((row['cvv']))
+	  bin_cc = []
+	  banco = []
+	  tipo = []
+	  nivel = []
+	  bandeira = []
+	  cpf = []
+	  nome = []
+	  for u in cartao:
+	    line1 = ','.join(u)
+	    h = line1[0:12].replace(",", "")
+	    js = {"bin": h}
+	    response2 = requests.get("https://lookup.binlist.net/"+h)
+	    bin_cc.append((js['bin']))
+	    try:
+	      if response2.status_code != 400:
+	        response = response2.json()
+	        banco1 = response["bank"]
+	        tipo.append((response["type"].upper()))
+	        nivel.append((response["brand"].upper()))
+	        bandeira.append((response["scheme"].upper()))
+	        if banco1 == {}:
+	          banco.append(("Não disponível"))
+	        else:
+	          banco.append((banco1["name"]))
+	    except:
+	      continue
+	    cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
+	    cpf.append((str(cp)))
+	    nome_int = "João Menezes Santana"
+	    nome.append((nome_int))
+	  engine = create_engine(url2)
+	  tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
+	  tabela = tabela.transpose()
+	  tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+	  bot.send_message(message.chat.id, "Cc's adicionadas")
  
 
 @bot.message_handler(content_types=['photo'])
