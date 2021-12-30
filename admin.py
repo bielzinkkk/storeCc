@@ -101,12 +101,14 @@ def document(message):
 	      continue
 	    cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
 	    cpf.append((str(cp)))
-	    nome_int = "João Menezes Santana"
+	    nome_int = fordev.generators.people(uf_code="SP")['nome']
 	    nome.append((nome_int))
 	  engine = create_engine(url2)
 	  tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
 	  tabela = tabela.transpose()
 	  tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+	  cursor.execute("delete from infocc where not (infocc is not null);")
+	  conn.commit()
 	  bot.send_message(message.chat.id, "Cc's adicionadas")
  
 
