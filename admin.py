@@ -93,9 +93,9 @@ def document(message):
 				  h = line1[0:12].replace(",", "")
 				  js = {"bin": h}
 				  response2 = requests.get("https://lookup.binlist.net/"+h)
-				  response = response2.json()
 				  bin_cc.append((js['bin']))
 				  if response2.status_code != 400:
+				    response = response2.json()
 				    banco1 = response["bank"]
 				    tipo.append((response["type"].upper()))
 				    nivel.append((response["brand"].upper()))
