@@ -26,10 +26,31 @@ def total_infocc():
 	  cursor.execute("ROLLBACK")
 	  conn.commit()
 
-def pegar_cc(nivel, chat_id):
-  cursor.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}'")
+def viewccunitarias(nivel):
+  cursor.execute(f"SELECT id FROM infocc WHERE  nivel = '{nivel}'")
   for idcc in cursor.fetchone():
     ...
+  cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, bin FROM infocc WHERE id = {idcc}")
+  for u in cursor.fetchall():
+    ...
+  cvv = "xxx"
+  cartao = u[5] + "xxxxxxxxxx"
+  txt = f"""
+  💳 | Informações do Cartão
+
+💳 Cartão:* `{cartao}`
+*📆 Expiração:* `{u[0]}`
+*🔒 Cvv:* `{cvv}`
+*🏳️ Bandeira:* `{u[1]}`
+*⚜️ Tipo:* `{u[2]}`
+*💠 Nível:* `{u[3]}`
+*🏦 Banco:* `{u[4]}`
+
+*💸 Preço:* `R${buscarpreco(nivel)},00`
+  """
+  return txt, idcc
+    
+def pegar_cc(idcc, chat_id):
   cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
   for u in cursor.fetchall():
     ...
@@ -110,67 +131,24 @@ def procurar_dados(chat_id):
 		return s[0], s[1], s[2], s[3]
 
 
-def comprarunitariafuction(nivel, chat_id):
+def comprarunitariafuction(idcc, chat_id):
+  cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
+  for nivel in cursor.fetchone():
+    ...
   preco = buscarpreco(nivel)
   total = procurar_dados(chat_id)[0] - preco
   total2 = procurar_dados(chat_id)[3] + 1
   if procurar_dados(chat_id)[0] >= preco:
     cursor.execute(f"UPDATE usuarios SET saldo = {total}, compras = {total2} WHERE chat_id = {chat_id}")
     conn.commit()
-    return True
+    return True, nivel
   else:
     return False
 
 
-def view_cardaleatoria():
-    cursor.execute(f"SELECT cartao FROM infocc")
-    if cursor.fetchone() == None:
-      return None
-    else:
-      cursor.execute(f"SELECT cartao FROM infocc")
-      for cc in cursor.fetchone():
-        ...
-      cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
-      cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = {cc}")
-      for u in cursor.fetchall():
-        ...
-      return cartao, u[0], u[1], u[2], u[3], u[4], u[5]
-
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
-    if view_cardaleatoria() == None:
-      bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="""
-  	*❌ Não possuimos estoque no momento, tente mais tarde...*
-  """,reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
-    else:
-      bot.answer_callback_query(callback_query_id=call.id , text="Manutenção.", show_alert=True) 
-
-
-def comprar_ccaleatoria(idcc):
-    cursor.execute(f"SELECT nome FROM infocc WHERE id = {idcc}")
-    if cursor.fetchone() == None:
-      return "Esse cartão ja foi comprado! Tente atualizar e comprar uma cc que deseja."
-    else:
-      cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {self.idcc}")
-      for u in cursor.fetchall():
-      	...
-      txt = f"""
-  	*	✅ Compra efetuada
-
-💳 Cartão:* `{u[0]}`
-*📆 Expiração:* `{u[1]}`
-*🔒 Cvv:* `{u[2]}`
-*🏳️ Bandeira:* `{u[3]}`
-*⚜️ Tipo:* `{u[4]}`
-*💠 Nível:* `{u[5]}`
-*🏦 Banco:* `{u[6]}`
-
-*👤 Nome:* `{u[8]}`
-*📁 Cpf:* `{u[7]}`
-
-Cartão Verificado (Live) ✔️
-"""
-      return txt
+  bot.answer_callback_query(callback_query_id=call.id , text="Manutenção.", show_alert=True) 
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
@@ -247,10 +225,17 @@ def pix_manual(call):
 	""", reply_markup=voltar_addsaldo, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
-def comprar_unirarias(call):
+def viewlal_unirarias(call):
   nivel = ast.literal_eval(call.data)[1]
-  if comprarunitariafuction(nivel, call.from_user.id) == True:
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(nivel, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
+  idcc = viewccunitarias(nivel)[1]
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=viewccunitarias(nivel)[0], reply_markup=comprarcc_s(idcc),parse_mode="MARKDOWN")
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
+def comprarlal_unirarias(call):
+  idcc = ast.literal_eval(call.data)[1]
+  if comprarunitariafuction(idcc, call.from_user.id) == True:
+    nivel = comprarunitariafuction(idcc, call.from_user.id)[1]
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=pegar_cc(idcc, call.from_user.id), reply_markup=comprouprodu,parse_mode="MARKDOWN")
     bot.send_message(idGroup, f"""
     *💳 | Cartão Comprado
 
@@ -259,6 +244,8 @@ Comprador: {call.from_user.first_name}*
     """, parse_mode="MARKDOWN")
   else:
     bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True) 
+
+
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
 	txt = f"""📄 Seu Histórico
