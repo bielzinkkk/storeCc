@@ -6,15 +6,12 @@ from admin import *
 def menu_inicial(message):
 	verificar_existe(message.from_user.id, message.from_user.username)
 	bot.send_message(message.chat.id, f"""
-	<b>🧙🏻‍♂️ | Store de Info'ccs
+	*⚠️BEM VINDO A KING STORE⚠️
 
-Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
-
-<a href='https://t.me/LORDEKG'>❓ Dúvidas</a>
-<a href='https://t.me/KINGST0RECHAT'>👥 Grupo</a>
-<a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+☑️SO GARANTIMOS LIVE!!
+☑️NÃO GARANTIMOS SALDO!!
+☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
 
 @bot.message_handler(commands=["resgatar"])
 def resgatar(message):
@@ -58,7 +55,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
     *💳 | Gift resgatado
 
 Gift: {g}
-Quem resgatou: {message.from_user.first_name}*
+Quem resgatou: {call.from_user.first_name}*
     """, parse_mode="MARKDOWN")
 		except:
 			bot.send_message(message.chat.id,"*❌ Gift Card inválido ou já foi resgatado!*", parse_mode="MARKDOWN")

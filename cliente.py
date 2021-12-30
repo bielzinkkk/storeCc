@@ -201,15 +201,12 @@ _⚠️ Avisos:_
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-	<b>🧙🏻‍♂️ | Store de Info'ccs
+*⚠️BEM VINDO A KING STORE⚠️
 
-Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
-
-<a href='https://t.me/LORDEKG'>❓ Dúvidas</a>
-<a href='https://t.me/KINGST0RECHAT'>👥 Grupo</a>
-<a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+☑️SO GARANTIMOS LIVE!!
+☑️NÃO GARANTIMOS SALDO!!
+☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "pix_auto")
 def pixautomatico(call):
@@ -336,26 +333,20 @@ def bin_pesquisa(message):
 	try:
 		if message.text == "/start":
 			bot.send_message(message.chat.id, f"""
-	<b>🧙🏻‍♂️ | Store de Info'ccs
+	*⚠️BEM VINDO A KING STORE⚠️
 
-Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
-
-<a href='https://t.me/LORDEKG'>❓ Dúvidas</a>
-<a href='https://t.me/KINGSTORECHAT'>👥 Grupo</a>
-<a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+☑️SO GARANTIMOS LIVE!!
+☑️NÃO GARANTIMOS SALDO!!
+☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
 		if message.text == "/menu":
 			bot.send_message(message.chat.id, f"""
-	<b>🧙🏻‍♂️ | Store de Info'ccs
+*	⚠️BEM VINDO A KING STORE⚠️
 
-Olá</b> <a href='https://t.me/{message.from_user.username}'>{message.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
-
-<a href='https://t.me/LORDEKG'>❓ Dúvidas</a>
-<a href='https://t.me/KINGSTORECHAT'>👥 Grupo</a>
-<a href='https://t.me/REFKG'>📣 Canal</a>
-<a href='https://t.me/Yusuke011'>⚙️ Dev</a>
-""", reply_markup=menu, parse_mode="HTML")
+☑️SO GARANTIMOS LIVE!!
+☑️NÃO GARANTIMOS SALDO!!
+☑️TODAS AS INFO SÃO TESTADAS PELO CHK ANTES DA COMPRA!!
+☑️OS PREÇOS PODEM VARIAS MAIS SEMPRE VÃO FICAR NA MEDIA DE 7$-10$ NOS NIVEIS BAIXOS!!*""", reply_markup=menu, parse_mode="MARKDOWN")
 		elif message.text == "/resgatar":
 			bot.send_message(message.chat.id, f"""
 	*🏷️ Resgatar Gift Card*
