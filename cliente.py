@@ -73,10 +73,7 @@ def buscar_ccscompradas(chat_id):
 		return "Não possui nenhuma cc comprada"
 	else:
 		cursor.execute(f"SELECT * FROM ccscompradas WHERE chat_id = {chat_id}")
-		print(cursor.fetchall())
-		for y in cursor.fetchall():
-			print(y)
-		return y
+		return cursor.fetchall()
   	
 def pesquisar_bin(bin_j):
   cursor.execute(f"SELECT id FROM infocc WHERE bin = '{bin_j}'")
