@@ -112,7 +112,8 @@ def document(message):
 				  nome_int = res['name'] + " " + res['lastname']
 				  nome.append((nome_int))
 				engine = create_engine(url2)
-				tabela = pd.DataFrame({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome})
+				tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome})
+				tabela = tabela.transpose()
 				tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
 				bot.send_message(message.chat.id, "Cc's adicionadas")
  
