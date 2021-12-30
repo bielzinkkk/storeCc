@@ -20,15 +20,13 @@ def verificar_admin(chat_id):
     conn.commit()
 
 def split_card(card) -> dict:
-    try:
       splited = card.split("|")
       return {
         "cartao": splited[0],
         "data": splited[1] + "/" + splited[2],
         "cvv": splited[3]
       }
-    except:
-      ...
+
 
 
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
