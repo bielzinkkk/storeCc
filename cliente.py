@@ -36,7 +36,7 @@ def viewccunitarias(nivel):
   cvv = "xxx"
   cartao = u[5] + "xxxxxxxxxx"
   txt = f"""
-  💳 | Informações do Cartão
+ * 💳 | Informações do Cartão
 
 💳 Cartão:* `{cartao}`
 *📆 Expiração:* `{u[0]}`
