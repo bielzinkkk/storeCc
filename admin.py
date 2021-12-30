@@ -7,6 +7,18 @@ import pandas as pd
 import fordev
 url2 = "postgresql://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 
+def verificar_admin(chat_id):
+  try:
+    sql = f"SELECT id FROM admins WHERE chat_id = {chat_id}"
+    cursor.execute(sql)
+    if cursor.fetchone() == None:
+      return False
+    else: 
+      return True
+  except:
+    cursor.execute("ROLLBACK")
+    conn.commit()
+
 def split_card(card) -> dict:
   splited = card.split("|")
   return {
@@ -34,7 +46,7 @@ def procurar_usuario(chat_id):
 		return s[0], s[1], s[2], s[3], s[4]
 @bot.message_handler(commands=['send'])
 def notificar(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
     if message.text == "/send":
                 bot.send_message(message.chat.id, """
                 *📣 Envie uma mensagem para todos os usuários registrados no bot.
@@ -49,20 +61,10 @@ Ex:* _/send + a mensagem que deseja enviar_
                     for s in lista:
                       s=requests.post(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={s}&text={MSG}&parse_mode=MARKDOWN")
      
-@bot.message_handler(content_types=['document'])
+@bot.message_handler(commands=['cc'])
 def document(message):
-	if idDono == message.from_user.id:
-		if ("/cc" in message.caption):
-				raw = message.document.file_id
-				path = raw+".txt"
-				file_info = bot.get_file(raw)
-				downloaded_file = bot.download_file(file_info.file_path)
-				with open(path,'wb') as new_file:
-					new_file.write(downloaded_file)
-					new_file.close()
-				bot.send_message(message.chat.id, "Adicionando...")
-				i = open(path, "r")
-				samples = i.read()
+	if verificar_admin(message.from_user.id) == True:
+		    samples = message.text.split("/cc ")[1]
 				cards = [split_card(card) for card in samples.strip().split("\n")]
 				cartao = []
 				data = []
@@ -110,7 +112,7 @@ def document(message):
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
-	if idDono == message.from_user.id:
+	if verificar_admin(message.from_user.id) == True:
 		if ("/send" in message.caption):
 				raw = message.photo[2].file_id
 				path = raw+".jpg"
@@ -132,7 +134,7 @@ def photo(message):
 
 @bot.message_handler(commands=['price'])
 def price(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
       if message.text == "/price":
           bot.send_message(message.chat.id, """
          * ➕ Mude os valores das ccs
@@ -151,7 +153,7 @@ Modo de uso:* `/price nivel novo_valor`
 
 @bot.message_handler(commands=['adm'])
 def admin(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
       bot.send_message(message.chat.id, """
 *⚙️ PAINEL ADMINISTRATIVO*
 
@@ -168,7 +170,7 @@ _• Cmds Admin:_
 
 @bot.message_handler(commands=['infor'])
 def info(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
     if message.text == "/infor":
        bot.send_message(message.chat.id, """
          * 👤 Veja as informações
@@ -193,7 +195,7 @@ Modo de uso:* `/infor [id de usuário]`
 
 @bot.message_handler(commands=['add'])
 def adicionar_cemixc(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
     bot.send_message(message.chat.id, """
   📥 Adicionar cc ou mix
 
@@ -208,7 +210,7 @@ Pode adicionar quanta cc quiser.
 
 @bot.message_handler(commands=['gerar'])
 def gerar_gift(message):
-  if idDono == message.from_user.id:
+  if verificar_admin(message.from_user.id) == True:
             if message.text == "/gerar":
                 bot.send_message(message.chat.id, """
                 *💵 Gere um gift card para o usuário resgatar.*
