@@ -203,7 +203,8 @@ Modo de uso:* `/infor [id de usuário]`
 
 @bot.message_handler(commands=['add'])
 def adicionar_cemixc(message):
-  bot.send_message(message.chat.id, """
+  if idDono == message.from_user.id:
+    bot.send_message(message.chat.id, """
   📥 Adicionar cc ou mix
 
 - Adicionar mix:
