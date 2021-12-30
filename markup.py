@@ -35,8 +35,7 @@ def aleatoriamenu(value):
 	aleatoriamenu = InlineKeyboardMarkup()
 	aleatoriamenu.row_width = 1
 	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"['aleatoricc', '" + value + "']",
-	InlineKeyboardButton("🔁 Escolher outra", callback_data="aleatoria"),
-	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
+	InlineKeyboardButton("🔁 Escolher outra", callback_data="aleatoria"),InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
 def binmenu():

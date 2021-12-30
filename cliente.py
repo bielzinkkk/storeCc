@@ -282,7 +282,7 @@ Cartões comprados -> {procurar_dados(call.from_user.id)[3]}
 @bot.callback_query_handler(func=lambda call: call.data == "historico")
 def historico(call):
   verificar_existe(call.from_user.id, call.from_user.username)
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *📄 Histórico de transações:
 
 💳 Cartões:* `{procurar_dados(call.from_user.id)[3]}`
@@ -297,7 +297,7 @@ Baixe seu histórico para obter a lista de todos os cartões adquiridos_""", rep
 @bot.callback_query_handler(func=lambda call: call.data == "perfil")
 def perfil(call):
   verificar_existe(call.from_user.id, call.from_user.username)
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*🧙🏻‍♂️ Perfil de Usuário*
 	
 _- Informações Básicas_
@@ -374,7 +374,7 @@ Quando creditar na conta , o gift será apago do bot, sem reutilização!*
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
 def comprar(call):
   verificar_existe(call.from_user.id, call.from_user.username)
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*Escolha a opção adequada ao seus propósitos*
 	
 _- Avisos_
