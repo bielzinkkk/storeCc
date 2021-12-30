@@ -206,7 +206,7 @@ def back_menu(call):
 Olá</b> <a href='https://t.me/{call.from_user.username}'>{call.from_user.first_name}</a><b>, Seja bem vindo a store!</b>
 
 <a href='https://t.me/LORDEKG'>❓ Dúvidas</a>
-<a href='https://t.me/KINGSTORECHAT>👥 Grupo</a>
+<a href='https://t.me/KINGST0RECHAT'>👥 Grupo</a>
 <a href='https://t.me/REFKG'>📣 Canal</a>
 <a href='https://t.me/Yusuke011'>⚙️ Dev</a>
 """, reply_markup=menu, parse_mode="HTML")
