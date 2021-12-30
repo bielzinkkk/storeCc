@@ -75,7 +75,7 @@ def document(message):
 	      new_file.close()
 	    bot.send_message(message.chat.id, """Adicionando...""")
 	    f = open(path, "r")
-	    samples = list(line for line in (l.strip() for l in f) if line)
+	    samples = line for line in (l.strip() for l in f) if line
 	    cards = [split_card(card) for card in samples.strip().split("\n")]
 	    cartao = []
 	    data = []
