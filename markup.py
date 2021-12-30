@@ -34,7 +34,7 @@ comprouprodu.add(InlineKeyboardButton("✔️ Menu", callback_data="menu"))
 def comprarcc_s(idcc):
 	aleatoriamenu = InlineKeyboardMarkup()
 	aleatoriamenu.row_width = 1
-	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"['comprar', '" + idcc + "']"),
+	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"['comprar', '" + str(idcc) + "']"),
 	InlineKeyboardButton("🔙 Voltar", callback_data="unitarias"))
 	return aleatoriamenu
 
