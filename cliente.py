@@ -344,7 +344,7 @@ def bin_pesquisa(message):
 	    except:
 	      bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
 	  else:
-	  pass
+	    pass
 	except:
 	 pass
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
