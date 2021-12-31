@@ -34,15 +34,15 @@ def relatorio():
 	cursor.execute()
 	for user in cursor.fetchone():
 		...
-    sql = "SELECT COUNT(*) FROM ccscompradas"
-    cursor.execute(sql)
-    for ccs in cursor.fetchone():
-    	...
-    sql = "SELECT COUNT(*) FROM admins"
-    cursor.execute(sql)
-    for admins in cursor.fetchone():
-    	...
-    return user, ccs, admins
+	sql = "SELECT COUNT(*) FROM ccscompradas"
+	cursor.execute(sql)
+	for ccs in cursor.fetchone():
+	   ...
+	sql = "SELECT COUNT(*) FROM admins"
+	cursor.execute(sql)
+	for admins in cursor.fetchone():
+	   ...
+	return user, ccs, admins
 
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
