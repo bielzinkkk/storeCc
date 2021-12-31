@@ -7,7 +7,6 @@ def buscarpreco(nivel):
     if cursor.fetchone() == None:
       return 10
     else:
-      cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{nivel}'")
       for valor in cursor.fetchone():
         ...
       return valor
