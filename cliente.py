@@ -7,6 +7,7 @@ def buscarpreco(nivel):
     if cursor.fetchone() == None:
       return 10
     else:
+      cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{nivel}'")
       for valor in cursor.fetchone():
         ...
       return valor
@@ -132,7 +133,7 @@ def procurar_dados(chat_id):
 
 def comprarunitariafuction(idcc, chat_id):
   cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
-  for nivel in cursor.fetchone():
+  for nivel.lower() in cursor.fetchone():
     ...
   preco = buscarpreco(nivel)
   total = procurar_dados(chat_id)[0] - preco
