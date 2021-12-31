@@ -133,9 +133,9 @@ def procurar_dados(chat_id):
 
 def comprarunitariafuction(idcc, chat_id):
   cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
-  for nivel.lower() in cursor.fetchone():
-    ...
-  preco = buscarpreco(nivel)
+  for nivel in cursor.fetchone():
+  	...
+  preco = buscarpreco(nivel.lower())
   total = procurar_dados(chat_id)[0] - preco
   total2 = procurar_dados(chat_id)[3] + 1
   if procurar_dados(chat_id)[0] >= preco:
