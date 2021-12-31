@@ -160,9 +160,8 @@ def unitariascall(call):
     	for buttons in sorted(set(cursor.fetchall())):
     		...
     	markups = generate_keyboard(
-    	buttons,extra=InlineKeyboardButton("🔙 Voltar", callback_data="comprar")
-    )
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+    	buttons,extra=InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
+    	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
 - CLASSIC: R${buscarpreco('classic')},00
