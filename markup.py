@@ -63,7 +63,7 @@ def chunks(items, n):
 def generate_keyboard(buttons: list, **kargs) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup() 
     for buttons in chunks(buttons, 2):
-        if len(i) == 1:
+        if len(buttons) == 1:
             button = i.pop()
             keyboard.add(
                  InlineKeyboardButton(text=i, callback_data=f"['value', {i}']")
