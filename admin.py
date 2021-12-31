@@ -31,7 +31,7 @@ def split_card(card) -> dict:
 
 def relatorio():
 	sql = "SELECT COUNT(*) FROM usuarios"
-	cursor.execute()
+	cursor.execute(sql)
 	for user in cursor.fetchone():
 		...
 	sql = "SELECT COUNT(*) FROM ccscompradas"
