@@ -70,12 +70,10 @@ def generate_keyboard(buttons: list, **kargs) -> InlineKeyboardMarkup:
 	                InlineKeyboardButton(text=i, callback_data="['value', '" + i + "']")
 	            )
 	            continue 
-	
-	        first, second = i
 	        	
 	        keyboard.row(
-		            InlineKeyboardButton(text=first, callback_data="['value', '" + first + "']"),
-		            InlineKeyboardButton(text=second, callback_data="['value', '" + second + "']"))
+		            InlineKeyboardButton(text=i, callback_data="['value', '" + i + "']"),
+		            InlineKeyboardButton(text=i, callback_data="['value', '" + i + "']"))
 	        extra = kargs.get("extra")
 	        keyboard.add(extra)
     return keyboard
