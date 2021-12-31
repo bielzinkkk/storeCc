@@ -61,10 +61,10 @@ def chunks(items, n):
         yield items[item:item+n]
 
 def generate_keyboard(buttons: list, **kargs) -> InlineKeyboardMarkup:
-    keyboard = InlineKeyboardMarkup() 
-    for list(buttons) in chunks(buttons, 2):
+    keyboard = InlineKeyboardMarkup()
+    for buttons in chunks(buttons, 2):
         if len(buttons) == 1:
-            button = buttons.pop()
+            button = list(buttons.pop())
             keyboard.add(
                 InlineKeyboardButton(text=button, callback_data="['value', '" + button + "']")
             )
