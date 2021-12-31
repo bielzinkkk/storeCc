@@ -20,15 +20,14 @@ def verificar_admin(chat_id):
     conn.commit()
 
 def split_card(card) -> dict:
-      splited = card.split("|")
-      return {
-        "cartao": splited[0],
-        "mes": splited[1],
-        "ano": splited[2],
-        "cvv": splited[3]
-      }
-
-
+      if ("|" in card):
+      	splited = card.split("|")
+      	return {
+      	"cartao": splited[0],
+      	"mes": splited[1],
+      	"ano": splited[2],
+      	"cvv": splited[3]
+      	}
 
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
