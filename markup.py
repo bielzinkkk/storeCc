@@ -61,16 +61,9 @@ def menuunitarias():
       markup = InlineKeyboardMarkup()
       for i in sorted(set(cursor.fetchall())):
         for value in i:
-          if len(value) == 1:
 	          markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
 	          markup.row_width = 2
 	          markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
-          else:
-          	first, second = i
-          	markup.add(InlineKeyboardButton(text=first,callback_data="['value', '" + first + "']"))
-          	markup.add(InlineKeyboardButton(text=second,callback_data="['value', '" + second + "']"))
-          	markup.row_width = 2
-          	markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
       return markup
 
 
