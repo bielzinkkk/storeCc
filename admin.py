@@ -29,6 +29,21 @@ def split_card(card) -> dict:
       	"cvv": splited[3]
       	}
 
+def relatorio():
+	sql = "SELECT COUNT(*) FROM usuarios"
+	cursor.execute()
+	fot user in cursor.fetchone():
+		...
+    sql = "SELECT COUNT(*) FROM ccscompradas"
+    cursor.execute(sql)
+    for ccs in cursor.fetchone():
+    	...
+    sql = "SELECT COUNT(*) FROM admins"
+    cursor.execute(sql)
+    for admins in cursor.fetchone():
+    	...
+    return user, ccs, admins
+
 def id_generator(size=14, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
 
@@ -45,6 +60,18 @@ def procurar_usuario(chat_id):
 		for s in cursor.fetchall():
 			...
 		return s[0], s[1], s[2], s[3], s[4]
+
+@bot.message_handler(commands=['relatorio'])
+def relatorio_command(message):
+  if verificar_admin(message.from_user.id) == True:
+    bot.reply_to(message, f"""
+     *[✓] Relatório da store
+     
+Ccs compradas:* {relatorio()[1]}
+*Usuários Cadastrados:* {relatorio()[0]}
+*Admins:* {relatorio()[2]}
+    """, parse_mode="MARKDOWN")
+	
 @bot.message_handler(commands=['send'])
 def notificar(message):
   if verificar_admin(message.from_user.id) == True:

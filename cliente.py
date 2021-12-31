@@ -216,7 +216,7 @@ def pix_manual(call):
 	*💸 Pix Manual
 
 🔑 Chave ( EMAIL ):* `indeed.company.jobs@gmail.com`
-*👤 Nome da conta bancária:* `MARCOS RAFAEL`
+*👤 Nome da conta bancária:* `Tiago Celestino`
 
 *- Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.*
 
