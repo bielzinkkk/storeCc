@@ -64,15 +64,15 @@ def generate_keyboard(buttons: list, **kargs) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup() 
     for buttons in chunks(buttons, 2):
         if len(buttons) == 1:
-            button = i.pop()
+            button = buttons.pop()
             keyboard.add(
-                 InlineKeyboardButton(text=i, callback_data=f"['value', {i}']")
+                 InlineKeyboardButton(text=i, callback_data=f"['value', {buttons}']")
             )
             continue
 
         keyboard.row(
-            InlineKeyboardButton(text=i, callback_data=f"['value', '{i}']"),
-            InlineKeyboardButton(text=i, callback_data=f"['value', '{i}']")
+            InlineKeyboardButton(text=i, callback_data=f"['value', '{buttons}']"),
+            InlineKeyboardButton(text=i, callback_data=f"['value', '{buttons}']")
         )
                
     extra = kargs.get("extra")
