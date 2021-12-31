@@ -157,7 +157,7 @@ def unitariascall(call):
 *💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=menuunitarias() ,parse_mode="MARKDOWN")
   else:
     	cursor.execute("SELECT nivel FROM infocc")
-    	for buttons in list(sorted(set(cursor.fetchall()))):
+    	for buttons in sorted(set(cursor.fetchall())):
     		...
     	markups = generate_keyboard(
     	buttons,extra=InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
