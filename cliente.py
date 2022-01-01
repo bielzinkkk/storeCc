@@ -158,7 +158,8 @@ def unitariascall(call):
   else:
     	cursor.execute("SELECT nivel FROM infocc")
     	for s in cursor.fetchall():
-    		markups = generate_keyboard(list(s),extra=InlineKeyboardButton(text="🔙 Voltar", callback_data="comprar"))
+    	   ...
+        markups = generate_keyboard(list(s),extra=InlineKeyboardButton(text="🔙 Voltar", callback_data="comprar"))
     	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
