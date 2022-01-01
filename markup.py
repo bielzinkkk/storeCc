@@ -56,33 +56,15 @@ def verificar_valor():
         conn.commit()
 verificar_valor()
 
-def chunks(items, n):
-    for item in range(0, len(items), n):
-        yield items[item:item+n]
-
-def generate_keyboard(buttons: list, **kargs) -> InlineKeyboardMarkup:
-    keyboard = InlineKeyboardMarkup() 
-    for buttons in chunks(buttons, 2):
-        for i in buttons:
-	        if len(i) == 1:
-	            button = i.pop()
-	            keyboard.add(
-	                 InlineKeyboardButton(text=i, callback_data=f"['value', {i}']")
-	            )
-	            continue
-	
-	        keyboard.row(
-	            InlineKeyboardButton(text=i, callback_data=f"['value', '{i}']"),
-	            InlineKeyboardButton(text=i, callback_data=f"['value', '{i}']")
-	        )
-               
-    extra = kargs.get("extra")
-    keyboard.add(extra)
-    return keyboard
-
-
-
-
+def menuunitarias():
+      cursor.execute("SELECT nivel FROM infocc")
+      markup = InlineKeyboardMarkup()
+      for i in sorted(set(cursor.fetchall())):
+        for value in i:
+          markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
+      markup.row_width = 2
+      markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
+      return markup
 
 
 menuperfil = InlineKeyboardMarkup()

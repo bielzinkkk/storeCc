@@ -156,10 +156,6 @@ def unitariascall(call):
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=menuunitarias() ,parse_mode="MARKDOWN")
   else:
-    	cursor.execute("SELECT nivel FROM infocc")
-    	for s in cursor.fetchall():
-    	   ...
-        markups = generate_keyboard(list(s),extra=InlineKeyboardButton(text="🔙 Voltar", callback_data="comprar"))
     	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
@@ -177,7 +173,7 @@ Outros níveis consultar com: {userDono}*
 
 _⚠️ Avisos:_
 
-*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
+*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=menuunitarias(),parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
