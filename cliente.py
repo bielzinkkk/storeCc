@@ -157,11 +157,11 @@ def unitariascall(call):
 *💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=menuunitarias() ,parse_mode="MARKDOWN")
   else:
     	cursor.execute("SELECT nivel FROM infocc")
-    	for s in cursor.fetchall():
+    	for niveltotal in cursor.fetchall():
     		...
-    	print(s)
-    	print(sorted(s))
-    	markups = generate_keyboard(sorted(s),extra=InlineKeyboardButton(text="🔙 Voltar", callback_data="comprar"))
+    	print(niveltotal)
+    	print(sorted(niveltotal))
+    	markups = generate_keyboard(sorted(niveltotal),extra=InlineKeyboardButton(text="🔙 Voltar", callback_data="comprar"))
     	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 💳 | Unitárias:*
 
