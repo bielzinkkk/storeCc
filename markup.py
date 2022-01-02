@@ -59,7 +59,8 @@ verificar_valor()
 def menuunitarias():
       cursor.execute("SELECT nivel FROM infocc")
       markup = InlineKeyboardMarkup()
-      d = sorted(set(cursor.fetchall()))
+      d = cursor.fetchall()
+      print(d)
       for value1, value2 in d:
           markup.add(InlineKeyboardButton(text=value1,callback_data="['value', '" + value1 + "']"))
           markup.add(InlineKeyboardButton(text=value2,callback_data="['value', '" + value2 + "']"))
