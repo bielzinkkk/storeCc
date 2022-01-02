@@ -128,6 +128,12 @@ def document(message):
 	          response = response2.json()
 	          banco1 = response["bank"]
 	          tipo.append((response["type"].upper()))
+	          if response["brand"] == "standard prepaid":
+	          	nivel.append(("STANDARD"))
+	          if response["brand"] == "credit business prepaid":
+	          	nivel.append(("PREPAID"))
+	          if response["brand"] == "platinium":
+	          	nivel.append(("PLATINUM"))
 	          nivel.append((response["brand"].upper()))
 	          bandeira.append((response["scheme"].upper()))
 	          if banco1 == {}:
