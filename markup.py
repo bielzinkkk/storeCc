@@ -1,8 +1,10 @@
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 import psycopg2
+
 url = "postgres://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 conn = psycopg2.connect(url)
 cursor = conn.cursor()
+
 menu = InlineKeyboardMarkup()
 menu.row_width = 2
 menu.add(InlineKeyboardButton("💳 Comprar", callback_data="comprar"),
@@ -13,7 +15,6 @@ InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"))
 menu.row_width = 2
 menu.add(InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"),
 InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"))
-
 
 aguardando = InlineKeyboardMarkup()
 aguardando.row_width = 2
@@ -56,15 +57,29 @@ def verificar_valor():
         conn.commit()
 verificar_valor()
 
-def menuunitarias():
-      cursor.execute("SELECT nivel FROM infocc")
-      markup = InlineKeyboardMarkup()
-      for i in sorted(set(cursor.fetchall())):
-        for value in i:
-          markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
-      markup.row_width = 2
-      markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
-      return markup
+def chunks(items, n):
+    for item in range(0, len(items), n):
+        yield items[item:item+n]
+
+def generate_keyboard(fields: list, **kargs) -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardMarkup() 
+    for buttons in chunks(fields, 2):
+        if len(buttons) == 1:
+            button = buttons
+            keyboard.add(
+                InlineKeyboardButton(text=button, callback_data=f"['value', {button}']")
+            )
+            continue
+
+        first, second = buttons
+        keyboard.row(
+            InlineKeyboardButton(text=first, callback_data=f"['value', '{first}']"),
+            InlineKeyboardButton(text=second, callback_data=f"['value', '{second}']")
+        )
+            
+    extra = kargs.get("extra")
+    keyboard.add(extra)
+    return keyboard
 
 
 menuperfil = InlineKeyboardMarkup()
