@@ -16,6 +16,12 @@ menu.row_width = 2
 menu.add(InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"),
 InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"))
 
+def troca_cc(id_cc):
+	trocarcc = InlineKeyboardMarkup()
+	trocarcc.row_width = 2
+	trocarcc.add(InlineKeyboardButton("Trocar Cc", callback_data="trocar"))
+	return trocarcc
+
 aguardando = InlineKeyboardMarkup()
 aguardando.row_width = 2
 aguardando.add(InlineKeyboardButton("🔁 AGUARDANDO PAGAMENTO", callback_data="."))

@@ -3,11 +3,12 @@ from random import randint
 
 def buscarpreco(nivel):
   try:
-    cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{nivel}'")
+    ni = nivel.lower()
+    cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{ni}'")
     if cursor.fetchone() == None:
       return 10
     else:
-      cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{nivel}'")
+      cursor.execute(f"SELECT valor FROM valores WHERE nivel = '{ni}'")
       for valor in cursor.fetchone():
         ...
       return valor
@@ -180,6 +181,13 @@ _⚠️ Avisos:_
 
 *- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
 
+#if status == "die":
+
+#elif tempo >= ...:
+	#return "Tempo de troca já acabou para essa info'cc!"
+	
+#else:
+#	return "A cc está live no checker!"
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
