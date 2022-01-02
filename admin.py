@@ -23,8 +23,7 @@ def split_card(card) -> dict:
       	splited = card.split("|")
       	return {
       	"cartao": splited[0],
-      	"mes": splited[1],
-      	"ano": splited[2],
+      	"data": splited[1] + "/" +splited[2],
       	"cvv": splited[3]
       	}
 
@@ -108,7 +107,7 @@ def document(message):
 	    cvv = []
 	    for row in cards:
 	      cartao.append((row['cartao']))
-	      data.append((row['mes'] + "/" + row['ano']))
+	      data.append((row['data']))
 	      cvv.append((row['cvv']))
 	    bin_cc = []
 	    banco = []
