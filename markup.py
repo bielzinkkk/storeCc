@@ -64,9 +64,11 @@ def menuunitarias():
         "value1": i,
         "value2": i
         }
+        print(d.items())
+        print(i)
         for value1, value2 in d.items():
-          markup.add(InlineKeyboardButton(text=value1,callback_data="['value', '" + value1 + "']"))
-          markup.add(InlineKeyboardButton(text=value2,callback_data="['value', '" + value2 + "']"))
+          markup.add(InlineKeyboardButton(text=value1,callback_data=f"['value', '{value1}']"))
+          markup.add(InlineKeyboardButton(text=value2,callback_data=f"['value', '{value2}']"))
       markup.row_width = 1
       markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
       return markup
