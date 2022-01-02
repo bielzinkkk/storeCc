@@ -77,10 +77,7 @@ def generate_keyboard(fields: list, **kargs) -> InlineKeyboardMarkup:
             )
             continue
 
-        
-        if (list() in buttons):
-        	first, second = ", ".join( repr(e) for e in button)
-        first, second = buttons
+        first, second = ", ".join( repr(e) for e in button)
         keyboard.row(
             InlineKeyboardButton(text=first, callback_data=f"['value', '{first}']"),
             InlineKeyboardButton(text=second, callback_data=f"['value', '{second}']")
