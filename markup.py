@@ -60,9 +60,10 @@ def menuunitarias():
       cursor.execute("SELECT nivel FROM infocc")
       markup = InlineKeyboardMarkup()
       for i in sorted(set(cursor.fetchall())):
-        for value in i:
-          markup.add(InlineKeyboardButton(text=value,callback_data="['value', '" + value + "']"))
-      markup.row_width = 2
+        for value1, value2 in i:
+          markup.add(InlineKeyboardButton(text=value1,callback_data="['value', '" + value1 + "']"))
+          markup.add(InlineKeyboardButton(text=value2,callback_data="['value', '" + value2 + "']"))
+      markup.row_width = 1
       markup.add(InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
       return markup
 

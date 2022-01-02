@@ -173,7 +173,7 @@ Outros níveis consultar com: {userDono}*
 
 _⚠️ Avisos:_
 
-*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
+*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=menuunitarias(),parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
