@@ -27,8 +27,32 @@ def total_infocc():
 	  cursor.execute("ROLLBACK")
 	  conn.commit()
 
+def view_aleatoria():
+  cursor.execute(f"SELECT id FROM infocc ORDER BY RANDOM() LIMIT 1'")
+  for idcc in cursor.fetchone():
+    ...
+  cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, bin FROM infocc WHERE id = {idcc}")
+  for u in cursor.fetchall():
+    ...
+  cvv = "xxx"
+  cartao = u[5] + "xxxxxxxxxx"
+  txt = f"""
+ * 💳 | Informações do Cartão
+
+💳 Cartão:* `{cartao}`
+*📆 Expiração:* `{u[0]}`
+*🔒 Cvv:* `{cvv}`
+*🏳️ Bandeira:* `{u[1]}`
+*⚜️ Tipo:* `{u[2]}`
+*💠 Nível:* `{u[3]}`
+*🏦 Banco:* `{u[4]}`
+
+*💸 Preço:* `R${buscarpreco(nivel)},00`
+  """
+  return txt, idcc
+
 def viewccunitarias(nivel):
-  cursor.execute(f"SELECT id FROM infocc WHERE  nivel = '{nivel}'")
+  cursor.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}' ORDER BY RANDOM() LIMIT 1'")
   for idcc in cursor.fetchone():
     ...
   cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, bin FROM infocc WHERE id = {idcc}")
@@ -88,7 +112,6 @@ def verificar_existe(chat_id, usuario):
         cursor.execute("ROLLBACK")
         conn.commit()
 
-
 def buscar_ccscompradas(chat_id):
 	cursor.execute(f"SELECT id FROM ccscompradas WHERE chat_id = {chat_id}")
 	if cursor.fetchone() == None:
@@ -132,7 +155,7 @@ def procurar_dados(chat_id):
 		return s[0], s[1], s[2], s[3]
 
 
-def comprarunitariafuction(idcc, chat_id):
+def comprarcc(idcc, chat_id):
   cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
   for nivel in cursor.fetchone():
   	...
@@ -149,7 +172,7 @@ def comprarunitariafuction(idcc, chat_id):
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
-  bot.answer_callback_query(callback_query_id=call.id , text="Manutenção.", show_alert=True) 
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=view_aleatoria()[0], reply_markup=comprarcc_s(view_aleatoria()[1]), parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
@@ -181,13 +204,7 @@ _⚠️ Avisos:_
 
 *- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
 
-#if status == "die":
 
-#elif tempo >= ...:
-	#return "Tempo de troca já acabou para essa info'cc!"
-	
-#else:
-#	return "A cc está live no checker!"
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):
 	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
@@ -246,8 +263,10 @@ def viewlal_unirarias(call):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
 def comprarlal_unirarias(call):
   idcc = ast.literal_eval(call.data)[1]
-  if comprarunitariafuction(idcc, call.from_user.id)[0] == "Sim":
-    nivel = comprarunitariafuction(idcc, call.from_user.id)[1]
+  if comprarcc(idcc, call.from_user.id)[0] == "Sim":
+    cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
+    for nivel in cursor.fetchone():
+    	...
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*Compra efetuda! Clique no botão abaixo para voltar no menu inicial*", reply_markup=comprouprodu,parse_mode="MARKDOWN")
     bot.send_message(call.message.chat.id, pegar_cc(idcc, call.from_user.id),parse_mode="MARKDOWN")
     bot.send_message(idGroup, f"""
