@@ -47,7 +47,7 @@ def view_aleatoria():
 *💠 Nível:* `{u[3]}`
 *🏦 Banco:* `{u[4]}`
 
-*💸 Preço:* `R${buscarpreco(nivel)},00`
+*💸 Preço:* `R${buscarpreco(u[3])},00`
   """
   return txt, idcc
 
