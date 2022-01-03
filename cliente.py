@@ -28,7 +28,7 @@ def total_infocc():
 	  conn.commit()
 
 def view_aleatoria():
-  cursor.execute(f"SELECT id FROM infocc ORDER BY RANDOM() LIMIT 1'")
+  cursor.execute(f"SELECT id FROM infocc ORDER BY RANDOM() LIMIT 1")
   for idcc in cursor.fetchone():
     ...
   cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, bin FROM infocc WHERE id = {idcc}")
