@@ -52,7 +52,7 @@ def view_aleatoria():
   return txt, idcc
 
 def viewccunitarias(nivel):
-  cursor.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}' ORDER BY RANDOM() LIMIT 1'")
+  cursor.execute(f"SELECT id FROM infocc WHERE nivel = '{nivel}' ORDER BY RANDOM() LIMIT 1")
   for idcc in cursor.fetchone():
     ...
   cursor.execute(f"SELECT data, bandeira, tipo, nivel, banco, bin FROM infocc WHERE id = {idcc}")
