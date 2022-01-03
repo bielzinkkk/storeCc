@@ -172,7 +172,7 @@ def comprarcc(idcc, chat_id):
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
-	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=view_aleatoria()[0], reply_markup=comprarcc_s(view_aleatoria()[1]), parse_mode="MARKDOWN")
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=view_aleatoria()[0], reply_markup=comprarcc_i(view_aleatoria()[1]), parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
