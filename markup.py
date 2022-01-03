@@ -8,13 +8,10 @@ cursor = conn.cursor()
 menu = InlineKeyboardMarkup()
 menu.row_width = 2
 menu.add(InlineKeyboardButton("💳 Comprar", callback_data="comprar"),
-InlineKeyboardButton("📄 Histórico", callback_data="historico"))
-menu.row_width = 1
-menu.add(InlineKeyboardButton("👤 Perfil", callback_data="perfil"),
+InlineKeyboardButton("📄 Histórico", callback_data="historico"),InlineKeyboardButton("👤 Perfil", callback_data="perfil"),
 InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"))
 menu.row_width = 2
-menu.add(InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"),
-InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"))
+menu.add(InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"),InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"))
 
 def troca_cc(id_cc):
 	trocarcc = InlineKeyboardMarkup()
