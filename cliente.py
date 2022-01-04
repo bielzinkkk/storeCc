@@ -204,6 +204,14 @@ _⚠️ Avisos:_
 
 *- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
 
+@bot.callback_query_handler(func=lambda call: call.data == "ferramentas")
+def ferramentas_call(call):
+	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
+*🧰 | Ferramentas [Beta]
+
+⊛ /chk <cc> - Checker de CCs, desconta 1 real a cada live! ( Manutenção )
+
+⊛ /gen - Gera dados aleatórios de pessoas!*""", reply_markup=menuferra, parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "menu")
 def back_menu(call):

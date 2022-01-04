@@ -9,9 +9,9 @@ menu = InlineKeyboardMarkup()
 menu.row_width = 2
 menu.add(InlineKeyboardButton("💳 Comprar", callback_data="comprar"),
 InlineKeyboardButton("📄 Histórico", callback_data="historico"),InlineKeyboardButton("👤 Perfil", callback_data="perfil"),
-InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"))
-menu.row_width = 2
-menu.add(InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"),InlineKeyboardButton("⚙️ Dev", url="https://t.me/Yusuke011"))
+InlineKeyboardButton("💵 Adicionar Saldo", callback_data="add_saldo"),InlineKeyboardButton("🧰 Ferramentas", callback_data="ferramentas"),InlineKeyboardButton("❓ Suporte", url="https://t.me/LORDEKG"))
+menu.row_width = 1
+menu.add(InlineKeyboardButton("❓ Suporte", url="https://t.me/LuizzGustavo"))
 
 def troca_cc(id_cc):
 	trocarcc = InlineKeyboardMarkup()
@@ -22,6 +22,9 @@ def troca_cc(id_cc):
 aguardando = InlineKeyboardMarkup()
 aguardando.row_width = 2
 aguardando.add(InlineKeyboardButton("🔁 AGUARDANDO PAGAMENTO", callback_data="."))
+
+gen_markup = InlineKeyboardMarkup()
+gen_markup.add(InlineKeyboardButton("🎲 ATUALIZAR DADOS", callback_data="trocar_dados"))
 
 menucomprar = InlineKeyboardMarkup()
 menucomprar.row_width = 2
@@ -92,6 +95,9 @@ def generate_keyboard(fields: list, **kargs) -> InlineKeyboardMarkup:
     keyboard.add(extra)
     return keyboard
 
+menuferra = InlineKeyboardMarkup()
+menuferra.row_width = 1
+menuferra.add(InlineKeyboardButton("🔙 Voltar", callback_data="menu"))
 
 menuperfil = InlineKeyboardMarkup()
 menuperfil.row_width = 1
