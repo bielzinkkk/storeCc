@@ -208,6 +208,7 @@ _• Cmds Admin:_
 `/gerar` *- GERAR GIFT*
 `/price` *- MUDAR VALORES CONTAS*
 `/infor` *- MOSTRA INFORMAÇÕES DO USUÁRIO NO BANCO DE DADOS*
+`/relatorio` *- RELATORIO DA STORE*
 
 *PARA ENVIAR UMA FOTO PARA OS USUÁRIOS DA STORE SÓ PRECISA ENVIAR A FOTO NO PRIVADO DO BOT.*
 """, parse_mode="MARKDOWN")
@@ -244,10 +245,10 @@ def adicionar_cemixc(message):
   📥 Adicionar cc ou mix
 
 - Adicionar mix:
-Para adicionar mix vc digita o comando /mix + as ccs que deseja adicionar
+Para adicionar mix vc digita o comando /mix + as ccs que deseja adicionar ( Manutenção )
 
 - Adicionar cc:
-Para adicionar cc vc digita o comando /cc + as ccs que deseja adicionar
+Para adicionar cc tem que criar um arquivo txt e adicionar suas cc's , no formato cartao|mes|ano|cvv, depois só digitar na legenda do arquivo /cc
 
 Pode adicionar quanta cc quiser.
   """)
