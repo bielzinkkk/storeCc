@@ -23,7 +23,7 @@ def gen_full():
 	*⚙️ Dados Gerado
 
 • Cpf:* `{cpf}`
-*• Nome:* `{nome}
+*• Nome:* `{nome}`
 *• Data de nascimento:* `{data_nasc}`
 *• Idade:* `{idade}`
 *• Rg:* `{rg}`
