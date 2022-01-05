@@ -162,9 +162,9 @@ def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
     for u in cursor.fetchone():
-      for cartao, data, cvv in u:
+      for cartao in u:
         with open('estoque.txt', 'w') as i:
-          i.write(f"{cartao}|{data}|{cvv}")
+          i.write(cartao)
     openar = open("estoque.txt", "rb")
     bot.send_document(message.chat.id, openar)
 
