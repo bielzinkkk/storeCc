@@ -42,8 +42,8 @@ def split_card(card) -> dict:
       	splited = card.split("|")
       	return {
       	"cartao": splited[0],
-      	"data": splited[1] + "/" +splited[2],
-      	"cvv": splited[3]
+      	"data": splited[1],
+      	"cvv": splited[2]
       	}
 
 def relatorio():
@@ -165,8 +165,11 @@ def estoque(message):
     with open("s.txt", "w") as y:
       y.write(f"""{cartao}\n""")
       y.close()
-    a = open("s.txt", "r")
-    bot.send_document(message.chat.id, a)
+    arquivo = open("s.txt", "r")
+    samples = arquivo.read()
+    cards = [split_card(card) for card in samples.strip().split("\n")]
+    for row in cards:
+      bot.send_message(message.chat.id, f"""{row['cartao']}|{row['data']}|{row['cvv']}""")
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
