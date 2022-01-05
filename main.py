@@ -69,10 +69,10 @@ def recarga_pix(message):
   elif message.text == f"/recarga{userBot}":
     bot.send_message(message.chat.id, "*Digite /recarga + o valor que deseja.*", parse_mode="MARKDOWN")
   else:
-    #try:
+    try:
     	valor = message.text.split("/recarga ")[1]
     	if int(valor) >= 10:
-    		id_pix = gerar_pagamento(int(VALOR))[0]
+    		id_pix = gerar_pagamento(int(valor))[0]
     		token = "APP_USR-177075314178181-010415-3b6e8e179f377564cb219f75c1dae32e-773955176"
     		headers = {"Authorization": f"Bearer {token}"}
     		request = requests.get(f'https://api.mercadopago.com/v1/payments/{id_pix}', headers=headers)
@@ -97,12 +97,19 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
 )
   			   conn.commit()
   			   bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*⚡️SALDO ADICIONADO COM SUCESSO DIGITE /menu PARA COMPRAR AS CCS⚡️*", parse_mode="MARKDOWN")
+  			   bot.send_message(idGroup, f"""
+    *💳 | Recarga Realizada
+
+Valor: R${valor}
+Id do pagamento: {id_pix}
+Comprador: {message.from_user.first_name}*
+    """, parse_mode="MARKDOWN")
     		else:
     			bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*Pagamento expirado!*", parse_mode="MARKDOWN")
     	else:
     		bot.send_message(message.chat.id, "*O valor da recarga precisa ser igual ou maior que R$10! Tente /recarga 10*", parse_mode="MARKDOWN")
-    #except:
-    	#print("Erro")
+    except:
+    	print("Erro")
 
 while True:
   try:
