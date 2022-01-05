@@ -37,6 +37,7 @@ def verificar_admin(chat_id):
   except:
     cursor.execute("ROLLBACK")
     conn.commit()
+ 
 
 def split_card(card) -> dict:
       	splited = card.split("|")
@@ -140,13 +141,12 @@ def document(message):
 	      h = line1[0:12].replace(",", "")
 	      js = {"bin": h}
 	      bin_cc.append((js['bin']))
-	      try:
-	        tipo.append((value_bin(str(js['bin'][0]))))
-	        nivel.append((value_bin(str(js['bin'][1]))))
-	        bandeira.append((value_bin(str(js['bin'][2]))))
-	        banco.append((value_bin(str(js['bin'][3]))))
-	      except:
-	        bot.reply_to(message, "Não foi possível adicionar as cc's!")
+	      tipo.append((value_bin(str(js['bin'][0]))))
+	      nivel.append((value_bin(str(js['bin'][1]))))
+	      bandeira.append((value_bin(str(js['bin'][2]))))
+	      banco.append((value_bin(str(js['bin'][3]))))
+	      #except:
+	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
 	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
 	      cpf.append((str(cp)))
 	      nome_int = fordev.generators.people(uf_code="SP")['nome']
@@ -162,8 +162,8 @@ def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
     samples = cursor.fetchall()
-    for cards in samples:
-      ...
+    for cards in samples():
+      ..
     for row in cards:
       bot.send_message(message.chat.id, row)
 
