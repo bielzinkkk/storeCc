@@ -42,7 +42,7 @@ def split_card(card) -> dict:
       	splited = card.split("|")
       	return {
       	"cartao": splited[0],
-      	"data": splited[1] + "/" + splited[2]
+      	"data": splited[1] + "/" + splited[2],
       	"cvv": splited[3]
       	}
 
