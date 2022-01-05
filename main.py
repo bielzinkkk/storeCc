@@ -1,6 +1,6 @@
 from cliente import *
 from admin import *
-
+from gerar_pagamento import *
 @bot.message_handler(commands=["start", "menu"])
 def menu_inicial(message):
 	verificar_existe(message.from_user.id, message.from_user.username)
@@ -103,7 +103,7 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
     	else:
     		bot.send_message(message.chat.id, "*O valor da recarga precisa ser igual ou maior que R$10! Tente /recarga 10*", parse_mode="MARKDOWN")
     except:
-    	return "Erro!"
+    	print("Erro")
 
 while True:
   try:
