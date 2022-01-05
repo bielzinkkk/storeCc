@@ -141,10 +141,10 @@ def document(message):
 	      js = {"bin": h}
 	      bin_cc.append((js['bin']))
 	      try:
-	        tipo.append((value_bin(str(js['bin')[0])))
-	        nivel.append((value_bin(str(js['bin')[1])))
-	        bandeira.append((value_bin(str(js['bin')[2])))
-	        banco.append((value_bin(str(js['bin')[3])))
+	        tipo.append((value_bin(str(js['bin'][0]))))
+	        nivel.append((value_bin(str(js['bin'][1]))))
+	        bandeira.append((value_bin(str(js['bin'][2]))))
+	        banco.append((value_bin(str(js['bin'][3]))))
 	      except:
 	        bot.reply_to(message, "Não foi possível adicionar as cc's!")
 	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
@@ -162,9 +162,9 @@ def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
     for u in cursor.fetchone():
-      for total in u:
+      for cartao, data, cvv in u:
         with open('estoque.txt', 'w') as i:
-          i.write(total)
+          i.write(f"{cartao}|{data}|{cvv}")
     openar = open("estoque.txt", "rb")
     bot.send_document(message.chat.id, openar)
 
