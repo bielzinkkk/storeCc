@@ -1,7 +1,5 @@
 import base64, os, requests, pytz, datetime, time, json
-import telebot
-token = "5099084790:AAHPLEzuj_c2uTy3Ge9uTezqbhz9EX9Aihk"
-bot = telebot.TeleBot(token)
+
 def make_credentials() -> str:
     client_id = "Edw690zjdWn66p8X"
     client_secret = "[3*a$k.181ZDFkl^_T]-FSL5lU]Z*H#B"
@@ -90,6 +88,3 @@ def payment_sucess(txid: str, token: str) -> dict:
         
 	else:
 		return False
-
-
-bot.polling()
