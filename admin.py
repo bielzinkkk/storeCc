@@ -42,8 +42,8 @@ def split_card(card) -> dict:
       	splited = card.split("|")
       	return {
       	"cartao": splited[0],
-      	"data": splited[1],
-      	"cvv": splited[2]
+      	"data": splited[1] + "/" + splited[2]
+      	"cvv": splited[3]
       	}
 
 def relatorio():
@@ -161,15 +161,10 @@ def document(message):
 def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
-    cartao = cursor.fetchall()
-    with open("s.txt", "w") as y:
-      y.write(f"""{cartao}\n""")
-      y.close()
-    arquivo = open("s.txt", "r")
-    samples = arquivo.read()
+    samples = cursor.fetchall()
     cards = [split_card(card) for card in samples.strip().split("\n")]
     for row in cards:
-      bot.send_message(message.chat.id, f"""{row['cartao']}|{row['data']}|{row['cvv']}""")
+      bot.send_message(message.chat.id, row)
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
