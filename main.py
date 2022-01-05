@@ -69,7 +69,7 @@ def recarga_pix(message):
   elif message.text == f"/recarga{userBot}":
     bot.send_message(message.chat.id, "*Digite /recarga + o valor que deseja.*", parse_mode="MARKDOWN")
   else:
-    try:
+    #try:
     	valor = message.text.split("/recarga ")[1]
     	if int(valor) >= 10:
     		id_pix = gerar_pagamento(int(VALOR))[0]
@@ -89,8 +89,7 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
 *ID da compra:* `{id_pix}`
 *Chave PIX temporária:* `{pix}`
 
-*Valor:* `R${valor}`
-  			""", parse_mode="MARKDOWN")
+*Valor:* `R${valor}`""", parse_mode="MARKDOWN")
     		if status(id_pix) == True:
   			   adicao = procurar_dados(message.from_user.id)[0] + int(valor)
   			   total = procurar_dados(message.from_user.id)[1] + 1
@@ -102,8 +101,8 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
     			bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*Pagamento expirado!*", parse_mode="MARKDOWN")
     	else:
     		bot.send_message(message.chat.id, "*O valor da recarga precisa ser igual ou maior que R$10! Tente /recarga 10*", parse_mode="MARKDOWN")
-    except:
-    	print("Erro")
+    #except:
+    	#print("Erro")
 
 while True:
   try:
