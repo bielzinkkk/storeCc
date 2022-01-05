@@ -93,13 +93,13 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
   			""", parse_mode="MARKDOWN")
     		if status(id_pix) == True:
   			   adicao = procurar_dados(message.from_user.id)[0] + int(valor)
-  			   total = procurar_dados(call.from_user.id)[1] + 1
+  			   total = procurar_dados(message.from_user.id)[1] + 1
   			   cursor.execute(f"UPDATE usuarios SET saldo = {adicao}, recargas = {total} WHERE chat_id = {message.from_user.id}"
 )
   			   conn.commit()
   			   bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*⚡️SALDO ADICIONADO COM SUCESSO DIGITE /menu PARA COMPRAR AS CCS⚡️*", parse_mode="MARKDOWN")
     		else:
-    			bot.edit_message_text(chat_id=message.chst.id, message_id=msg.message_id, text="*Pagamento expirado!*", parse_mode="MARKDOWN")
+    			bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*Pagamento expirado!*", parse_mode="MARKDOWN")
     	else:
     		bot.send_message(message.chat.id, "*O valor da recarga precisa ser igual ou maior que R$10! Tente /recarga 10*", parse_mode="MARKDOWN")
     except:
