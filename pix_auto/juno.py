@@ -52,7 +52,13 @@ def expiration():
     
 def payment_sucess(txid: str, token: str) -> dict:
 	url = get_url()
-	request = requests.get(
+	with open('../config/config.json', 'r') as file:
+          config = json.loads(file.read())
+
+	expiration_payment = config['expiration_payment_in_minutes']
+	contador = 0
+	while True:
+            request = requests.get(
 				f"{url}/pix-api/v2/cob/{txid}",
 	headers={
                 "Authorization": f"Bearer {token}",
@@ -61,15 +67,8 @@ def payment_sucess(txid: str, token: str) -> dict:
                 "X-Resource-Token": get_juno_token(),
             },
 	)
-	data = request.json()
-	status = data['status']
-	print(status)
-	with open('../config/config.json', 'r') as file:
-          config = json.loads(file.read())
-
-	expiration_payment = config['expiration_payment_in_minutes']
-	contador = 0
-	while True:
+            data = request.json()
+            status = data['status']
             contador += 1
             
             if not contador > int(expiration_payment):
@@ -92,41 +91,5 @@ def payment_sucess(txid: str, token: str) -> dict:
 	else:
 		return False
 
-@bot.message_handler(commands=['pix'])
-def pix(message):
-	token, url = get_token(), get_url()
-	valor = message.text.split("/pix ")[1]
-	request = requests.post(
-            f"{url}/pix-api/v2/cob",
-            json={
-                "calendario": {"expiracao": 900},
-                "valor": {"original": valor},
-                "chave": get_key(),
-                "solicitacaoPagador": "Recarga ao bot!",
-            },
-            headers={
-                "Authorization": f"Bearer {token}",
-                "X-API-Version": "2",
-                "Content-Type": "application/json",
-                "X-Resource-Token": get_juno_token(),
-            },
-        )
-	data = request.json()
-	txid = data["txid"]
-	request2 = requests.get(
-            f"{url}/pix-api/qrcode/v2/{txid}/imagem",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "X-API-Version": "2",
-                "Content-Type": "application/json",
-                "X-Resource-Token": get_juno_token(),
-            }
-        )
-	pixqr = request2.json()
-	copy_past = base64.b64decode(pixqr["qrcodeBase64"]).decode("utf-8")
-	bot.send_message(message.chat.id, f"Copy past: {copy_past}")
-	if payment_sucess(txid, token) == True:
-		bot.reply_to(message, "Pago")
-	else:
-		bot.reply_to(message, "Expirado")
+
 bot.polling()
