@@ -1,6 +1,6 @@
 from cliente import *
 from admin import *
-from pix_auto.juno import *
+from gerar_pagamento import *
 
 @bot.message_handler(commands=["start", "menu"])
 def menu_inicial(message):
@@ -73,35 +73,12 @@ def recarga_pix(message):
     try:
     	valor = message.text.split("/recarga ")[1]
     	if int(valor) >= 10:
-    		token, url = get_token(), get_url()
-    		request = requests.post(
-            f"{url}/pix-api/v2/cob",
-            json={
-                "calendario": {"expiracao": 900},
-                "valor": {"original": valor},
-                "chave": get_key(),
-                "solicitacaoPagador": "Recarga ao bot!",
-            },
-            headers={
-                "Authorization": f"Bearer {token}",
-                "X-API-Version": "2",
-                "Content-Type": "application/json",
-                "X-Resource-Token": get_juno_token(),
-            },
-        )
-    		data = request.json()
-    		txid = data["txid"]
-    		request2 = requests.get(
-            f"{url}/pix-api/qrcode/v2/{txid}/imagem",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "X-API-Version": "2",
-                "Content-Type": "application/json",
-                "X-Resource-Token": get_juno_token(),
-            }
-        )
-    		pixqr = request2.json()
-    		copy_past = base64.b64decode(pixqr["qrcodeBase64"]).decode("utf-8")
+    		id_pix = gerar_pagamento(int(VALOR))[0]
+    		token = "APP_USR-177075314178181-010415-3b6e8e179f377564cb219f75c1dae32e-773955176"
+    		headers = {"Authorization": f"Bearer {token}"}
+    		request = requests.get(f'https://api.mercadopago.com/v1/payments/{id_pix}', headers=headers)
+    		response = request.json()
+    		pix = response['point_of_interaction']['transaction_data']['qr_code']
     		msg = bot.send_message(message.chat.id, f"""
  *🔮| COMPRAR SALDO|🔮*
 
@@ -110,15 +87,16 @@ Para poder pagar, geramos um PIX com duração de 60 minutos, use ele para pagar
 
 ⚠️O saldo irá cair em até 1 minuto após o pagamento via pix. Caso ocorra algum erro após o pagamento, por favor avise o suporte do bot, que te ajudaremos.⚠️_
 
-*ID da compra:* `{txid}`
-*Chave PIX temporária:* `{copy_past}`
+*ID da compra:* `{id_pix}`
+*Chave PIX temporária:* `{pix}`
 
 *Valor:* `R${valor}`
   			""", parse_mode="MARKDOWN")
-    		if payment_sucess(txid, token) == True:
-  			   adicao = int(valor) + procurar_dados(message.from_user.id)[0]
-  			   sql = f"UPDATE usuarios SET saldo = {adicao} WHERE chat_id = {message.from_user.id}"
-  			   cursor.execute(sql)
+    		if status(id_pix) == True:
+  			   adicao = procurar_dados(message.from_user.id)[0] + int(valor)
+  			   total = procurar_dados(call.from_user.id)[1] + 1
+  			   cursor.execute(f"UPDATE usuarios SET saldo = {adicao}, recargas = {total} WHERE chat_id = {message.from_user.id}"
+)
   			   conn.commit()
   			   bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text="*⚡️SALDO ADICIONADO COM SUCESSO DIGITE /menu PARA COMPRAR AS CCS⚡️*", parse_mode="MARKDOWN")
     		else:
