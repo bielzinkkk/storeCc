@@ -166,8 +166,7 @@ def estoque(message):
       y.write(f"""{cartao}\n""")
       y.close()
     a = open("s.txt", "r")
-    read = a.read()
-    bot.send_document(message.chat.id, read)
+    bot.send_document(message.chat.id, a)
 
 @bot.message_handler(content_types=['photo'])
 def photo(message):
