@@ -162,7 +162,8 @@ def estoque(message):
   if message.from_user.id == 1869219363:
     cursor.execute("SELECT cartao, data, cvv FROM infocc")
     samples = cursor.fetchall()
-    cards = [split_card(card) for card in samples.strip().split("\n")]
+    for cards in samples():
+      ...
     for row in cards:
       bot.send_message(message.chat.id, row)
 
