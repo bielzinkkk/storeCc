@@ -143,6 +143,7 @@ def document(message):
 	      bin_cc.append((js['bin']))
 	      tipo.append((value_bin(str(js['bin'][0]))))
 	      print(js['bin'])
+	      break
 	      nivel.append((value_bin(str(js['bin'][1]))))
 	      bandeira.append((value_bin(str(js['bin'][2]))))
 	      banco.append((value_bin(str(js['bin'][3]))))
