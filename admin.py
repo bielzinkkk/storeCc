@@ -139,14 +139,14 @@ def document(message):
 	    for u in cartao:
 	      line1 = ','.join(u)
 	      h = line1[0:12].replace(",", "")
-	      js = {"bin": h}
+	      js = {"bin": f"h"}
 	      bin_cc.append((js['bin']))
-	      tipo.append((value_bin(str(js['bin'][0]))))
-	      print(js['bin'])
-	      break
-	      nivel.append((value_bin(str(js['bin'][1]))))
-	      bandeira.append((value_bin(str(js['bin'][2]))))
-	      banco.append((value_bin(str(js['bin'][3]))))
+	      tipo.append((value_bin(js['bin'][0])))
+	      print(tipo)
+	      nivel.append((value_bin(js['bin'][1])))
+	      bandeira.append((value_bin(js['bin'][2])))
+	      banco.append((value_bin(js['bin'][3])))
+	      print(banco)
 	      #except:
 	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
 	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
