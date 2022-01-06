@@ -127,17 +127,17 @@ def document(message):
 	      line1 = ','.join(u)
 	      h = line1[0:12].replace(",", "")
 	      bin_cc.append((h))
-	      data = search_bin("utils/bins.csv", h)
-	      if data == None:
+	      dat = search_bin("utils/bins.csv", h)
+	      if dat == None:
 	        bandeira.append(("INDEFINIDO"))
 	        tipo.append(("INDEFINIDO"))
 	        nivel.append(("INDEFINIDO"))
 	        banco.append(("SEM INFORMAÇÕES"))
 	      else:
-	        bandeira.append((data[3]))
-	        tipo.append((data[1]))
-	        nivel.append((data[2]))
-	        banco.append((data[4]))
+	        bandeira.append((dat[3]))
+	        tipo.append((dat[1]))
+	        nivel.append((dat[2]))
+	        banco.append((dat[4]))
 	      #except:
 	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
 	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
