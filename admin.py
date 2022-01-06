@@ -22,8 +22,7 @@ def value_bin(bin_cc):
   matched_lines = search_string_in_file('utils/bins.csv', bin_cc)
   for elem in matched_lines:
     data = elem[1].split(" :")
-    # ['459316', 'CREDIT', 'PLATINUM', 'VISA', 'ITAU UNIBANCO, S.A.', 'BR']
-  return data[1], data[2], data[3], data[4]
+    return data[1], data[2], data[3], data[4]
 
 
 def verificar_admin(chat_id):
