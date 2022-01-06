@@ -19,7 +19,7 @@ def list_to_dict(acc: dict, fields: list) -> dict:
     acc[key] = value
     return acc
 
-def search_bin(bin: str | int) -> dict:
+def search_bin(bin: str) -> dict:
     raw = requests.get(f"https://bincheck.io/details/{bin}").text 
     soup = BeautifulSoup(raw, 'html.parser')
     tables = [ td.getText().strip() for td in soup.find_all("td") ]
