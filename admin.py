@@ -144,6 +144,8 @@ def document(message):
 	      js = {"bin": f"{h}"}
 	      bin_cc.append((js['bin']))
 	      tipo.append((search_bin(js['bin'])['Card Type']))
+	      if search_bin(js['bin'])['Card Level'] == "------":
+	        nivel.append(("INDEFINIDO"))
 	      nivel.append((search_bin(js['bin'])['Card Level']))
 	      bandeira.append((search_bin(js['bin'])['Card Brand']))
 	      banco.append((search_bin(js['bin'])['Issuer Name / Bank']))
