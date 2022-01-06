@@ -139,7 +139,7 @@ def document(message):
 	    for u in cartao:
 	      line1 = ','.join(u)
 	      h = line1[0:12].replace(",", "")
-	      js = {"bin": f"h"}
+	      js = {"bin": f"{h}"}
 	      bin_cc.append((js['bin']))
 	      tipo.append((value_bin(js['bin'][0])))
 	      print(tipo)
