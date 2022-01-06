@@ -4,29 +4,14 @@ import random
 import requests
 from sqlalchemy import create_engine
 import pandas as pd
+from PostgreSQL.conexao import *
 
-url2 = "postgresql://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
-
-from functools import reduce
-from bs4 import BeautifulSoup
-
-def chunks(items: list, n: int):
-    for item in range(0, len(items), n):
-        yield items[item:item+n]
-
-def list_to_dict(acc: dict, fields: list) -> dict:
-    key, value = fields 
-    acc[key] = value
-    return acc
-
-def search_bin(bin: str) -> dict:
-    raw = requests.get(f"https://bincheck.io/details/{bin}").text 
-    soup = BeautifulSoup(raw, 'html.parser')
-    tables = [ td.getText().strip() for td in soup.find_all("td") ]
-    items = chunks(tables, 2)
-
-    return reduce(list_to_dict, items, {})
-
+def search_bin(filename: str, card_bin: str) -> str:
+    with open(filename, "r") as file:
+        for line in file:
+            bin_info = [bin.strip() for bin in line.strip().split(":")]
+            if bin_info[0] == card_bin:
+                return bin_info
 
 def verificar_admin(chat_id):
   try:
@@ -141,15 +126,18 @@ def document(message):
 	    for u in cartao:
 	      line1 = ','.join(u)
 	      h = line1[0:12].replace(",", "")
-	      js = {"bin": f"{h}"}
-	      bin_cc.append((js['bin']))
-	      tipo.append((search_bin(js['bin'])['Card Type']))
-	      if search_bin(js['bin'])['Card Level'] == "------":
+	      bin_cc.append((h))
+	      data = search_bin("utils/bins.csv", h)
+	      if data == None:
+	        bandeira.append(("INDEFINIDO"))
+	        tipo.append(("INDEFINIDO"))
 	        nivel.append(("INDEFINIDO"))
-	      nivel.append((search_bin(js['bin'])['Card Level']))
-	      bandeira.append((search_bin(js['bin'])['Card Brand']))
-	      banco.append((search_bin(js['bin'])['Issuer Name / Bank']))
-	      print(banco)
+	        banco.append(("SEM INFORMAÇÕES"))
+	      else:
+	        bandeira.append((data[3]))
+	        tipo.append((data[1]))
+	        nivel.append((data[2]))
+	        banco.append((data[4]))
 	      #except:
 	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
 	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)

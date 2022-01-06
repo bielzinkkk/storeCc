@@ -1,5 +1,6 @@
 from bot import *
 from random import randint
+from PostgreSQL.conexao import *
 
 def buscarpreco(nivel):
   try:
@@ -233,7 +234,7 @@ def pixautomatico(call):
 	*💸 Pix Automático
 
 - _Modo de uso:_
-/recarga 2
+/recarga 10
 
 - Utilize um valor inteiro.
 - Não responsabilizaremos por enviar dinheiro a contas random(aleatórias), faça o pix corretamente para adicionar saldo no bot.
@@ -364,14 +365,12 @@ def pes_bin(call):
 	
 def bin_pesquisa(message):
 	try:
-	  if len(message.text) >= 6:
+	  if message.text[0:6].isdigit() == True:
 	    try:
 	      bin_s = message.text[0:6]
 	      bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
 	    except:
 	      bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
-	  else:
-	    pass
 	except:
 	 pass
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
