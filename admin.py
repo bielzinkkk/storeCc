@@ -19,7 +19,7 @@ def search_string_in_file(file_name, string_to_search):
     return list_of_results
 
 def value_bin(bin_cc):
-  matched_lines = search_string_in_file('bins.csv', bin_cc)
+  matched_lines = search_string_in_file('utils/bins.csv', bin_cc)
   for elem in matched_lines:
     data = elem[1].split(" :")
     # ['459316', 'CREDIT', 'PLATINUM', 'VISA', 'ITAU UNIBANCO, S.A.', 'BR']
