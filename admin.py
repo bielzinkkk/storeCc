@@ -7,22 +7,25 @@ import pandas as pd
 
 url2 = "postgresql://njwtqqfcpjsxht:650ee0cd2c99aaf100cc25dbb25843209fdf5bb7b39d19ae741f7d1856499d17@ec2-18-213-179-70.compute-1.amazonaws.com:5432/d56f1hlgaibe59"
 
-def search_string_in_file(file_name, string_to_search):
-    line_number = 0
-    list_of_results = []
-     # Abrindo arquivo modo de leitura
-    with open(file_name, 'r') as read_obj:
-        for line in read_obj:
-            line_number += 1
-            if string_to_search in line:
-                list_of_results.append((line_number, line.rstrip()))
-    return list_of_results
+from functools import reduce
+from bs4 import BeautifulSoup
 
-def value_bin(bin_cc):
-  matched_lines = search_string_in_file('utils/bins.csv', bin_cc)
-  for elem in matched_lines:
-    data = elem[1].split(" :")
-    return data[1], data[2], data[3], data[4]
+def chunks(items: list, n: int):
+    for item in range(0, len(items), n):
+        yield items[item:item+n]
+
+def list_to_dict(acc: dict, fields: list) -> dict:
+    key, value = fields 
+    acc[key] = value
+    return acc
+
+def search_bin(bin: str | int) -> dict:
+    raw = requests.get(f"https://bincheck.io/details/{bin}").text 
+    soup = BeautifulSoup(raw, 'html.parser')
+    tables = [ td.getText().strip() for td in soup.find_all("td") ]
+    items = chunks(tables, 2)
+
+    return reduce(list_to_dict, items, {})
 
 
 def verificar_admin(chat_id):
@@ -140,11 +143,10 @@ def document(message):
 	      h = line1[0:12].replace(",", "")
 	      js = {"bin": f"{h}"}
 	      bin_cc.append((js['bin']))
-	      tipo.append((value_bin(js['bin'][0])))
-	      print(tipo)
-	      nivel.append((value_bin(js['bin'][1])))
-	      bandeira.append((value_bin(js['bin'][2])))
-	      banco.append((value_bin(js['bin'][3])))
+	      tipo.append((search_bin(js['bin'])['Card Type']))
+	      nivel.append((search_bin(js['bin'])['Card Level']))
+	      bandeira.append((search_bin(js['bin'])['Card Brand']))
+	      banco.append((search_bin(js['bin'])['Issuer Name / Bank']))
 	      print(banco)
 	      #except:
 	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
@@ -156,6 +158,8 @@ def document(message):
 	    tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
 	    tabela = tabela.transpose()
 	    tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
+	    cursor.execute("delete from infocc where not (infocc is not null);")
+	    conn.commit()
 	    bot.send_message(message.chat.id, "Cc's adicionadas")
 
 @bot.message_handler(commands=['estoque'])
