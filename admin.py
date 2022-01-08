@@ -121,8 +121,6 @@ def document(message):
 	    tipo = []
 	    nivel = []
 	    bandeira = []
-	    cpf = []
-	    nome = []
 	    for u in cartao:
 	      line1 = ','.join(u)
 	      h = line1[0:12].replace(",", "")
@@ -140,12 +138,8 @@ def document(message):
 	        banco.append((dat[4]))
 	      #except:
 	        #bot.reply_to(message, "Não foi possível adicionar as cc's!")
-	      cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
-	      cpf.append((str(cp)))
-	      nome_int = fordev.generators.people(uf_code="SP")['nome']
-	      nome.append((nome_int))
 	    engine = create_engine(url2)
-	    tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira, "cpf": cpf, "nome": nome}, orient='index')
+	    tabela = pd.DataFrame.from_dict({"cartao": cartao, "data": data, "cvv": cvv, "bin": bin_cc, "banco": banco, "nivel": nivel, "tipo": tipo, "bandeira": bandeira}, orient='index')
 	    tabela = tabela.transpose()
 	    tabela.to_sql(name='infocc', con=engine, if_exists='append', index=False)
 	    cursor.execute("delete from infocc where not (infocc is not null);")

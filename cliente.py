@@ -77,11 +77,13 @@ def viewccunitarias(nivel):
   return txt, idcc
     
 def pegar_cc(idcc, chat_id):
-  cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco, cpf, nome FROM infocc WHERE id = {idcc}")
+  cursor.execute(f"SELECT cartao, data, cvv, bandeira, tipo, nivel, banco FROM infocc WHERE id = {idcc}")
   for u in cursor.fetchall():
     ...
   cursor.execute(f"INSERT INTO ccscompradas(id, chat_id, cartao, data, cvv) VALUES(DEFAULT, {chat_id}, {int(u[0])}, '{u[1]}', {int(u[2])})")
   conn.commit()
+  cp = fordev.generators.cpf(uf_code="SP", formatting=True, data_only=True)
+  nome_int = fordev.generators.people(uf_code="SP")['nome']
   txt = f"""
   	*	✅ Compra efetuada
 
@@ -93,8 +95,8 @@ def pegar_cc(idcc, chat_id):
 *💠 Nível:* `{u[5]}`
 *🏦 Banco:* `{u[6]}`
 
-*👤 Nome:* `{u[8]}`
-*📁 Cpf:* `{u[7]}`
+*👤 Nome:* `{nome_int}`
+*📁 Cpf:* `{cp}`
 
 Cartão Verificado (Live) ✔️
 """
