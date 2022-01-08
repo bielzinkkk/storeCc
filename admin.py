@@ -4,7 +4,6 @@ import random
 import requests
 from sqlalchemy import create_engine
 import pandas as pd
-from PostgreSQL.conexao import *
 
 def search_bin(filename: str, card_bin: str) -> str:
     with open(filename, "r") as file:
