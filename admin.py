@@ -188,9 +188,9 @@ Modo de uso:* `/price nivel novo_valor`
           """, parse_mode="MARKDOWN")
       else:
             texto = message.text.split("/price ")[1]
-            cont = texto.split(" ")[0]
+            cont = texto.split("|")[0]
             cc = cont.lower()
-            valor = texto.split(" ")[1]
+            valor = texto.split("|")[1]
             update_valores(cc, int(valor))
             bot.send_message(message.chat.id, "Valor Modificado!")
   else:
