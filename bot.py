@@ -3,7 +3,7 @@ import telebot
 import time
 import fordev
 from ferramentas.ferramentas import *
-from PostgreSQL.conexao import *
+from PostgreSQL.conexao import conn, cursor, url2
 
 with open('config/config.json', 'r') as e:
 	data_json = json.loads(e.read())
