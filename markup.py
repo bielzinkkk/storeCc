@@ -41,6 +41,12 @@ def comprarcc_s(idcc):
 	InlineKeyboardButton("🔙 Voltar", callback_data="unitarias"))
 	return aleatoriamenu
 
+def search_total_cc(nivel):
+  cursor.execute("SELECT COUNT(*) FROM infocc WHERE nivel = '{nivel}'")
+  for total in cursor.fetchone():
+    ...
+  return total
+
 def comprarcc_i(idcc):
 	aleatoriamenu = InlineKeyboardMarkup()
 	aleatoriamenu.row_width = 1
@@ -76,15 +82,14 @@ def generate_keyboard(fields: list, **kargs) -> InlineKeyboardMarkup:
         if len(buttons) == 1:
             button = buttons.pop()
             keyboard.add(
-                InlineKeyboardButton(text=button, callback_data=f"['value', {button}']")
+                InlineKeyboardButton(text=f"{button} ({search_total_cc(button)})", callback_data=f"['value', {button}']")
             )
             continue
 
         first, second = buttons
-        print(first, second)
         keyboard.row(
-            InlineKeyboardButton(text=first, callback_data=f"['value', '{first}']"),
-            InlineKeyboardButton(text=second, callback_data=f"['value', '{second}']")
+            InlineKeyboardButton(text=f"{first} ({search_total_cc(first)})", callback_data=f"['value', '{first}']"),
+            InlineKeyboardButton(text=f"{second} ({search_total_cc(second)})", callback_data=f"['value', '{second}']")
         )
             
     extra = kargs.get("extra")
