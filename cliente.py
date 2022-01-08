@@ -1,5 +1,6 @@
 from bot import *
 from random import randint
+from markup import *
 
 def buscarpreco(nivel):
   try:

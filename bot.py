@@ -2,7 +2,6 @@ import json
 import telebot
 import time
 import fordev
-from markup import *
 from ferramentas.ferramentas import *
 from PostgreSQL.conexao import *
 
