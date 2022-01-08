@@ -42,7 +42,7 @@ def comprarcc_s(idcc):
 	return aleatoriamenu
 
 def search_total_cc(nivel):
-  cursor.execute("SELECT COUNT(*) FROM infocc WHERE nivel = '{nivel}'")
+  cursor.execute(f"SELECT COUNT(*) FROM infocc WHERE nivel = '{nivel}'")
   for total in cursor.fetchone():
     ...
   return total
