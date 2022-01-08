@@ -1,6 +1,8 @@
 from cliente import *
 from admin import *
 from gerar_pagamento import *
+from markup import *
+
 @bot.message_handler(commands=["start", "menu"])
 def menu_inicial(message):
 	verificar_existe(message.from_user.id, message.from_user.username)

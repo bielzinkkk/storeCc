@@ -1,6 +1,7 @@
 from bot import *
 from random import randint
 from PostgreSQL.conexao import *
+from markup import *
 
 def buscarpreco(nivel):
   try:
