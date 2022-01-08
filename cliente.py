@@ -131,6 +131,9 @@ def pesquisar_bin(bin_j):
     cursor.execute(f"SELECT cartao FROM infocc WHERE bin = '{bin_j}'")
     for cc in cursor.fetchone():
     	...
+    cursor.execute(f"SELECT id FROM infocc WHERE cartao = '{cc}'")
+    for idcc in cursor.fetchone():
+      ...
     cartao = str(cc)[0:6] + "xxxxxxxxxxxx"
     cursor.execute(f"SELECT id, data, bandeira, tipo, nivel, banco, cartao FROM infocc WHERE cartao = '{cc}'")
     for u in cursor.fetchall():
@@ -144,8 +147,10 @@ def pesquisar_bin(bin_j):
 *⚜️ Tipo:* `{u[3]}`
 *💠 Nível:* `{u[4]}`
 *🏦 Banco:* `{u[5]}`
+
+*💸 Preço:* `R${buscarpreco(u[4])},00`
 """
-    return txt
+    return txt, idcc
 
 def procurar_dados(chat_id):
 	cursor.execute(f"SELECT id FROM usuarios WHERE chat_id = {chat_id}")
@@ -374,7 +379,7 @@ def bin_pesquisa(message):
 	  if message.text[0:6].isdigit() == True:
 	    try:
 	      bin_s = message.text[0:6]
-	      bot.send_message(message.chat.id, pesquisar_bin(bin_s), reply_markup=binmenu(),parse_mode="MARKDOWN")
+	      bot.send_message(message.chat.id, pesquisar_bin(bin_s)[0], reply_markup=binmenu(pesquisar_bin(bin_s)[1]),parse_mode="MARKDOWN")
 	    except:
 	      bot.send_message(message.chat.id, "Ocorreu um erro ao buscar a bin!")
 	except:

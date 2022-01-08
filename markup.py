@@ -54,10 +54,10 @@ def comprarcc_i(idcc):
 	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
-def binmenu():
+def binmenu(idcc):
 	aleatoriamenu = InlineKeyboardMarkup()
 	aleatoriamenu.row_width = 1
-	aleatoriamenu.add(InlineKeyboardButton("🔁 Pesquisar Outra", callback_data="pes_bin"),
+	aleatoriamenu.add(InlineKeyboardButton("✅ Comprar", callback_data=f"['comprar', '" + str(idcc) + "']"),InlineKeyboardButton("🔁 Pesquisar Outra", callback_data="pes_bin"),
 	InlineKeyboardButton("🔙 Voltar", callback_data="comprar"))
 	return aleatoriamenu
 
