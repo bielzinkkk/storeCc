@@ -158,25 +158,27 @@ def estoque(message):
 @bot.message_handler(content_types=['photo'])
 def photo(message):
 	if verificar_admin(message.from_user.id) == True:
-		if ("/send" in message.caption):
-				raw = message.photo[2].file_id
-				path = raw+".jpg"
-				file_info = bot.get_file(raw)
-				downloaded_file = bot.download_file(file_info.file_path)
-				with open(path,'wb') as new_file:
-					new_file.write(downloaded_file)
-				bot.send_message(message.chat.id, """Enviando mensagem 📥""")
-				cursor.execute("SELECT chat_id FROM usuarios")
-				captio = message.caption.split("/send ")[1]
-				for lista in cursor.fetchall():
-					for s3 in lista:
-						with open(path, "rb") as s2:
-							if captio == None:
-								captio = ""
-								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}", files={'photo': s2})
-							else:
-								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}&parse_mode=MARKDOWN", files={'photo': s2})
-
+	  try:
+  		if ("/send" in message.caption):
+  				raw = message.photo[2].file_id
+  				path = raw+".jpg"
+  				file_info = bot.get_file(raw)
+  				downloaded_file = bot.download_file(file_info.file_path)
+  				with open(path,'wb') as new_file:
+  					new_file.write(downloaded_file)
+  				bot.send_message(message.chat.id, """Enviando mensagem 📥""")
+  				cursor.execute("SELECT chat_id FROM usuarios")
+  				captio = message.caption.split("/send ")[1]
+  				for lista in cursor.fetchall():
+  					for s3 in lista:
+  						with open(path, "rb") as s2:
+  							if captio == None:
+  								captio = ""
+  								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}", files={'photo': s2})
+  							else:
+  								s=requests.post(f"https://api.telegram.org/bot{token}/sendPhoto?chat_id={s3}&caption={captio}&parse_mode=MARKDOWN", files={'photo': s2})
+	  except:
+	    ...
 @bot.message_handler(commands=['price'])
 def price(message):
   if verificar_admin(message.from_user.id) == True:
