@@ -196,7 +196,7 @@ def text_unitarias():
       preco = buscarpreco(value)
       txt += f'*- {value}:* R${preco},00\n'
   txt += f'''
-  Outros níveis consultar com: {userDono}*
+  *Outros níveis consultar com: {userDono}*
 
 _⚠️ Avisos:_
 
