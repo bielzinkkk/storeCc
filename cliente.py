@@ -193,10 +193,9 @@ def text_unitarias():
         for value in i:
           preco = buscarpreco(value)
           txt = ""
-          txt += "*💳 | Unitárias:*\n"
-          txt += f"""
-*- {value}:* `R${preco},00`\n
-  """
+          txt = "*💳 | Unitárias:*\n"
+          txt += f'''
+*- {value}:* `R${preco},00`\n'''
           return txt
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
