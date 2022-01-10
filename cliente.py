@@ -192,9 +192,9 @@ def text_unitarias():
   for i in sorted(set(cursor.fetchall())):
         for value in i:
           preco = buscarpreco(value)
-          txt = ""
-          txt += "*💳 | Unitárias:*\n"
-          txt += f'''
+          #txt = ""
+          #txt += "*💳 | Unitárias:*\n"
+          txt = f'''
 *- {value}:* `R${preco},00`\n'''
   return txt
 
