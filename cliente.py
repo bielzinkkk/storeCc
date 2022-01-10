@@ -195,7 +195,7 @@ def text_unitarias():
           txt = ""
           txt += "*💳 | Unitárias:*\n"
           txt += f"""
-*- {i}:* `R${preco},00`\n
+*- {value}:* `R${preco},00`\n
   """
           return txt
 
