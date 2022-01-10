@@ -190,7 +190,7 @@ def aleatoriacall(call):
 def text_unitarias():
   cursor.execute("SELECT nivel FROM infocc")
   for i in sorted(set(cursor.fetchall())):
-        for value in i:
+        for value in range(len(i)):
           preco = buscarpreco(value)
           txt = ""
           txt = "*💳 | Unitárias:*\n"
