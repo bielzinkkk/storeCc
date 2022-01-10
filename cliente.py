@@ -276,12 +276,14 @@ def pix_manual(call):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
 def viewlal_unirarias(call):
+  verificar_existe(call.from_user.id, call.from_user.username)
   nivel = ast.literal_eval(call.data)[1]
   idcc = viewccunitarias(nivel)[1]
   bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=viewccunitarias(nivel)[0], reply_markup=comprarcc_s(idcc),parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
 def comprarlal_unirarias(call):
+  verificar_existe(call.from_user.id, call.from_user.username)
   idcc = ast.literal_eval(call.data)[1]
   if comprarcc(idcc, call.from_user.id)[0] == "Sim":
     cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
@@ -301,6 +303,7 @@ Comprador: {call.from_user.first_name}*
 
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
+  verificar_existe(call.from_user.id, call.from_user.username)
 	txt = f"""📄 Seu Histórico
 	
 Cartões Comprados:
@@ -386,7 +389,6 @@ def bin_pesquisa(message):
 	 pass
 @bot.callback_query_handler(func=lambda call: call.data == "comprar")
 def comprar(call):
-  
   verificar_existe(call.from_user.id, call.from_user.username)
   bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 	*Escolha a opção adequada ao seus propósitos*
