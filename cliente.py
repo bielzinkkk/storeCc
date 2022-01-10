@@ -189,14 +189,15 @@ def aleatoriacall(call):
 
 def text_unitarias():
   cursor.execute("SELECT nivel FROM infocc")
-  i = cursor.fetchall()
-  preco = buscarpreco(i)
-  txt = ""
-  txt += "*💳 | Unitárias:*\n"
-  txt += f"""
+  for i in sorted(set(cursor.fetchall())):
+        for value in i:
+          preco = buscarpreco(i)
+          txt = ""
+          txt += "*💳 | Unitárias:*\n"
+          txt += f"""
 *- {i}:* `R${preco},00`\n
   """
-  return txt
+          return txt
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
