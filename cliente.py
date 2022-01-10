@@ -187,6 +187,18 @@ def aleatoriacall(call):
   else:
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=view_aleatoria()[0], reply_markup=comprarcc_i(view_aleatoria()[1]), parse_mode="MARKDOWN")
 
+def text_unitarias():
+  cursor.execute("SELECT nivel FROM infocc")
+  for i in cursor.fetchall():
+    ...
+  preco = buscarpreco(i)
+  txt = ""
+  txt += "*💳 | Unitárias:*\n"
+  txt += f"""
+*- {i}:* `R${preco},00`\n
+  """
+  return txt
+
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
   verificar_existe(call.from_user.id, call.from_user.username)
@@ -199,24 +211,7 @@ def unitariascall(call):
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=markups,parse_mode="MARKDOWN")
   else:
-    	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
-💳 | Unitárias:*
-
-- CLASSIC: R${buscarpreco('classic')},00
-- PLATINUM: R${buscarpreco('platinum')},00
-- ELO: R${buscarpreco('elo')},00
-- CORPORATE: R${buscarpreco('corporate')},00
-- GOLD: R${buscarpreco('gold')},00
-- BUSINESS: R${buscarpreco('business')},00
-- STANDARD: R${buscarpreco('standard')},00
-- BLACK: R${buscarpreco('black')},00
-- AMEX: R${buscarpreco('amex')},00
-
-Outros níveis consultar com: {userDono}*
-
-_⚠️ Avisos:_
-
-*- O checker está ativo, portanto ele irá checar as CCs antes da compra!*""", reply_markup=markups,parse_mode="MARKDOWN")
+    	bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=text_unitarias(), reply_markup=markups,parse_mode="MARKDOWN")
 
 @bot.callback_query_handler(func=lambda call: call.data == "ferramentas")
 def ferramentas_call(call):
@@ -299,8 +294,8 @@ def comprarlal_unirarias(call):
       bot.send_message(idGroup, f"""
       *💳 | Cartão Comprado
   
-  Nível: {nivel}
-  Comprador: {call.from_user.first_name}*
+Nível: {nivel}
+Comprador: {call.from_user.first_name}*
       """, parse_mode="MARKDOWN")
     else:
       bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True)
