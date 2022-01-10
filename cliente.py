@@ -278,30 +278,34 @@ def pix_manual(call):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['value'"))
 def viewlal_unirarias(call):
-  verificar_existe(call.from_user.id, call.from_user.username)
-  nivel = ast.literal_eval(call.data)[1]
-  idcc = viewccunitarias(nivel)[1]
-  bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=viewccunitarias(nivel)[0], reply_markup=comprarcc_s(idcc),parse_mode="MARKDOWN")
-
+  try:
+    verificar_existe(call.from_user.id, call.from_user.username)
+    nivel = ast.literal_eval(call.data)[1]
+    idcc = viewccunitarias(nivel)[1]
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=viewccunitarias(nivel)[0], reply_markup=comprarcc_s(idcc),parse_mode="MARKDOWN")
+  except:
+    ...
 @bot.callback_query_handler(func=lambda call: call.data.startswith("['comprar'"))
 def comprarlal_unirarias(call):
-  verificar_existe(call.from_user.id, call.from_user.username)
-  idcc = ast.literal_eval(call.data)[1]
-  if comprarcc(idcc, call.from_user.id)[0] == "Sim":
-    cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
-    for nivel in cursor.fetchone():
-    	...
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*Compra efetuda! Clique no botão abaixo para voltar no menu inicial*", reply_markup=comprouprodu,parse_mode="MARKDOWN")
-    bot.send_message(call.message.chat.id, pegar_cc(idcc, call.from_user.id),parse_mode="MARKDOWN")
-    bot.send_message(idGroup, f"""
-    *💳 | Cartão Comprado
-
-Nível: {nivel}
-Comprador: {call.from_user.first_name}*
-    """, parse_mode="MARKDOWN")
-  else:
-    bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True) 
-
+  try:
+    verificar_existe(call.from_user.id, call.from_user.username)
+    idcc = ast.literal_eval(call.data)[1]
+    if comprarcc(idcc, call.from_user.id)[0] == "Sim":
+      cursor.execute(f"SELECT nivel FROM infocc WHERE id = {idcc}")
+      for nivel in cursor.fetchone():
+      	...
+      bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*Compra efetuda! Clique no botão abaixo para voltar no menu inicial*", reply_markup=comprouprodu,parse_mode="MARKDOWN")
+      bot.send_message(call.message.chat.id, pegar_cc(idcc, call.from_user.id),parse_mode="MARKDOWN")
+      bot.send_message(idGroup, f"""
+      *💳 | Cartão Comprado
+  
+  Nível: {nivel}
+  Comprador: {call.from_user.first_name}*
+      """, parse_mode="MARKDOWN")
+    else:
+      bot.answer_callback_query(callback_query_id=call.id , text="Você não possui saldo suficiente, recarregue na store.", show_alert=True)
+  except:
+    ...
 
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
