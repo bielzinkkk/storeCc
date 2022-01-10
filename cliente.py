@@ -309,8 +309,7 @@ def comprarlal_unirarias(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "baixar_info")
 def baixarinfor(call):
-  verificar_existe(call.from_user.id, call.from_user.username)
-	txt = f"""📄 Seu Histórico
+  txt = f"""📄 Seu Histórico
 	
 Cartões Comprados:
 
@@ -321,15 +320,14 @@ Transações:
 Recargas -> {procurar_dados(call.from_user.id)[1]}
 Saldo -> {procurar_dados(call.from_user.id)[0]}
 Gifts resgatados -> {procurar_dados(call.from_user.id)[2]}
-Cartões comprados -> {procurar_dados(call.from_user.id)[3]}
-	"""
-	arquivo = open("infor.txt", "a+")
-	arquivo.write(txt)
-	arquivo.close()
-	arquivo2 = open("infor.txt", "rb")
-	bot.send_document(call.message.chat.id, arquivo2)
-	arquivo2.close()
-	os.remove("infor.txt")
+Cartões comprados -> {procurar_dados(call.from_user.id)[3]}"""
+  arquivo = open("infor.txt", "a+")
+  arquivo.write(txt)
+  arquivo.close()
+  arquivo2 = open("infor.txt", "rb")
+  bot.send_document(call.message.chat.id, arquivo2)
+  arquivo2.close()
+  os.remove("infor.txt")
 
 @bot.callback_query_handler(func=lambda call: call.data == "historico")
 def historico(call):
