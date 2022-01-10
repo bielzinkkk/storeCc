@@ -191,12 +191,10 @@ def text_unitarias():
   cursor.execute("SELECT nivel FROM infocc")
   txt = "";
   for i in sorted(set(cursor.fetchall())):
+    txt += "*💳 | Unitárias:*\n"
     for value in i:
       preco = buscarpreco(value)
-      txt += f'''
- *💳 | Unitárias:*
- 
-*- {value}:* R${preco},00\n'''
+      txt += f'*- {value}:* R${preco},00\n'
   return txt
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
