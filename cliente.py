@@ -180,6 +180,7 @@ def comprarcc(idcc, chat_id):
 
 @bot.callback_query_handler(func=lambda call: call.data == "aleatoria")
 def aleatoriacall(call):
+  verificar_existe(call.from_user.id, call.from_user.username)
   if total_infocc() == 0:
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f"""
 *💳 | Estamos sem estoque no momento, volte mais tarde...*""", reply_markup=voltar_menucomprar,parse_mode="MARKDOWN")
@@ -188,6 +189,7 @@ def aleatoriacall(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "unitarias")
 def unitariascall(call):
+  verificar_existe(call.from_user.id, call.from_user.username)
   cursor.execute("SELECT nivel FROM infocc")
   results = cursor.fetchall()
   results_sorted = sorted([item[0] for item in results])
