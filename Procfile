@@ -1,0 +1,1 @@
+index: python "main.py"
